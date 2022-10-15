@@ -36,7 +36,7 @@ def signal_rms(signal):
     return np.sqrt(np.mean(np.power(signal, 2)))
 
 
-def im_rand():
+def im_normal_rand():
     return np.random.normal() + np.random.normal() * 1j
 
 
@@ -78,7 +78,7 @@ def generate_signal(T, dt, rms, limit, seed):
         if Z[idx] == 0:
             magnitude_f = abs(f)
             if magnitude_f <= limit:
-                im = im_rand()
+                im = im_normal_rand()
                 Z[idx] = im
                 # ensure that we account for the negative symmetric value
                 exists, index = symmetry_exists(f, F)
@@ -102,25 +102,38 @@ def generate_signal(T, dt, rms, limit, seed):
     return z, Z
 
 
-def plot_signal(signal, domain="time", T=1, dt=1 / 1000, show_rmse=True):
+def plot_signal(
+    signal, domain="time", T=1, dt=1 / 1000, show_rmse=True, bandwidth=False
+):
     t = np.arange(0, T, dt)
     if domain == "time":
         plt.figure()
         plt.plot(t, signal["x"])
-        plt.suptitle(
-            "$x(t)$ signal with " + str(signal["freq"]) + " Hz limit",
-        )
+        if bandwidth:
+            plt.suptitle(
+                "$x(t)$ signal with " + str(signal["freq"]) + " Hz bandwidth",
+            )
+        else:
+            plt.suptitle(
+                "$x(t)$ signal with " + str(signal["freq"]) + " Hz limit",
+            )
         plt.xlabel("$t$ sec.")
         plt.ylabel("$x(t)$")
+        plt.xlim([0, T])
         plt.show()
         if show_rmse:
             print("time-domain RMSE " + str(np.round(signal_rms(signal["x"]), 3)))
     if domain == "frequency":
         plt.figure()
         plt.plot(t, signal["X"])
-        plt.suptitle(
-            "$x(\omega)$ signal with " + str(signal["freq"]) + " Hz limit",
-        )
+        if bandwidth:
+            plt.suptitle(
+                "$x(\omega)$ signal with " + str(signal["freq"]) + " Hz bandwidth",
+            )
+        else:
+            plt.suptitle(
+                "$x(\omega)$ signal with " + str(signal["freq"]) + " Hz limit",
+            )
         plt.xlabel("$w$ Hz.")
         plt.ylabel("$x(\omega)$")
         plt.show()
@@ -244,8 +257,96 @@ plt.show()
 
 
 ```python
+def im_smooth_rand(omega=0, bandwidth=5):
+    mu = 1
+    sigma = np.exp((-1 * np.power(omega, 2)) / (2 * np.power(bandwidth, 2)))
+    return np.random.normal(scale=sigma) + np.random.normal(scale=sigma) * 1j
 
+
+def generate_smooth_signal(T, dt, rms, bandwidth, seed):
+    if seed != 0:
+        np.random.seed(int(seed))
+    # generate a times scale
+    timescale = np.arange(0, T, dt)
+    # get the number of points so that we can create a signal in the frequency domain
+    num_pts = len(timescale)
+    # convert to frequency domain
+    F = fft.fftfreq(num_pts, dt)
+    # create a frequenct signal of zeros
+    length_F = len(F)
+    # create zeros for the frequency domain
+    zeros = np.zeros(length_F)
+    Z = zeros.tolist()
+
+    for idx, f in enumerate(F):
+        if Z[idx] == 0:
+            im = im_smooth_rand(omega=f, bandwidth=bandwidth)
+            Z[idx] = im
+            # ensure that we account for the negative symmetric value
+            exists, index = symmetry_exists(f, F)
+            if exists:
+                location = locations(index)
+                # assig it to the complex conjugate
+                Z[location] = np.conj(im)
+        else:
+            continue
+    # perform inverse fft
+    z = fft.ifft(Z)
+    # select the real components
+    z = z.real
+    # rescale based on the current and ideal rmse
+    z = rescale(z, rms)
+
+    # convert back to frequency domain
+    Z = fft.fft(z)
+    # touple Z so that it aligns with our intial number of samples
+    F, Z = zippify(F, Z)
+    return z, Z
 ```
+
+
+```python
+signals = []
+bandwidths = [5, 10, 20]
+T = 1
+dt = 1 / 1000
+rms = 0.5
+# Generate signals and store in list called signals as dictionaries
+for bw in bandwidths:
+    x, X = generate_smooth_signal(T, dt, rms, bw, s)
+    signal = {"x": x, "X": X, "freq": bw}
+    signals.append(signal)
+
+for signal in signals:
+    plot_signal(signal, domain="time", T=T, dt=dt, show_rmse=True,bandwidth=True)
+```
+
+
+    
+![svg](assignment-2_files/assignment-2_10_0.svg)
+    
+
+
+    time-domain RMSE 0.5
+
+
+
+    
+![svg](assignment-2_files/assignment-2_10_2.svg)
+    
+
+
+    time-domain RMSE 0.5
+
+
+
+    
+![svg](assignment-2_files/assignment-2_10_4.svg)
+    
+
+
+    time-domain RMSE 0.5
+
 
 **b) Average power spectrum.** Plot the average $|X(\omega)|$ (the norm of the Fourier coefficients, or “power spectrum”) over $100$ signals generated with $\mathtt{T}=1\,\mathrm{s}$, $\mathtt{dt}=1\,\mathrm{ms}$, $\mathtt{rms}=0.5$, and $\mathtt{bandwidth}=10$ (of course, each of these 100 signals should have a different `seed`). The plot should have the $x$-axis labeled “$\omega$ in radians” and the average $|X|$ value for that $\omega$ on the $y$-axis.
 
