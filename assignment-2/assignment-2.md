@@ -353,8 +353,56 @@ for signal in signals:
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+num_signals = 100
+
+signals = []
+bandwidth = 10
+T = 1
+dt = 1 / 1000
+rms = 0.5
+random_seeds = np.zeros(num_signals)
+
+
+for idx, seed in enumerate(random_seeds):
+    random_seeds[idx] = int(np.random.randint(1111, 9999))
+
+bandwidth_signals = []
+
+for lseed in random_seeds:
+    x, X = generate_smooth_signal(T, dt, rms, bandwidth, lseed)
+    signal = {"x": x, "X": X, "freq": bandwidth}
+    bandwidth_signals.append(X)
+    signals.append(signal)
+
+timescale = np.arange(0, T, dt)
+# get the number of points so that we can create a signal in the frequency domain
+num_pts = len(timescale)
+# convert to frequency domain
+F = sorted(fft.fftfreq(num_pts, dt))
+
+# conver to rad/s
+F = np.array(F)
+W = F * 2 * np.pi
+W = W.tolist()
+endpoints = [-2 * np.pi * bandwidth - 150, 2 * np.pi * bandwidth + 150]
+bandwidth_signals = np.array(bandwidth_signals)
+norms = norm(bandwidth_signals)
+plt.figure()
+plt.suptitle(
+    "$\mu$ Power spectrum $|X(\omega)|$ across " + str(num_signals) + " signals"
+)
+plt.plot(W, norms, "r", linewidth=2, marker=".")
+plt.xlabel("$\omega$ (radians)")
+plt.ylabel("$|X(\omega)|$")
+plt.xlim(endpoints)
+plt.show()
 ```
+
+
+    
+![svg](assignment-2_files/assignment-2_12_0.svg)
+    
+
 
 # 2. Simulating a spiking neuron
 
