@@ -411,8 +411,186 @@ plt.show()
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+from uuid import uuid4
+
+tau_ref = 2 / 1000
+tau_rc = 20 / 1000
+
+
+def gain(intercept, tau_ref, tau_rc, b):
+    return 1 / (1 - np.exp((tau_ref - (1 / intercept)) / tau_rc)) - b
+
+
+def bias(intercept, tau_ref, tau_rc):
+    return 1 / (1 - np.exp((tau_ref - (1 / intercept)) / tau_rc))
+
+
+def lif_encode(neuron, x):
+    J = neuron.a * x * neuron.encoder_sign + neuron.j_bias
+    if J > 1:
+        return 1 / (tau_ref - tau_rc * np.log(1 - 1 / J))
+    return 0
+
+
+def lif_encode_2d(neuron, xy):
+    J = neuron.a * np.vdot(xy, neuron.circ) + neuron.j_bias
+    if J > 1:
+        return 1 / (tau_ref - tau_rc * np.log(1 - 1 / J))
+    return 0
+
+
+def print_block(title, data):
+    print(title + " ----------")
+    print(data)
+    print("-----------------")
+
+
+class Population:
+    def __init__(self, num_neurons=1):
+        self.num_neurons = num_neurons
+        self.default_neuron_states = {
+            "min_rate": 40,
+            "max_rate": 150,
+            "encoder": 1,
+            "tau_ref": 2 / 1000,
+            "tau_rc": 20 / 1000,
+        }
+        self.neurons = []
+        for idx in range(self.num_neurons):
+            neuron = Neuron(self.default_neuron_states)
+            self.neurons.append(neuron)
+
+    """ Cleans out a population """
+
+    def nuke(self):
+        self.neurons = []
+
+    """ Applies a mutator to each neuron in the population """
+
+    def mutate(self, mutator):
+        if len(self.neurons) == 0:
+            return
+        else:
+            for neuron in self.neurons:
+                mutator(neuron)
+
+    def spike(self, X, dT):
+        O = []
+        for neuron in self.neurons:
+            spikes = neuron.spikies(X, dT)
+            O.append(spikes)
+        return O
+
+    def get_neurons(self):
+        return self.neurons
+
+    def get_neuron(self, idx):
+        return self.neurons[idx]
+
+
+class Neuron(Population):
+    def __init__(self, state):
+        self.min_rate = state["min_rate"]
+        self.max_rate = state["max_rate"]
+        self.e = state["encoder"]
+        self.tau_ref = state["tau_ref"]
+        self.tau_rc = state["tau_rc"]
+        self.j_bias = bias(self.min_rate, self.tau_ref, self.tau_rc)
+        self.alpha = gain(self.max_rate, self.tau_ref, self.tau_rc, self.j_bias)
+        self.id = uuid4()
+        self.spiketrend = []
+
+    def whoisthis(self):
+        print(self.__dict__)
+
+    def encode(self, x):
+        return self.alpha * x * self.e + self.j_bias
+
+    def voltage(self, J, V, dT):
+        return V + (dT * (1 / self.tau_rc) * (J - V))
+
+    def howmanyspikes(self):
+        spike_points = self.spiketrend[:, 1]
+        num_spikes = int(spike_points.tolist().count(1) - 1)
+        return num_spikes
+
+    def spikies(self, X, dT):
+        N = np.floor(self.tau_ref / dT)
+        V_th = 1
+        V_rest = 0
+        spikes = np.array([np.zeros(len(X)), np.zeros(len(X))]).T
+        V = 0
+        V_prev = 0
+        ref_period = False
+        for idx, x in enumerate(X):
+            if ref_period == True:
+                V = V_rest
+                V_prev = V_rest
+                # voltage is 0
+                spikes[idx][0] = 0
+                # no spike
+                spikes[idx][1] = 0
+                # we have completed one ref cycle
+                ref_period = False
+            else:
+                J = self.encode(x)
+                V = self.voltage(J, V_prev, dT)
+                if V >= V_th:
+                    # we have a spike so assign second column to 1 to indicate a spike
+                    spikes[idx][1] = int(1)
+                    # start the ref period
+                    ref_period = True
+                    # assign the first collumn to the current voltage
+                    spikes[idx][0] = V
+                    # reset the voltage to 0
+                    V = V_rest
+                else:
+                    # no spikes to assign second column to 0
+                    spikes[idx][1] = int(0)
+                    # still capture the voltage
+                    spikes[idx][0] = V
+                    # assign the previous voltage to the current voltage for next iteration
+                    V_prev = V
+        self.spiketrend = spikes
+        return spikes
 ```
+
+
+```python
+Pop = Population(1)
+dt = 1 / 1000
+T = 1
+t = np.arange(0, T, dt)
+x = [0 for time in t]
+
+outputs = Pop.spike(x, dt)
+
+# in this case we only have 1 neuron so:
+spikes = outputs[0]
+voltages = spikes[:, 0]
+
+neuron = Pop.get_neuron(0)
+
+num_spikes = neuron.howmanyspikes()
+
+plt.figure()
+plt.plot(t, voltages)
+plt.xlim(0, T)
+plt.show()
+
+print_block("Number of Spikes with input of x=0 over 1 second", num_spikes)
+```
+
+
+    
+![svg](assignment-2_files/assignment-2_15_0.svg)
+    
+
+
+    Number of Spikes with input of x=0 over 1 second ----------
+    40
+    -----------------
+
 
 **b) Discussion.** Does the observed number of spikes in the previous part match the expected number of spikes for $x=0$ and $x=1$? Why or why not? What aspects of the simulation would affect this accuracy?
 
