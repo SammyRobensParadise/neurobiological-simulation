@@ -579,6 +579,25 @@ plt.xlim(0, T)
 plt.show()
 
 print_block("Number of Spikes with input of x=0 over 1 second", num_spikes)
+
+x = [1 for time in t]
+
+outputs = Pop.spike(x, dt)
+
+# in this case we only have 1 neuron so:
+spikes = outputs[0]
+voltages = spikes[:, 0]
+
+neuron = Pop.get_neuron(0)
+
+num_spikes = neuron.howmanyspikes()
+
+plt.figure()
+plt.plot(t, voltages)
+plt.xlim(0, T)
+plt.show()
+
+print_block("Number of Spikes with input of x=1 over 1 second", num_spikes)
 ```
 
 
@@ -589,6 +608,17 @@ print_block("Number of Spikes with input of x=0 over 1 second", num_spikes)
 
     Number of Spikes with input of x=0 over 1 second ----------
     40
+    -----------------
+
+
+
+    
+![svg](assignment-2_files/assignment-2_15_2.svg)
+    
+
+
+    Number of Spikes with input of x=1 over 1 second ----------
+    165
     -----------------
 
 
