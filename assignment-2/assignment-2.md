@@ -1059,6 +1059,9 @@ limit = 5
 t = np.arange(0, T, dt)
 x, X = generate_signal(T, dt, rms, limit, s)
 
+sig_t = x
+sig_f = X
+
 # send an input to our  population of neurons
 Pop.spike(x, dt)
 # our first neuron has a positive encoder +1
@@ -1069,6 +1072,9 @@ neuron_neg = Pop.get_neuron(1)
 # get the first colum of the outputs which is the voltages
 v_out_pos = neuron_pos.output()[:, 0]
 v_out_neg = neuron_neg.output()[:, 0]
+
+spike_pos=v_out_pos
+spike_neg=v_out_neg
 
 num_spikes_pos = neuron_pos.howmanyspikes()
 num_spikes_neg = neuron_neg.howmanyspikes()
@@ -1157,7 +1163,7 @@ def compute_optimal_filter(
     assert x.ndim == 1 and X.ndim == 1
     assert x.shape[0] == X.shape[0]
 
-    # !
+    # get the number of samples are going to have for our signal
     Nt = x.size
 
     # Make sure that "spikes" is a 2 x Nt array
@@ -1165,7 +1171,7 @@ def compute_optimal_filter(
     assert spikes.shape[0] == 2
     assert spikes.shape[1] == Nt
 
-    # !
+    # The time T is the number of samples multiplied by our step size, dt
     T = Nt * dt
 
     # !
@@ -1223,6 +1229,18 @@ def compute_optimal_filter(
     xhat = np.fft.ifft(np.fft.ifftshift(XHAT)).real
 
     return ts, fs, R, H, h, XHAT, xhat, XP, WXP
+```
+
+
+```python
+# convert our inputs to np arrays since that what the function expects
+x = np.array(sig_t)
+X = np.array(sig_f)
+dt = 1 / 1000
+# create the spikes as a (2,Nt) array
+spikes = np.array([spike_pos, t])
+
+ts, fs, R, H, h, XHAT, xhat, XP, WXP = compute_optimal_filter(x, X, spikes, dt=dt)
 ```
 
 **b) Optimal filter.** Plot the time and frequency plots of the optimal filter for the signal you generated in question 3c). Make sure to use appropriate limits for the $x$-axis.
