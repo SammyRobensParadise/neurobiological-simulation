@@ -1057,6 +1057,7 @@ dt = 1 / 1000
 rms = 0.5
 limit = 5
 t = np.arange(0, T, dt)
+
 x, X = generate_signal(T, dt, rms, limit, s)
 
 sig_t = x
@@ -1241,10 +1242,9 @@ x = np.array(sig_t)
 X = np.array(sig_f)
 dt = 1 / 1000
 # create the spikes as a (2,Nt) array
-spikes = np.array([spike_pos, spike_neg])
+spikes = np.array([spike_neg, spike_pos])
 
 ts, fs, R, H, h, XHAT, xhat, XP, WXP = compute_optimal_filter(x, X, spikes, dt=dt)
-
 ```
 
 **b) Optimal filter.** Plot the time and frequency plots of the optimal filter for the signal you generated in question 3c). Make sure to use appropriate limits for the $x$-axis.
@@ -1280,12 +1280,41 @@ plt.legend(
 )
 plt.show()
 
-
+plt.figure(2)
+ax= plt.subplot(2, 1, 1)
+plt.suptitle("Optimal filter responses")
+HH = H.real
+a = plt.plot(fs, HH, label="Optimal filter (freq-domain radians)")
+plt.xlabel("$\omega$ radians")
+plt.xlim([-50, 50])
+plt.legend(
+    handles=[
+        a,
+    ],
+    labels=[],
+)
+plt.subplot(2, 1, 2)
+b = plt.plot(ts, h, label="Optimal filter (time-domain seconds)", color="green")
+plt.xlabel("$t$ sec")
+plt.xlim([-0.5, 0.5])
+plt.legend(
+    handles=[
+        b,
+    ],
+    labels=[],
+)
+plt.show()
 ```
 
 
     
 ![svg](assignment-2_files/assignment-2_36_0.svg)
+    
+
+
+
+    
+![svg](assignment-2_files/assignment-2_36_1.svg)
     
 
 
