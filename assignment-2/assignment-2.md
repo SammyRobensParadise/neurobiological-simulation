@@ -683,13 +683,15 @@ rms = 0.5
 limit = 30
 x, X = generate_signal(T, dt, rms, limit, s)
 
-state = [{
-    "min_rate": 40,
-    "max_rate": 150,
-    "encoder": 1,
-    "tau_ref": dt,
-    "tau_rc": 20 / 1000,
-}]
+state = [
+    {
+        "min_rate": 40,
+        "max_rate": 150,
+        "encoder": 1,
+        "tau_ref": dt,
+        "tau_rc": 20 / 1000,
+    }
+]
 Pop = Population(1, state)
 
 
@@ -751,7 +753,7 @@ plt.show()
 
 ```python
 plt.figure()
-plt.suptitle("Voltage $v(t)$ for a LIF Neuron with $x=x(t)$ on $[0,0.2]$ seconds")
+plt.suptitle("Voltage $v(t)$ of a LIF Neuron with $x=x(t)$ on $[0,0.2]$ seconds")
 v_plt = plt.plot(t, voltages, label="$v(t)_{output}$")
 x_plt = plt.plot(t, x, label="$x(t)_{input}$")
 plt.ylabel("Magnitude")
@@ -832,7 +834,7 @@ num_spikes_neg = neuron_neg.howmanyspikes()
 
 
 plt.figure()
-plt.suptitle("Voltage $v(t)$ for a LIF Neuron with $x=0$ and positive encoder $e=1$")
+plt.suptitle("Voltage $v(t)$ of a LIF Neuron with $x=0$ and positive encoder $e=1$")
 v_plt = plt.plot(t, v_out_pos, label="$v(t)$")
 x_plt = plt.plot(t, x, label="$x(t)$")
 plt.ylabel("Voltage")
@@ -849,7 +851,7 @@ plt.show()
 print_block("Number of Spikes for LIF neuron with positive encoder=+1", num_spikes_pos)
 
 plt.figure()
-plt.suptitle("Voltage $v(t)$ for a LIF Neuron with $x=0$ and positive encoder $e=-1$")
+plt.suptitle("Voltage $v(t)$ of a LIF Neuron with $x=0$ and positive encoder $e=-1$")
 v_plt = plt.plot(t, v_out_neg, label="$v(t)$")
 x_plt = plt.plot(t, x, label="$x(t)$")
 plt.ylabel("Voltage")
@@ -907,7 +909,7 @@ num_spikes_neg = neuron_neg.howmanyspikes()
 
 
 plt.figure()
-plt.suptitle("Voltage $v(t)$ for a LIF Neuron with $x=1$ and positive encoder $e=1$")
+plt.suptitle("Voltage $v(t)$ of a LIF Neuron with $x=1$ and positive encoder $e=1$")
 v_plt = plt.plot(t, v_out_pos, label="$v(t)$")
 x_plt = plt.plot(t, x, label="$x(t)$")
 plt.ylabel("Voltage")
@@ -924,7 +926,7 @@ plt.show()
 print_block("Number of Spikes for LIF neuron with positive encoder=+1", num_spikes_pos)
 
 plt.figure()
-plt.suptitle("Voltage $v(t)$ for a LIF Neuron with $x=1$ and positive encoder $e=-1$")
+plt.suptitle("Voltage $v(t)$ of a LIF Neuron with $x=1$ and positive encoder $e=-1$")
 v_plt = plt.plot(t, v_out_neg, label="$v(t)$")
 x_plt = plt.plot(t, x, label="$x(t)$")
 plt.ylabel("Voltage")
@@ -968,8 +970,82 @@ print_block("Number of Spikes for LIF neuron with negative encoder=-1", num_spik
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+# generate time
+t = np.arange(0, T, dt)
+# generate input signal  x(t)
+x = 0.5 * np.sin(10 * np.pi * t)
+
+# send an input to our  population of neurons
+Pop.spike(x, dt)
+# our first neuron has a positive encoder +1
+neuron_pos = Pop.get_neuron(0)
+# out second neuron has a negative encoder -1
+neuron_neg = Pop.get_neuron(1)
+
+# get the first colum of the outputs which is the voltages
+v_out_pos = neuron_pos.output()[:, 0]
+v_out_neg = neuron_neg.output()[:, 0]
+
+num_spikes_pos = neuron_pos.howmanyspikes()
+num_spikes_neg = neuron_neg.howmanyspikes()
+
+
+plt.figure()
+plt.suptitle("Voltage $v(t)$ of a LIF Neuron with $x(t)=0.5sin(10\pi t)$ and positive encoder $e=1$")
+v_plt = plt.plot(t, v_out_pos, label="$v(t)$")
+x_plt = plt.plot(t, x, label="$x(t)$")
+plt.ylabel("Voltage")
+plt.xlabel("$t$ sec.")
+plt.xlim(0, T)
+plt.legend(
+    handles=[
+        v_plt,
+        x_plt,
+    ],
+    labels=[],
+)
+plt.show()
+print_block("Number of Spikes for LIF neuron with positive encoder=+1", num_spikes_pos)
+
+plt.figure()
+plt.suptitle("Voltage $v(t)$ of a LIF Neuron with $x(t)=0.5sin(10\pi t)$ and positive encoder $e=-1$")
+v_plt = plt.plot(t, v_out_neg, label="$v(t)$")
+x_plt = plt.plot(t, x, label="$x(t)$")
+plt.ylabel("Voltage")
+plt.xlabel("$t$ sec.")
+plt.xlim(0, T)
+plt.legend(
+    handles=[
+        v_plt,
+        x_plt,
+    ],
+    labels=[],
+)
+plt.show()
+print_block("Number of Spikes for LIF neuron with negative encoder=-1", num_spikes_neg)
 ```
+
+
+    
+![svg](assignment-2_files/assignment-2_28_0.svg)
+    
+
+
+    Number of Spikes for LIF neuron with positive encoder=+1 ----------
+    40
+    -----------------
+
+
+
+    
+![svg](assignment-2_files/assignment-2_28_2.svg)
+    
+
+
+    Number of Spikes for LIF neuron with negative encoder=-1 ----------
+    40
+    -----------------
+
 
 **c) Spike plot for a white noise signal.** Plot $x(t)$ and the spiking output for a random signal generated with your function for question 1.1 with $\mathtt{T}=2\,\mathrm{s}$, $\mathtt{dt}=1\,\mathrm{ms}$, $\mathtt{rms}=0.5$, and $\mathtt{limit}=5\,\mathrm{Hz}$.
 
