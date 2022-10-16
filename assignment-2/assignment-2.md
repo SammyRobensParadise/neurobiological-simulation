@@ -1242,7 +1242,12 @@ x = np.array(sig_t)
 X = np.array(sig_f)
 dt = 1 / 1000
 # create the spikes as a (2,Nt) array
-spikes = np.array([spike_neg, spike_pos])
+spikes = np.array(
+    [
+        spike_pos,
+        spike_neg,
+    ]
+)
 
 ts, fs, R, H, h, XHAT, xhat, XP, WXP = compute_optimal_filter(x, X, spikes, dt=dt)
 ```
@@ -1289,8 +1294,26 @@ plt.show()
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+r = spikes[0] = spikes[1]
+plt.figure(1)
+plt.suptitle("Decoded $\hat{x}(t)$ and $x(t)$ with spikes $v(t)$")
+a = plt.plot(t, r, label="$v(t)$", alpha=0.5)
+b = plt.plot(t, x, label="$x(t)$")
+c = plt.plot(t, xhat, label="$\hat{x}(t)$")
+plt.xlabel("$t$")
+plt.xlim([0, T])
+plt.legend(
+    handles=[a, b, c],
+    labels=[],
+)
+plt.show()
 ```
+
+
+    
+![svg](assignment-2_files/assignment-2_38_0.svg)
+    
+
 
 **d) Power spectra.** Plot the signal $|X(\omega)|$, spike response $|R(\omega)|$, and filtered signal $|\hat X(\omega)|$ power spectra for the signal from 3c).
 
