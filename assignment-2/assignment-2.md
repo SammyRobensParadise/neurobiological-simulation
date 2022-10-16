@@ -1454,7 +1454,7 @@ plt.show()
 **g) Discussion.** Describe the effects on the time plot of the optimal filter as `limit` increases. Why does this happen?
 
 
-✍ \<YOUR SOLUTION HERE\>
+As the limit increases we can see that the time plot of the filter becomes "tigher" that is it attenuates at a greater rate as it moves away from the center in either the positive or negative direction. This is because as the fequency increases the time window will decrease. This is so that when the filter is convolved with the signal in the time-domain the appropraite filter is applied. Another way of thinking of it is that at a higher frequency our signal is "faster" so perform such a convolution we want to integrate over a shorter region for a given part of the signal.
 
 
 # Using post-synaptic currents as a filter
