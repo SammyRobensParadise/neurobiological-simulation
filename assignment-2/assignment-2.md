@@ -544,7 +544,8 @@ class Neuron(Population):
                     # start the ref period
                     ref_period = True
                     # assign the first collumn to the current voltage
-                    spikes[idx][0] = V
+                    # assign a constant spiking voltage to make identification easier
+                    spikes[idx][0] = 1.25
                     # reset the voltage to 0
                     V = V_rest
                     V_prev = V_rest
@@ -669,27 +670,107 @@ It stands to reason then, that as we stray farther from an accurate representati
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+T = 1
+dt = 1 / 1000
+rms = 0.5
+limit = 30
+x, X = generate_signal(T, dt, rms, limit, s)
+
+state = {
+    "min_rate": 40,
+    "max_rate": 150,
+    "encoder": 1,
+    "tau_ref": dt,
+    "tau_rc": 20 / 1000,
+}
+Pop = Population(1, state)
+
+
+outputs = Pop.spike(x, dt)
+
+# in this case we only have 1 neuron so:
+spikes = outputs[0]
+voltages = spikes[:, 0]
+
+neuron = Pop.get_neuron(0)
+num_spikes = neuron.howmanyspikes()
+
+plt.figure()
+plt.suptitle("Generated signal $x(t)$")
+x_plt = plt.plot(t, x, label="$x(t)$")
+plt.ylabel("$x4")
+plt.xlabel("$t$ sec.")
+plt.xlim(0, T)
+plt.legend(
+    handles=[
+        x_plt,
+    ],
+    labels=[],
+)
+plt.show()
+
+plt.figure()
+plt.suptitle("Voltage $v(t)$ for a LIF Neuron with $x=x(t)$")
+v_plt = plt.plot(t, voltages, label="$v(t)_{output}$")
+x_plt = plt.plot(t, x, label="$x(t)_{input}$")
+plt.ylabel("Magnitude")
+plt.xlabel("$t$ sec.")
+plt.xlim(0, T)
+plt.legend(
+    handles=[
+        v_plt,
+        x_plt,
+    ],
+    labels=[],
+)
+plt.show()
 ```
+
+
+    
+![svg](assignment-2_files/assignment-2_19_0.svg)
+    
+
+
+
+    
+![svg](assignment-2_files/assignment-2_19_1.svg)
+    
+
 
 **d) Voltage over time.** Using the same $x(t)$ signal as in part _c)_, plot the neuron's voltage over time for the first $0.2$ seconds, along with the spikes over the same time.
 
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+plt.figure()
+plt.suptitle("Voltage $v(t)$ for a LIF Neuron with $x=x(t)$ on $[0,0.2]$ seconds")
+v_plt = plt.plot(t, voltages, label="$v(t)_{output}$")
+x_plt = plt.plot(t, x, label="$x(t)_{input}$")
+plt.ylabel("Magnitude")
+plt.xlabel("$t$ sec.")
+plt.xlim(0, 0.2)
+plt.legend(
+    handles=[
+        v_plt,
+        x_plt,
+    ],
+    labels=[],
+)
+plt.show()
 ```
+
+
+    
+![svg](assignment-2_files/assignment-2_21_0.svg)
+    
+
 
 **e) 🌟 Bonus question.** How could you improve this simulation (in terms of how closely the model matches actual equation) without significantly increasing the computation time? $0.5$ marks for having a good idea. Up to $1$ mark for actually implementing it and showing that it works.
 
 
-✍ \<YOUR SOLUTION HERE\>
+A possible solution could be to employ a better method than Eulers's method for approximating the governing differential equation. Such a solution may be the Runge-Kutta (RK4) wich would provide a better approximation of the equation. No solution is provided (yet!)
 
-
-
-```python
-# ✍ <YOUR SOLUTION HERE>
-```
 
 # 3. Simulating two spiking neurons
 
