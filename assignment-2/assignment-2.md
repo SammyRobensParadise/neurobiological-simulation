@@ -1052,8 +1052,88 @@ print_block("Number of Spikes for LIF neuron with negative encoder=-1", num_spik
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+T = 2
+dt = 1 / 1000
+rms = 0.5
+limit = 5
+t = np.arange(0, T, dt)
+x, X = generate_signal(T, dt, rms, limit, s)
+
+# send an input to our  population of neurons
+Pop.spike(x, dt)
+# our first neuron has a positive encoder +1
+neuron_pos = Pop.get_neuron(0)
+# out second neuron has a negative encoder -1
+neuron_neg = Pop.get_neuron(1)
+
+# get the first colum of the outputs which is the voltages
+v_out_pos = neuron_pos.output()[:, 0]
+v_out_neg = neuron_neg.output()[:, 0]
+
+num_spikes_pos = neuron_pos.howmanyspikes()
+num_spikes_neg = neuron_neg.howmanyspikes()
+
+
+plt.figure()
+plt.suptitle(
+    "Voltage $v(t)$ of a LIF Neuron with $x(t)$ as random white noise and positive encoder $e=1$ and 5Hz limit"
+)
+v_plt = plt.plot(t, v_out_pos, label="$v(t)$")
+x_plt = plt.plot(t, x, label="$x(t)$")
+plt.ylabel("Voltage")
+plt.xlabel("$t$ sec.")
+plt.xlim(0, T)
+plt.legend(
+    handles=[
+        v_plt,
+        x_plt,
+    ],
+    labels=[],
+)
+plt.show()
+print_block("Number of Spikes for LIF neuron with positive encoder=+1", num_spikes_pos)
+
+plt.figure()
+plt.suptitle(
+    "Voltage $v(t)$ of a LIF Neuron with $x(t)$ as random white noise and positive encoder $e=-1$ and 5Hz limit"
+)
+v_plt = plt.plot(t, v_out_neg, label="$v(t)$")
+x_plt = plt.plot(t, x, label="$x(t)$")
+plt.ylabel("Voltage")
+plt.xlabel("$t$ sec.")
+plt.xlim(0, T)
+plt.legend(
+    handles=[
+        v_plt,
+        x_plt,
+    ],
+    labels=[],
+)
+plt.show()
+print_block("Number of Spikes for LIF neuron with negative encoder=-1", num_spikes_neg)
 ```
+
+
+    
+![svg](assignment-2_files/assignment-2_30_0.svg)
+    
+
+
+    Number of Spikes for LIF neuron with positive encoder=+1 ----------
+    94
+    -----------------
+
+
+
+    
+![svg](assignment-2_files/assignment-2_30_2.svg)
+    
+
+
+    Number of Spikes for LIF neuron with negative encoder=-1 ----------
+    89
+    -----------------
+
 
 # 4. Computing an optimal filter
 
