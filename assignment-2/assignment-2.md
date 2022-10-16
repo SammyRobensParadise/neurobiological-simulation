@@ -574,8 +574,19 @@ neuron = Pop.get_neuron(0)
 num_spikes = neuron.howmanyspikes()
 
 plt.figure()
-plt.plot(t, voltages)
+plt.suptitle("Voltage $v(t)$ for a LIF Neuron with $x=0$")
+v_plt = plt.plot(t, voltages, label="$v(t)$")
+x_plt = plt.plot(t, x, label="$x(t)$")
+plt.ylabel("Voltage")
+plt.xlabel("$t$ sec.")
 plt.xlim(0, T)
+plt.legend(
+    handles=[
+        v_plt,
+        x_plt,
+    ],
+    labels=[],
+)
 plt.show()
 
 print_block("Number of Spikes with input of x=0 over 1 second", num_spikes)
@@ -593,8 +604,19 @@ neuron = Pop.get_neuron(0)
 num_spikes = neuron.howmanyspikes()
 
 plt.figure()
-plt.plot(t, voltages)
+plt.suptitle("Voltage $v(t)$ for a LIF Neuron with $x=1$")
+v_plt = plt.plot(t, voltages, label="$v(t)$")
+x_plt = plt.plot(t, x, label="$x(t)$")
+plt.ylabel("Voltage")
+plt.xlabel("$t$ sec")
 plt.xlim(0, T)
+plt.legend(
+    handles=[
+        v_plt,
+        x_plt,
+    ],
+    labels=[],
+)
 plt.show()
 
 print_block("Number of Spikes with input of x=1 over 1 second", num_spikes)
