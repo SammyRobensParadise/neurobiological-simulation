@@ -1321,6 +1321,30 @@ plt.show()
 
 ```python
 plt.figure(1)
+plt.suptitle(
+    " $|X(\omega)|$, spike response $|R(\omega)|$, and filtered signal $|\hat X(\omega)|$"
+)
+c = plt.plot(fs, np.absolute(XHAT), label="$|\hat{X}(\omega)$|", alpha=1)
+a = plt.plot(fs, np.absolute(X), label="$|X(\omega)$|", alpha=0.75)
+b = plt.plot(fs, np.absolute(R), label="$|R(\omega)|$", alpha=0.6)
+plt.xlabel("Radians $\omega$")
+plt.xlim([-100, 100])
+plt.legend(
+    handles=[a, b, c],
+    labels=[],
+)
+plt.show()
+```
+
+
+    
+![svg](assignment-2_files/assignment-2_40_0.svg)
+    
+
+
+
+```python
+plt.figure(1)
 plt.subplot(2, 1, 1)
 plt.suptitle("Real Power spectrum of input $X(\omega)$ in frequency domain")
 xp = np.sqrt(XP.real)
@@ -1351,7 +1375,7 @@ plt.show()
 
 
     
-![svg](assignment-2_files/assignment-2_40_0.svg)
+![svg](assignment-2_files/assignment-2_41_0.svg)
     
 
 
