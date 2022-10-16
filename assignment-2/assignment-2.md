@@ -1382,7 +1382,7 @@ plt.show()
 **e) Discussion.** How do these spectra relate to the optimal filter?
 
 
-✍ \<YOUR SOLUTION HERE\>
+We can see from our figures that the optimal filter is helpful in reducing noise in our signal specifically between -20 and 2o radians. This can be see in outputs of the filtered spiking signal which is experiences a high rate of power dropoff as it extends beyond -20 and 20 radians in the frequency domain.
 
 
 **f) Filter for different signal bandwidths.** Plot the optmial filter $h(t)$ in the time domain when filtering spike trains for white noise signals with different `limit` values of $2\,\mathrm{Hz}$, $10\,\mathrm{Hz}$, and $30\,\mathrm{Hz}$.
@@ -1390,8 +1390,66 @@ plt.show()
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+def get_optimal_filter(limit=2):
+    T = 2
+    dt = 1 / 1000
+    rms = 0.5
+    t = np.arange(0, T, dt)
+    x, X = generate_signal(T, dt, rms, limit, s)
+    sig_t = x
+    sig_f = X
+    Pop.spike(x, dt)
+    neuron_pos = Pop.get_neuron(0)
+    neuron_neg = Pop.get_neuron(1)
+    v_out_pos = neuron_pos.output()[:, 0]
+    v_out_neg = neuron_neg.output()[:, 0]
+    spike_pos = v_out_pos
+    spike_neg = v_out_neg
+    # convert our inputs to np arrays since that what the function expects
+    x = np.array(sig_t)
+    X = np.array(sig_f)
+    dt = 1 / 1000
+    # create the spikes as a (2,Nt) array
+    spikes = np.array(
+        [
+            spike_pos,
+            spike_neg,
+        ]
+    )
+    ts, fs, R, H, h, XHAT, xhat, XP, WXP = compute_optimal_filter(x, X, spikes, dt=dt)
+    return h, ts
+
+
+filters = []
+limits = [2, 10, 30]
+for limit in limits:
+    h, ts = get_optimal_filter(limit)
+    filters.append({"h": h, "limit": limit, "ts": ts})
+
+plt.figure(1)
+fig, ax = plt.subplots(3, 1)
+for idx, filter in enumerate(filters):
+    a = ax[idx].plot(
+        filter["ts"],
+        filter["h"],
+        label="$h(t)$ at " + str(filter["limit"]) + "Hz limit",
+    )
+    ax[idx].axis(xmin=-0.25, xmax=0.25)
+    ax[idx].legend(handles=[a], labels=[])
+    plt.xlabel("$t$")
+fig.tight_layout(pad=1.0)
+plt.show()
 ```
+
+
+    <Figure size 432x288 with 0 Axes>
+
+
+
+    
+![svg](assignment-2_files/assignment-2_45_1.svg)
+    
+
 
 **g) Discussion.** Describe the effects on the time plot of the optimal filter as `limit` increases. Why does this happen?
 
