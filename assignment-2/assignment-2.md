@@ -1253,34 +1253,6 @@ ts, fs, R, H, h, XHAT, xhat, XP, WXP = compute_optimal_filter(x, X, spikes, dt=d
 
 ```python
 plt.figure(1)
-plt.subplot(2, 1, 1)
-plt.suptitle("Real Power spectrum of input $X(\omega)$ in frequency domain")
-xp = np.sqrt(XP.real)
-a = plt.plot(fs, np.sqrt(xp), label="Power Spec.")
-plt.xlabel("$\omega$ radians")
-plt.ylabel("$|X(\omega)|$")
-plt.xlim([-40, 40])
-plt.legend(
-    handles=[
-        a,
-    ],
-    labels=[],
-)
-plt.subplot(2, 1, 2)
-xp = np.sqrt(WXP.real)
-b = plt.plot(fs, np.sqrt(xp), label="Gaussian-smoothed Power Spec.", color="green")
-plt.xlabel("$\omega$ radians")
-plt.ylabel("$|X(\omega)|$")
-plt.xlim([-40, 40])
-plt.legend(
-    handles=[
-        b,
-    ],
-    labels=[],
-)
-plt.show()
-
-plt.figure(2)
 ax= plt.subplot(2, 1, 1)
 plt.suptitle("Optimal filter responses")
 HH = H.real
@@ -1312,12 +1284,6 @@ plt.show()
     
 
 
-
-    
-![svg](assignment-2_files/assignment-2_36_1.svg)
-    
-
-
 **c) Decoded signal.** Plot the $x(t)$ signal, the spikes, and the decoded $\hat x(t)$ value for the signal from 3c).
 
 
@@ -1331,8 +1297,40 @@ plt.show()
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+plt.figure(1)
+plt.subplot(2, 1, 1)
+plt.suptitle("Real Power spectrum of input $X(\omega)$ in frequency domain")
+xp = np.sqrt(XP.real)
+a = plt.plot(fs, np.sqrt(xp), label="Power Spec.")
+plt.xlabel("$\omega$ radians")
+plt.ylabel("$|X(\omega)|$")
+plt.xlim([-40, 40])
+plt.legend(
+    handles=[
+        a,
+    ],
+    labels=[],
+)
+plt.subplot(2, 1, 2)
+xp = np.sqrt(WXP.real)
+b = plt.plot(fs, np.sqrt(xp), label="Gaussian-smoothed Power Spec.", color="green")
+plt.xlabel("$\omega$ radians")
+plt.ylabel("$|X(\omega)|$")
+plt.xlim([-40, 40])
+plt.legend(
+    handles=[
+        b,
+    ],
+    labels=[],
+)
+plt.show()
 ```
+
+
+    
+![svg](assignment-2_files/assignment-2_40_0.svg)
+    
+
 
 **e) Discussion.** How do these spectra relate to the optimal filter?
 
