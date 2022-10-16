@@ -449,18 +449,20 @@ class Population:
     def __init__(self, num_neurons=1, state=None):
         self.num_neurons = num_neurons
         if state == None:
-            self.default_neuron_states = {
-                "min_rate": 40,
-                "max_rate": 150,
-                "encoder": 1,
-                "tau_ref": 2 / 1000,
-                "tau_rc": 20 / 1000,
-            }
+            self.default_neuron_states = [
+                {
+                    "min_rate": 40,
+                    "max_rate": 150,
+                    "encoder": 1,
+                    "tau_ref": 2 / 1000,
+                    "tau_rc": 20 / 1000,
+                }
+            ]
         else:
             self.default_neuron_states = state
         self.neurons = []
         for idx in range(self.num_neurons):
-            neuron = Neuron(self.default_neuron_states)
+            neuron = Neuron(self.default_neuron_states[idx])
             self.neurons.append(neuron)
 
     """ Cleans out a population """
@@ -517,6 +519,9 @@ class Neuron(Population):
         num_spikes = int(spike_points.tolist().count(1))
         return num_spikes
 
+    def output(self):
+        return self.spiketrend
+
     def spikies(self, X, dT):
         N = np.floor(self.tau_ref / dT)
         V_th = 1
@@ -550,6 +555,8 @@ class Neuron(Population):
                     V = V_rest
                     V_prev = V_rest
                 else:
+                    if V < V_rest:
+                        V = V_rest
                     # no spikes to assign second column to 0
                     spikes[idx][1] = int(0)
                     # still capture the voltage
@@ -567,13 +574,13 @@ T = 1
 t = np.arange(0, T, dt)
 x = [0 for time in t]
 
-state = {
+state = [{
     "min_rate": 40,
     "max_rate": 150,
     "encoder": 1,
     "tau_ref": dt,
     "tau_rc": 20 / 1000,
-}
+}]
 Pop = Population(1, state)
 
 
@@ -676,13 +683,13 @@ rms = 0.5
 limit = 30
 x, X = generate_signal(T, dt, rms, limit, s)
 
-state = {
+state = [{
     "min_rate": 40,
     "max_rate": 150,
     "encoder": 1,
     "tau_ref": dt,
     "tau_rc": 20 / 1000,
-}
+}]
 Pop = Population(1, state)
 
 
@@ -779,8 +786,182 @@ A possible solution could be to employ a better method than Eulers's method for 
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+min_rate = 40
+max_rate = 150
+tau_ref = 1 / 1000
+tau_rc = 20 / 1000
+
+state = [
+    {
+        "min_rate": min_rate,
+        "max_rate": max_rate,
+        "encoder": 1,
+        "tau_ref": tau_ref,
+        "tau_rc": tau_rc,
+    },
+    {
+        "min_rate": min_rate,
+        "max_rate": max_rate,
+        "encoder": -1,
+        "tau_ref": tau_ref,
+        "tau_rc": tau_rc,
+    },
+]
+# create a population of two neurons based on the state array
+# with one encoder +1 and the other -1
+Pop = Population(2, state)
+
+dt = 1 / 1000
+T = 1
+t = np.arange(0, T, dt)
+x = [0 for time in t]
+
+# send an input to our  population of neurons
+Pop.spike(x, dt)
+# our first neuron has a positive encoder +1
+neuron_pos = Pop.get_neuron(0)
+# out second neuron has a negative encoder -1
+neuron_neg = Pop.get_neuron(1)
+
+# get the first colum of the outputs which is the voltages
+v_out_pos = neuron_pos.output()[:, 0]
+v_out_neg = neuron_neg.output()[:, 0]
+
+num_spikes_pos = neuron_pos.howmanyspikes()
+num_spikes_neg = neuron_neg.howmanyspikes()
+
+
+plt.figure()
+plt.suptitle("Voltage $v(t)$ for a LIF Neuron with $x=0$ and positive encoder $e=1$")
+v_plt = plt.plot(t, v_out_pos, label="$v(t)$")
+x_plt = plt.plot(t, x, label="$x(t)$")
+plt.ylabel("Voltage")
+plt.xlabel("$t$ sec.")
+plt.xlim(0, T)
+plt.legend(
+    handles=[
+        v_plt,
+        x_plt,
+    ],
+    labels=[],
+)
+plt.show()
+print_block("Number of Spikes for LIF neuron with positive encoder=+1", num_spikes_pos)
+
+plt.figure()
+plt.suptitle("Voltage $v(t)$ for a LIF Neuron with $x=0$ and positive encoder $e=-1$")
+v_plt = plt.plot(t, v_out_neg, label="$v(t)$")
+x_plt = plt.plot(t, x, label="$x(t)$")
+plt.ylabel("Voltage")
+plt.xlabel("$t$ sec.")
+plt.xlim(0, T)
+plt.legend(
+    handles=[
+        v_plt,
+        x_plt,
+    ],
+    labels=[],
+)
+plt.show()
+print_block("Number of Spikes for LIF neuron with negative encoder=-1", num_spikes_neg)
 ```
+
+
+    
+![svg](assignment-2_files/assignment-2_25_0.svg)
+    
+
+
+    Number of Spikes for LIF neuron with positive encoder=+1 ----------
+    40
+    -----------------
+
+
+
+    
+![svg](assignment-2_files/assignment-2_25_2.svg)
+    
+
+
+    Number of Spikes for LIF neuron with negative encoder=-1 ----------
+    40
+    -----------------
+
+
+
+```python
+x = [1 for time in t]
+# send an input to our  population of neurons
+Pop.spike(x, dt)
+# our first neuron has a positive encoder +1
+neuron_pos = Pop.get_neuron(0)
+# out second neuron has a negative encoder -1
+neuron_neg = Pop.get_neuron(1)
+
+# get the first colum of the outputs which is the voltages
+v_out_pos = neuron_pos.output()[:, 0]
+v_out_neg = neuron_neg.output()[:, 0]
+
+num_spikes_pos = neuron_pos.howmanyspikes()
+num_spikes_neg = neuron_neg.howmanyspikes()
+
+
+plt.figure()
+plt.suptitle("Voltage $v(t)$ for a LIF Neuron with $x=1$ and positive encoder $e=1$")
+v_plt = plt.plot(t, v_out_pos, label="$v(t)$")
+x_plt = plt.plot(t, x, label="$x(t)$")
+plt.ylabel("Voltage")
+plt.xlabel("$t$ sec.")
+plt.xlim(0, T)
+plt.legend(
+    handles=[
+        v_plt,
+        x_plt,
+    ],
+    labels=[],
+)
+plt.show()
+print_block("Number of Spikes for LIF neuron with positive encoder=+1", num_spikes_pos)
+
+plt.figure()
+plt.suptitle("Voltage $v(t)$ for a LIF Neuron with $x=1$ and positive encoder $e=-1$")
+v_plt = plt.plot(t, v_out_neg, label="$v(t)$")
+x_plt = plt.plot(t, x, label="$x(t)$")
+plt.ylabel("Voltage")
+plt.xlabel("$t$ sec.")
+plt.xlim(0, T)
+plt.legend(
+    handles=[
+        v_plt,
+        x_plt,
+    ],
+    labels=[],
+)
+plt.show()
+print_block("Number of Spikes for LIF neuron with negative encoder=-1", num_spikes_neg)
+```
+
+
+    
+![svg](assignment-2_files/assignment-2_26_0.svg)
+    
+
+
+    Number of Spikes for LIF neuron with positive encoder=+1 ----------
+    143
+    -----------------
+
+
+
+    
+![svg](assignment-2_files/assignment-2_26_2.svg)
+    
+
+
+    Number of Spikes for LIF neuron with negative encoder=-1 ----------
+    0
+    -----------------
+
 
 **b) Spike plots for a sinusodial input.** Plot $x(t)$ and the spiking output for $x(t)=\frac{1}2 \sin(10 \pi t)$.
 
