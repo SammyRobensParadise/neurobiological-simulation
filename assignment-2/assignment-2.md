@@ -1174,58 +1174,61 @@ def compute_optimal_filter(
     # The time T is the number of samples multiplied by our step size, dt
     T = Nt * dt
 
-    # !
+    # Create a timescale centered at 0 between -1 and 1 with the timestep dt
     ts = np.arange(Nt) * dt - T / 2.0
 
-    # !
+    # create a frequency scale centered at 0 by divding the integer array of ms time samples
+    # by dividing it by the inner number of steps and then twise the time range. i.e for
+    # T=2s fs=[-500,...,500]
     fs = np.arange(Nt) / T - Nt / (2.0 * T)
 
-    # !
+    # convert scale from Hz to radians per second
     omega = fs * 2.0 * np.pi
 
-    # !
+    # get the difference between the positive encoder spikes and the negative encoder spikes
     r = spikes[0] - spikes[1]
 
-    # !
+    # Fourier transform the response into the frequency domain and then shift it so that it is centered at 0
     R = np.fft.fftshift(np.fft.fft(r))
 
-    # !
+    # choose the standard deviation of the filter to be 0.025
     sigma_t = 25e-3
 
-    # !
+    # use the standard deviation of sigma_t to create a Gaussian curve across the frequencies (in radians)
     W2 = np.exp(-(omega**2) * sigma_t**2)
 
-    # !
+    # Normalize so that we do not have issues when we convolve the signal
     W2 = W2 / sum(W2)
 
-    # !
+    # Find the complex cojugate of the shifted fourier transform and scale it by the the original signal input in the
+    # frequency domain X
     CP = X * R.conjugate()
 
-    # !
+    # convolve the two signals, the scaled input along with the gaussian filter
     WCP = np.convolve(CP, W2, "same")
 
-    # !
+    # multiply R but its complex conjugate so that it is Real
     RP = R * R.conjugate()
 
-    # !
+    # smooth the real signal RP by convolving it with the gaussian filter. This signal should be "continuious"
     WRP = np.convolve(RP, W2, "same")
 
-    # !
+    # multiply input by its complex conjugate so that it becomes only real
     XP = X * X.conjugate()
 
-    # !
+    # smooth and make continuous the real input signal XP by convolving it with the gaussian filter
     WXP = np.convolve(XP, W2, "same")
 
-    # !
+    # this is the filter!
     H = WCP / WRP
 
-    # !
+    # move filter from frequency domain to time-domain and shift it.
     h = np.fft.fftshift(np.fft.ifft(np.fft.ifftshift(H))).real
 
-    # !
+    # find the approximate frequency domain representation X_hat using filter and the frequency-domain response R
     XHAT = H * R
 
-    # !
+    # find the approximate time domain representation h_hat by inverse transforming the approx frequency response X_hat
     xhat = np.fft.ifft(np.fft.ifftshift(XHAT)).real
 
     return ts, fs, R, H, h, XHAT, xhat, XP, WXP
@@ -1238,9 +1241,10 @@ x = np.array(sig_t)
 X = np.array(sig_f)
 dt = 1 / 1000
 # create the spikes as a (2,Nt) array
-spikes = np.array([spike_pos, t])
+spikes = np.array([spike_pos, spike_neg])
 
 ts, fs, R, H, h, XHAT, xhat, XP, WXP = compute_optimal_filter(x, X, spikes, dt=dt)
+
 ```
 
 **b) Optimal filter.** Plot the time and frequency plots of the optimal filter for the signal you generated in question 3c). Make sure to use appropriate limits for the $x$-axis.
@@ -1248,8 +1252,42 @@ ts, fs, R, H, h, XHAT, xhat, XP, WXP = compute_optimal_filter(x, X, spikes, dt=d
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+plt.figure(1)
+plt.subplot(2, 1, 1)
+plt.suptitle("Real Power spectrum of input $X(\omega)$ in frequency domain")
+xp = np.sqrt(XP.real)
+a = plt.plot(fs, np.sqrt(xp), label="Power Spec.")
+plt.xlabel("$\omega$ radians")
+plt.ylabel("$|X(\omega)|$")
+plt.xlim([-40, 40])
+plt.legend(
+    handles=[
+        a,
+    ],
+    labels=[],
+)
+plt.subplot(2, 1, 2)
+xp = np.sqrt(WXP.real)
+b = plt.plot(fs, np.sqrt(xp), label="Gaussian-smoothed Power Spec.", color="green")
+plt.xlabel("$\omega$ radians")
+plt.ylabel("$|X(\omega)|$")
+plt.xlim([-40, 40])
+plt.legend(
+    handles=[
+        b,
+    ],
+    labels=[],
+)
+plt.show()
+
+
 ```
+
+
+    
+![svg](assignment-2_files/assignment-2_36_0.svg)
+    
+
 
 **c) Decoded signal.** Plot the $x(t)$ signal, the spikes, and the decoded $\hat x(t)$ value for the signal from 3c).
 
