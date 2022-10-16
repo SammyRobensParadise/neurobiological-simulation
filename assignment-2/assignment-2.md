@@ -446,15 +446,18 @@ def print_block(title, data):
 
 
 class Population:
-    def __init__(self, num_neurons=1):
+    def __init__(self, num_neurons=1, state=None):
         self.num_neurons = num_neurons
-        self.default_neuron_states = {
-            "min_rate": 40,
-            "max_rate": 150,
-            "encoder": 1,
-            "tau_ref": 2 / 1000,
-            "tau_rc": 20 / 1000,
-        }
+        if state == None:
+            self.default_neuron_states = {
+                "min_rate": 40,
+                "max_rate": 150,
+                "encoder": 1,
+                "tau_ref": 2 / 1000,
+                "tau_rc": 20 / 1000,
+            }
+        else:
+            self.default_neuron_states = state
         self.neurons = []
         for idx in range(self.num_neurons):
             neuron = Neuron(self.default_neuron_states)
@@ -511,7 +514,7 @@ class Neuron(Population):
 
     def howmanyspikes(self):
         spike_points = self.spiketrend[:, 1]
-        num_spikes = int(spike_points.tolist().count(1) - 1)
+        num_spikes = int(spike_points.tolist().count(1))
         return num_spikes
 
     def spikies(self, X, dT):
@@ -519,8 +522,8 @@ class Neuron(Population):
         V_th = 1
         V_rest = 0
         spikes = np.array([np.zeros(len(X)), np.zeros(len(X))]).T
-        V = 0
-        V_prev = 0
+        V = V_rest
+        V_prev = V_rest
         ref_period = False
         for idx, x in enumerate(X):
             if ref_period == True:
@@ -528,7 +531,7 @@ class Neuron(Population):
                 V_prev = V_rest
                 # voltage is 0
                 spikes[idx][0] = 0
-                # no spike
+                # no spike so set it to 0
                 spikes[idx][1] = 0
                 # we have completed one ref cycle
                 ref_period = False
@@ -544,6 +547,7 @@ class Neuron(Population):
                     spikes[idx][0] = V
                     # reset the voltage to 0
                     V = V_rest
+                    V_prev = V_rest
                 else:
                     # no spikes to assign second column to 0
                     spikes[idx][1] = int(0)
@@ -557,11 +561,20 @@ class Neuron(Population):
 
 
 ```python
-Pop = Population(1)
 dt = 1 / 1000
 T = 1
 t = np.arange(0, T, dt)
 x = [0 for time in t]
+
+state = {
+    "min_rate": 40,
+    "max_rate": 150,
+    "encoder": 1,
+    "tau_ref": dt,
+    "tau_rc": 20 / 1000,
+}
+Pop = Population(1, state)
+
 
 outputs = Pop.spike(x, dt)
 
@@ -570,7 +583,6 @@ spikes = outputs[0]
 voltages = spikes[:, 0]
 
 neuron = Pop.get_neuron(0)
-
 num_spikes = neuron.howmanyspikes()
 
 plt.figure()
@@ -640,14 +652,16 @@ print_block("Number of Spikes with input of x=1 over 1 second", num_spikes)
 
 
     Number of Spikes with input of x=1 over 1 second ----------
-    165
+    143
     -----------------
 
 
 **b) Discussion.** Does the observed number of spikes in the previous part match the expected number of spikes for $x=0$ and $x=1$? Why or why not? What aspects of the simulation would affect this accuracy?
 
 
-✍ \<YOUR SOLUTION HERE\>
+For the first case, when $x=0$ we see the expected number of spikes is 40. This is what we expect as we have a minimum rate of 40Hz. However when $x=1$ It is a different story. We can see that the number of reported spikes is 143. While close to 150Hz. It is less than what we would expect, that being 150Hz. This is likely because we are still using a relatively large $\tau_{ref}$ of 1ms wich is not close to _continuious time_. The consequence of this is that the large $\tau_{ref}$ is limiting the cycle speed of the model so we can only fit so many spikes in during our 1 second interval. If we shrink the "step" value or $\tau_{ref}$ we would expect that as $\tau_{ref} \to 0: Spikes \to 150$ when $x=1$ since it is getting closer and closer to a representation of "continuous time" (knowing that it is still discrete in reality).
+
+It stands to reason then, that as we stray farther from an accurate representation of continous time we decrease the accuracy of our model since it serves the "clock" of our model.
 
 
 **c) Spike plots for white noise inputs.** Plot the spike output for $x(t)$ generated using your function from part 1.1. Use $\mathtt{T}=1\,\mathrm{s}$, $\mathtt{dt}=1\,\mathrm{ms}$, $\mathtt{rms}=0.5$, and $\mathtt{limit}=30\,\mathrm{Hz}$. Overlay on this plot $x(t)$.
