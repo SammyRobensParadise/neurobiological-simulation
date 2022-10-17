@@ -1464,14 +1464,79 @@ As the limit increases we can see that the time plot of the filter becomes "tigh
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+def post_synaptic_current_filter(T=1, dt=1 / 1000, n=0, tau=7 / 1000):
+    # assume that t is always greater than 0 in this case
+    t = np.arange(0, T, dt)
+    areas = []
+    for pt in t:
+        val = (np.power(pt, n) * np.exp(-pt / tau)) * dt
+        areas.append(val)
+    # perform the piecewise intergration as a Reimann sum for approx estimate of c
+    c = np.sum(areas)
+    h = np.power(c, -1) * np.power(t, n) * np.exp(-t / tau)
+    return h, t
+
+
+dt = 1 / 1000
+tau = 7 / 1000
+n_vals = [0, 1, 2]
+filters = []
+for n in n_vals:
+    h, t = post_synaptic_current_filter(T=T, dt=dt, n=n, tau=tau)
+    filters.append({"h": h, "t": t, "n": n})
+
+plt.figure(1)
+fig, ax = plt.subplots(3, 1)
+fig.suptitle("Normalized post-synaptic filter $h(t)$ with $n=0,1,2$")
+for idx, filter in enumerate(filters):
+    a = ax[idx].plot(
+        filter["t"],
+        filter["h"],
+        label="$h(t)$ with $\\tau=7ms$ and n=" + str(filter["n"]),
+    )
+    ax[idx].axis(xmin=0, xmax=0.1)
+    ax[idx].legend(handles=[a], labels=[])
+    plt.xlabel("$t$")
+fig.tight_layout(pad=1.0)
+plt.show()
+
+# show all on the same graph since it is easer to visualize...
+plt.figure(2)
+plt.suptitle("Normalized post-synaptic filter $h(t)$ with $n=0,1,2$ on the same graph")
+handles = []
+for idx, filter in enumerate(filters):
+    a = plt.plot(
+        filter["t"],
+        filter["h"],
+        label="$h(t)$ with $\\tau=7ms$ and n=" + str(filter["n"]),
+    )
+    handles.append(a)
+plt.legend(handles=handles, labels=[])
+plt.xlabel("$t$")
+plt.xlim([0, 0.1])
+plt.show()
 ```
+
+
+    <Figure size 432x288 with 0 Axes>
+
+
+
+    
+![svg](assignment-2_files/assignment-2_49_1.svg)
+    
+
+
+
+    
+![svg](assignment-2_files/assignment-2_49_2.svg)
+    
+
 
 **b) Discussion.** What two things do you expect increasing $n$ will do to $\hat{x}(t)$?
 
 
-✍ \<YOUR SOLUTION HERE\>
-
+Increasing $n$ (the order of the filter) will cause  the peak magnitude of the filter to decrease as it increases. It will also cause a delay of the filter window in the direction of positive time. As a result $\hat{x}$ experiences a delayed peak magnitude as well, and a smoother onset.
 
 **c) Plotting the filter for different $\tau$.** Plot the normalized $h(t)$ for $\tau=2\,\mathrm{ms}$, $\tau=5\,\mathrm{ms}$, $\tau=10\,\mathrm{ms}$, $\tau=20\,\mathrm{ms}$ with $n = 0$.
 
