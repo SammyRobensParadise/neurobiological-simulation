@@ -1536,7 +1536,7 @@ for idx, filter in enumerate(filters):
     a = ax[idx].plot(
         filter["t"],
         filter["h"],
-        label="$h(t)$ with $n=0$ and $\\tau=" + str(filter["tau"]) + "s$",
+        label="$h(t)$ with $n=0$ and $\\tau=" + str(filter["tau"] * 1000) + "ms$",
     )
     ax[idx].axis(xmin=0, xmax=0.06)
     ax[idx].legend(handles=[a], labels=[])
@@ -1644,7 +1644,7 @@ plt.plot(t, r_hat)
 
 
 
-    [<matplotlib.lines.Line2D at 0x1333576d0>]
+    [<matplotlib.lines.Line2D at 0x121cc6970>]
 
 
 
