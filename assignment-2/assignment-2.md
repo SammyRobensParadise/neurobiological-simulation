@@ -1440,7 +1440,8 @@ As the limit increases we can see that the time plot of the filter becomes "tigh
 
 
 ```python
-def post_synaptic_current_filter(T=1, dt=1 / 1000, n=0, tau=7 / 1000):
+"""
+def post_synaptic_current_filter(T=2, dt=1 / 1000, n=0, tau=7 / 1000):
     # assume that t is always greater than 0 in this case
     t = np.arange(0, T, dt)
     areas = []
@@ -1450,6 +1451,25 @@ def post_synaptic_current_filter(T=1, dt=1 / 1000, n=0, tau=7 / 1000):
     # perform the piecewise intergration as a Reimann sum for approx estimate of c
     c = np.trapz(areas, dx=dt)
     h = np.power(c, -1) * np.power(t, n) * np.exp(-t / tau)
+    return h, t
+"""
+from scipy.integrate import quad
+
+
+def C(timepoint, nn, ttau):
+    return np.power(timepoint, nn) * np.exp(-timepoint / ttau)
+
+
+def post_synaptic_current_filter(T=2, dt=1 / 1000, n=0, tau=7 / 1000):
+    t = np.arange(0, T, dt)
+    N = t.size
+    h = np.array(np.zeros(N))
+
+    for idx, point in enumerate(h):
+        c = quad(C, 0, np.Inf, args=(n, tau))[0]
+        h[idx] = np.power(c, -1) * np.power(t[idx], n) * np.exp(-t[idx] / tau)
+    # normalize h
+    h = h / np.linalg.norm(h)
     return h, t
 
 
@@ -1590,19 +1610,6 @@ Increasing $\tau$ will suppress higher frequency components of the signal and sm
 
 
 ```python
-def apply_filter(r, h):
-    # create a signal of length r
-    r_hat = np.array(np.zeros(len(r)))
-    for idx, pt in enumerate(r_hat):
-        V_th = 1
-        if r[idx] >= V_th:
-            # we hav a spike so perform a convolution
-            print("spike")
-        else:
-            r_hat[idx] = r[idx]
-
-    return r_hat
-
 
 # from 3c
 T = 2
@@ -1644,7 +1651,7 @@ plt.plot(t, r_hat)
 
 
 
-    [<matplotlib.lines.Line2D at 0x121cc6970>]
+    [<matplotlib.lines.Line2D at 0x1335ede50>]
 
 
 
