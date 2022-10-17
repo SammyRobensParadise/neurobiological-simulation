@@ -1543,13 +1543,70 @@ Increasing $n$ (the order of the filter) will cause  the peak magnitude of the f
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+dt = 1 / 1000
+n = 0
+tau_vals = [2 / 1000, 5 / 1000, 10 / 1000, 20 / 1000]
+filters = []
+for tau in tau_vals:
+    h, t = post_synaptic_current_filter(T=T, dt=dt, n=n, tau=tau)
+    filters.append({"h": h, "t": t, "tau": tau})
+
+plt.figure(1)
+fig, ax = plt.subplots(4, 1)
+fig.suptitle(
+    "Normalized post-synaptic filter $h(t)$ with $n=0$ and $\\tau=2ms,5ms,10ms,20ms$"
+)
+for idx, filter in enumerate(filters):
+    a = ax[idx].plot(
+        filter["t"],
+        filter["h"],
+        label="$h(t)$ with $n=0$ and $\\tau=" + str(filter["tau"]) + "ms$",
+    )
+    ax[idx].axis(xmin=0, xmax=0.06)
+    ax[idx].legend(handles=[a], labels=[])
+    plt.xlabel("$t$")
+fig.tight_layout(pad=1.0)
+plt.show()
+
+# show all on the same graph since it is easer to visualize...
+plt.figure(2)
+plt.suptitle(
+    "Normalized post-synaptic filter $h(t)$ with $n=0$ and $\\tau=2ms,5ms,10ms,20ms$ on the same graph"
+)
+handles = []
+for idx, filter in enumerate(filters):
+    a = plt.plot(
+        filter["t"],
+        filter["h"],
+        label="$h(t)$ with $n=0$ and $\\tau=" + str(filter["tau"]) + "ms$",
+    )
+    handles.append(a)
+plt.legend(handles=handles, labels=[])
+plt.xlabel("$t$")
+plt.xlim([0, 0.06])
+plt.show()
 ```
+
+
+    <Figure size 432x288 with 0 Axes>
+
+
+
+    
+![svg](assignment-2_files/assignment-2_53_1.svg)
+    
+
+
+
+    
+![svg](assignment-2_files/assignment-2_53_2.svg)
+    
+
 
 **d) Discussion.** What two things do you expect increasing $\tau$ will do to $\hat{x}(t)$?
 
 
-✍ \<YOUR SOLUTION HERE\>
+Increasing $\tau$ will suppress higher frequency components of the signal and smoothes it. We can see that the window drop-off with a higher $\tau$ is much less steep than in the case with a smaller $\tau$ this would cause a smoother signal because of the winder window.
 
 
 **e) Decoding a spike-train using the post-synaptic current filter.** Decode $\hat{x}(t)$ from the spikes generated in question 3c) using an $h(t)$ with $n=0$ and $\tau=7\,\mathrm{ms}$. Do this by generating the spikes, filtering them with $h(t)$, and using that as your activity matrix $A$ to compute your decoders. Plot the time and frequency plots for this $h(t)$. Plot the $x(t)$ signal, the spikes, and the decoded $\hat{x}(t)$ value.
