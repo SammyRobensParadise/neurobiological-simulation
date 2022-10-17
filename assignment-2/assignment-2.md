@@ -1321,30 +1321,6 @@ plt.show()
 
 ```python
 plt.figure(1)
-plt.suptitle(
-    " $|X(\omega)|$, spike response $|R(\omega)|$, and filtered signal $|\hat X(\omega)|$"
-)
-c = plt.plot(fs, np.absolute(XHAT), label="$|\hat{X}(\omega)$|", alpha=1)
-a = plt.plot(fs, np.absolute(X), label="$|X(\omega)$|", alpha=0.75)
-b = plt.plot(fs, np.absolute(R), label="$|R(\omega)|$", alpha=0.6)
-plt.xlabel("Radians $\omega$")
-plt.xlim([-100, 100])
-plt.legend(
-    handles=[a, b, c],
-    labels=[],
-)
-plt.show()
-```
-
-
-    
-![svg](assignment-2_files/assignment-2_40_0.svg)
-    
-
-
-
-```python
-plt.figure(1)
 plt.subplot(2, 1, 1)
 plt.suptitle("Real Power spectrum of input $X(\omega)$ in frequency domain")
 xp = np.sqrt(XP.real)
@@ -1375,7 +1351,7 @@ plt.show()
 
 
     
-![svg](assignment-2_files/assignment-2_41_0.svg)
+![svg](assignment-2_files/assignment-2_40_0.svg)
     
 
 
@@ -1447,7 +1423,7 @@ plt.show()
 
 
     
-![svg](assignment-2_files/assignment-2_45_1.svg)
+![svg](assignment-2_files/assignment-2_44_1.svg)
     
 
 
@@ -1469,10 +1445,10 @@ def post_synaptic_current_filter(T=1, dt=1 / 1000, n=0, tau=7 / 1000):
     t = np.arange(0, T, dt)
     areas = []
     for pt in t:
-        val = (np.power(pt, n) * np.exp(-pt / tau)) * dt
+        val = np.power(pt, n) * np.exp(-pt / tau)
         areas.append(val)
     # perform the piecewise intergration as a Reimann sum for approx estimate of c
-    c = np.sum(areas)
+    c = np.trapz(areas, dx=dt) * 0.5 * len(t)
     h = np.power(c, -1) * np.power(t, n) * np.exp(-t / tau)
     return h, t
 
@@ -1523,13 +1499,13 @@ plt.show()
 
 
     
-![svg](assignment-2_files/assignment-2_49_1.svg)
+![svg](assignment-2_files/assignment-2_48_1.svg)
     
 
 
 
     
-![svg](assignment-2_files/assignment-2_49_2.svg)
+![svg](assignment-2_files/assignment-2_48_2.svg)
     
 
 
@@ -1560,7 +1536,7 @@ for idx, filter in enumerate(filters):
     a = ax[idx].plot(
         filter["t"],
         filter["h"],
-        label="$h(t)$ with $n=0$ and $\\tau=" + str(filter["tau"]) + "ms$",
+        label="$h(t)$ with $n=0$ and $\\tau=" + str(filter["tau"]) + "s$",
     )
     ax[idx].axis(xmin=0, xmax=0.06)
     ax[idx].legend(handles=[a], labels=[])
@@ -1578,7 +1554,7 @@ for idx, filter in enumerate(filters):
     a = plt.plot(
         filter["t"],
         filter["h"],
-        label="$h(t)$ with $n=0$ and $\\tau=" + str(filter["tau"]) + "ms$",
+        label="$h(t)$ with $n=0$ and $\\tau=" + str(filter["tau"] * 1000) + "ms$",
     )
     handles.append(a)
 plt.legend(handles=handles, labels=[])
@@ -1593,13 +1569,13 @@ plt.show()
 
 
     
-![svg](assignment-2_files/assignment-2_53_1.svg)
+![svg](assignment-2_files/assignment-2_52_1.svg)
     
 
 
 
     
-![svg](assignment-2_files/assignment-2_53_2.svg)
+![svg](assignment-2_files/assignment-2_52_2.svg)
     
 
 
@@ -1614,6 +1590,20 @@ Increasing $\tau$ will suppress higher frequency components of the signal and sm
 
 
 ```python
+def apply_filter(r, h):
+    # create a signal of length r
+    r_hat = np.array(np.zeros(len(r)))
+    for idx, pt in enumerate(r_hat):
+        V_th = 1
+        if r[idx] >= V_th:
+            # we hav a spike so perform a convolution
+            print("spike")
+        else:
+            r_hat[idx] = r[idx]
+
+    return r_hat
+
+
 # from 3c
 T = 2
 dt = 1 / 1000
@@ -1643,12 +1633,26 @@ r = spikes[0] - spikes[1]
 
 spikes = np.array([v_out_pos, v_out_neg])
 h, t = post_synaptic_current_filter(T=T, dt=dt, n=0, tau=tau)
-
-from scipy import signal
-
-f = np.convolve(r, h, "same")
-t_conv = np.arange(0, len(f) * dt, dt)
+r_hat = np.convolve(r, h, "same")
+plt.figure()
+plt.plot(t, r)
+plt.plot(t, x)
+plt.plot(t, h)
+plt.plot(t, r_hat)
 ```
+
+
+
+
+    [<matplotlib.lines.Line2D at 0x133ed61c0>]
+
+
+
+
+    
+![svg](assignment-2_files/assignment-2_56_1.svg)
+    
+
 
 **f) Deocding a spike-train representing a low-frequency signal.** Use the same decoder and $h(t)$ as in part e), but generate a new $x(t)$ with $\mathtt{limit}=2\,\mathrm{Hz}$. Plot the $x(t)$ signal, the spikes, and the decoded $\hat{x}(t)$ value.
 
