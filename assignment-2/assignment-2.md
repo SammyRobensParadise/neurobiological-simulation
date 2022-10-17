@@ -1448,8 +1448,8 @@ def post_synaptic_current_filter(T=1, dt=1 / 1000, n=0, tau=7 / 1000):
         val = np.power(pt, n) * np.exp(-pt / tau)
         areas.append(val)
     # perform the piecewise intergration as a Reimann sum for approx estimate of c
-    c = np.trapz(areas, dx=dt) * 0.5 * len(t)
-    h = np.power(c, -1) * np.power(t, n) * np.exp(-t / tau)
+    c = np.trapz(areas, dx=dt)
+    h = np.power(c, -1) * np.power(t, n) * np.exp(-t / tau) / (0.25 * len(t))
     return h, t
 
 
@@ -1644,7 +1644,7 @@ plt.plot(t, r_hat)
 
 
 
-    [<matplotlib.lines.Line2D at 0x133ed61c0>]
+    [<matplotlib.lines.Line2D at 0x1339632b0>]
 
 
 
