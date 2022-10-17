@@ -1614,7 +1614,40 @@ Increasing $\tau$ will suppress higher frequency components of the signal and sm
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+# from 3c
+T = 2
+dt = 1 / 1000
+rms = 0.5
+limit = 5
+tau = 7 / 1000
+t = np.arange(0, T, dt)
+x, X = generate_signal(T, dt, rms, limit, s)
+
+
+# send an input to our  population of neurons
+Pop.spike(x, dt)
+# our first neuron has a positive encoder +1
+neuron_pos = Pop.get_neuron(0)
+# out second neuron has a negative encoder -1
+neuron_neg = Pop.get_neuron(1)
+
+# get the first colum of the outputs which is the voltages
+v_out_pos = neuron_pos.output()[:, 0]
+v_out_neg = neuron_neg.output()[:, 0]
+
+# checking that they are reflections of themselves
+assert v_out_neg.all() == -1 * v_out_pos.all()
+
+spikes = np.array([v_out_pos, v_out_neg])
+r = spikes[0] - spikes[1]
+
+spikes = np.array([v_out_pos, v_out_neg])
+h, t = post_synaptic_current_filter(T=T, dt=dt, n=0, tau=tau)
+
+from scipy import signal
+
+f = np.convolve(r, h, "same")
+t_conv = np.arange(0, len(f) * dt, dt)
 ```
 
 **f) Deocding a spike-train representing a low-frequency signal.** Use the same decoder and $h(t)$ as in part e), but generate a new $x(t)$ with $\mathtt{limit}=2\,\mathrm{Hz}$. Plot the $x(t)$ signal, the spikes, and the decoded $\hat{x}(t)$ value.
