@@ -1440,19 +1440,6 @@ As the limit increases we can see that the time plot of the filter becomes "tigh
 
 
 ```python
-"""
-def post_synaptic_current_filter(T=2, dt=1 / 1000, n=0, tau=7 / 1000):
-    # assume that t is always greater than 0 in this case
-    t = np.arange(0, T, dt)
-    areas = []
-    for pt in t:
-        val = np.power(pt, n) * np.exp(-pt / tau) * 0.5 * len(t)
-        areas.append(val)
-    # perform the piecewise intergration as a Reimann sum for approx estimate of c
-    c = np.trapz(areas, dx=dt)
-    h = np.power(c, -1) * np.power(t, n) * np.exp(-t / tau)
-    return h, t
-"""
 from scipy.integrate import quad
 
 
@@ -1460,16 +1447,18 @@ def C(timepoint, nn, ttau):
     return np.power(timepoint, nn) * np.exp(-timepoint / ttau)
 
 
-def post_synaptic_current_filter(T=2, dt=1 / 1000, n=0, tau=7 / 1000):
-    t = np.arange(0, T, dt)
+def post_synaptic_current_filter(t0=0, T=2, dt=1 / 1000, n=0, tau=7 / 1000):
+    t = np.arange(t0, T, dt)
     N = t.size
     h = np.array(np.zeros(N))
 
     for idx, point in enumerate(h):
         c = quad(C, 0, np.Inf, args=(n, tau))[0]
         h[idx] = np.power(c, -1) * np.power(t[idx], n) * np.exp(-t[idx] / tau)
+        if t[idx] < 0:
+            h[idx] = 0
     # normalize h
-    h = h / np.linalg.norm(h)
+    h = h / (N / 2)
     return h, t
 
 
@@ -1478,7 +1467,7 @@ tau = 7 / 1000
 n_vals = [0, 1, 2]
 filters = []
 for n in n_vals:
-    h, t = post_synaptic_current_filter(T=T, dt=dt, n=n, tau=tau)
+    h, t = post_synaptic_current_filter(t0=-0.5, T=T, dt=dt, n=n, tau=tau)
     filters.append({"h": h, "t": t, "n": n})
 
 plt.figure(1)
@@ -1490,7 +1479,7 @@ for idx, filter in enumerate(filters):
         filter["h"],
         label="$h(t)$ with $\\tau=7ms$ and n=" + str(filter["n"]),
     )
-    ax[idx].axis(xmin=0, xmax=0.1)
+    ax[idx].axis(xmin=-0.05, xmax=0.1)
     ax[idx].legend(handles=[a], labels=[])
     plt.xlabel("$t$")
 fig.tight_layout(pad=1.0)
@@ -1509,7 +1498,7 @@ for idx, filter in enumerate(filters):
     handles.append(a)
 plt.legend(handles=handles, labels=[])
 plt.xlabel("$t$")
-plt.xlim([0, 0.1])
+plt.xlim([-0.05, 0.1])
 plt.show()
 ```
 
@@ -1544,7 +1533,7 @@ n = 0
 tau_vals = [2 / 1000, 5 / 1000, 10 / 1000, 20 / 1000]
 filters = []
 for tau in tau_vals:
-    h, t = post_synaptic_current_filter(T=T, dt=dt, n=n, tau=tau)
+    h, t = post_synaptic_current_filter(t0=-0.5, T=T, dt=dt, n=n, tau=tau)
     filters.append({"h": h, "t": t, "tau": tau})
 
 plt.figure(1)
@@ -1558,7 +1547,7 @@ for idx, filter in enumerate(filters):
         filter["h"],
         label="$h(t)$ with $n=0$ and $\\tau=" + str(filter["tau"] * 1000) + "ms$",
     )
-    ax[idx].axis(xmin=0, xmax=0.06)
+    ax[idx].axis(xmin=-0.01, xmax=0.06)
     ax[idx].legend(handles=[a], labels=[])
     plt.xlabel("$t$")
 fig.tight_layout(pad=1.0)
@@ -1579,7 +1568,7 @@ for idx, filter in enumerate(filters):
     handles.append(a)
 plt.legend(handles=handles, labels=[])
 plt.xlabel("$t$")
-plt.xlim([0, 0.06])
+plt.xlim([-0.01, 0.06])
 plt.show()
 ```
 
@@ -1610,6 +1599,9 @@ Increasing $\tau$ will suppress higher frequency components of the signal and sm
 
 
 ```python
+def filter(r, h, t):
+    return np.convolve(r, h)[: len(t)]
+
 
 # from 3c
 T = 2
@@ -1639,25 +1631,24 @@ spikes = np.array([v_out_pos, v_out_neg])
 r = spikes[0] - spikes[1]
 
 spikes = np.array([v_out_pos, v_out_neg])
-h, t = post_synaptic_current_filter(T=T, dt=dt, n=0, tau=tau)
-r_hat = np.convolve(r, h, "same")
+h, t = post_synaptic_current_filter(t0=0, T=T, dt=dt, n=0, tau=tau)
+# throw  away the stuff we don't care about
+x_hat = filter(r, h, t)
 plt.figure()
-plt.plot(t, r)
-plt.plot(t, x)
-plt.plot(t, h)
-plt.plot(t, r_hat)
+plt.suptitle(
+    "Spike train, input $x(t)$ and decoded output signal $\hat{x}(t)$ on 0 to 2 seconds"
+)
+a = plt.plot(t, r, label="Spikes $v(t)$", alpha=0.6)
+b = plt.plot(t, x, label="input $x(t)$", alpha=0.8, color="#FF4D00")
+c = plt.plot(t, x_hat, label="decoded output $\hat{x}(t)$", color="#003DDE")
+plt.xlim([0, 2])
+plt.legend(handles=[a, b, c], labels=[])
+plt.show()
 ```
 
 
-
-
-    [<matplotlib.lines.Line2D at 0x1335ede50>]
-
-
-
-
     
-![svg](assignment-2_files/assignment-2_56_1.svg)
+![svg](assignment-2_files/assignment-2_56_0.svg)
     
 
 
