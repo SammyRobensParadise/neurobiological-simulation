@@ -1603,6 +1603,10 @@ def filter(r, h, t):
     return np.convolve(r, h)[: len(t)]
 
 
+def rmse(x1, x2):
+    return np.sqrt(np.mean(np.power(x1 - x2, 2)))
+
+
 # from 3c
 T = 2
 dt = 1 / 1000
@@ -1643,7 +1647,11 @@ b = plt.plot(t, x, label="input $x(t)$", alpha=0.8, color="#FF4D00")
 c = plt.plot(t, x_hat, label="decoded output $\hat{x}(t)$", color="#003DDE")
 plt.xlim([0, 2])
 plt.legend(handles=[a, b, c], labels=[])
+plt.xlabel("$t$")
+plt.ylabel("Magnitude")
 plt.show()
+
+print_block("RMSE",rmse(x,x_hat))
 ```
 
 
@@ -1652,16 +1660,70 @@ plt.show()
     
 
 
+    RMSE ----------
+    0.3193602646884821
+    -----------------
+
+
 **f) Deocding a spike-train representing a low-frequency signal.** Use the same decoder and $h(t)$ as in part e), but generate a new $x(t)$ with $\mathtt{limit}=2\,\mathrm{Hz}$. Plot the $x(t)$ signal, the spikes, and the decoded $\hat{x}(t)$ value.
 
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+limit = 2
+x, X = generate_signal(T, dt, rms, limit, s)
+
+# send an input to our  population of neurons
+Pop.spike(x, dt)
+# our first neuron has a positive encoder +1
+neuron_pos = Pop.get_neuron(0)
+# out second neuron has a negative encoder -1
+neuron_neg = Pop.get_neuron(1)
+
+# get the first colum of the outputs which is the voltages
+v_out_pos = neuron_pos.output()[:, 0]
+v_out_neg = neuron_neg.output()[:, 0]
+
+# checking that they are reflections of themselves
+assert v_out_neg.all() == -1 * v_out_pos.all()
+
+spikes = np.array([v_out_pos, v_out_neg])
+r = spikes[0] - spikes[1]
+
+spikes = np.array([v_out_pos, v_out_neg])
+h, t = post_synaptic_current_filter(t0=0, T=T, dt=dt, n=0, tau=tau)
+# throw  away the stuff we don't care about
+x_hat = filter(r, h, t)
+plt.figure()
+plt.suptitle(
+    "Spike train, input $x(t)$ and decoded output signal $\hat{x}(t)$ on 0 to 2 seconds"
+)
+a = plt.plot(t, r, label="Spikes $v(t)$", alpha=0.6)
+b = plt.plot(t, x, label="input $x(t)$ with 2Hz limit", alpha=0.8, color="#FF4D00")
+c = plt.plot(t, x_hat, label="decoded output $\hat{x}(t)$", color="#003DDE")
+plt.xlim([0, 2])
+plt.legend(handles=[a, b, c], labels=[])
+plt.xlabel("$t$")
+plt.ylabel("Magnitude")
+plt.show()
+
+
+print_block("RMSE", rmse(x, x_hat))
 ```
+
+
+    
+![svg](assignment-2_files/assignment-2_58_0.svg)
+    
+
+
+    RMSE ----------
+    0.30554046044402505
+    -----------------
+
 
 **g) Discussion.** How do the decodings from e) and f) compare? Explain.
 
 
-✍ \<YOUR SOLUTION HERE\>
+We can see that the decodings at a lower frequency is more accurate. but only slightly as the RMSE  error is nearly identical. inversely, increasing the frequency by an order of magnitude only slightly increases the RMSE. What we can conclude from this is that the error is somewhat stable from low frequencies typically present in biological systems.
 
