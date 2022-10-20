@@ -1572,22 +1572,6 @@ plt.xlim([-0.01, 0.06])
 plt.show()
 ```
 
-
-    <Figure size 432x288 with 0 Axes>
-
-
-
-    
-![svg](assignment-2_files/assignment-2_52_1.svg)
-    
-
-
-
-    
-![svg](assignment-2_files/assignment-2_52_2.svg)
-    
-
-
 **d) Discussion.** What two things do you expect increasing $\tau$ will do to $\hat{x}(t)$?
 
 
