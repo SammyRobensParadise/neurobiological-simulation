@@ -21,6 +21,16 @@ np.random.seed(18945)
 %config InlineBackend.figure_formats = ['svg']
 ```
 
+
+```python
+def rmse(x1, x2):
+    return np.sqrt(np.mean(np.power(x1 - x2, 2)))
+
+
+def rms(x):
+    return np.sqrt(np.mean(np.power(x, 2)))
+```
+
 # 1. Decoding from a population
 
 **a) Tuning curves.** Plot the tuning curves (firing rate of each neuron for different $x$ values between $-2$ and $2$).
@@ -237,7 +247,7 @@ plt.show()
 
 
     
-![svg](assignment-3_files/assignment-3_4_0.svg)
+![svg](assignment-3_files/assignment-3_5_0.svg)
     
 
 
@@ -246,8 +256,69 @@ plt.show()
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+A = curves
+X = X
+noise_stdev = 0.1 * 200
+w_noise = np.random.normal(scale=noise_stdev, size=np.shape(A))
+A_NOISE = A + w_noise
+N = len(X)
+n = num_neurons
+# find decoders via least squares solution
+D = np.linalg.lstsq(
+    A @ A.T + 0.5 * N * np.square(noise_stdev) * np.eye(n), A @ X.T, rcond=None
+)[0]
+
+print_block("Decoders with noise", D)
+
+X_hat = np.dot(D, A_NOISE)
+X = np.array(X)
+E = X - X_hat
+
+plt.figure()
+plt.suptitle("$x-\hat{x}$ with Noisey Decoders and Noise in the activities matrix $A$")
+plt.plot(X, E)
+plt.xlabel("stimuli $x$")
+plt.ylabel("$x-\hat{x}$")
+plt.xlim([-2, 2])
+plt.show()
+
+plt.figure()
+plt.suptitle("$x$ and $\hat{x}$ relative to the stimuli $x$")
+x1 = plt.plot(X, X_hat, label="$x$")
+x2 = plt.plot(X, X, label="$\hat{x}$")
+plt.xlim([-2, 2])
+plt.legend(handles=[x1, x2], labels=[])
+plt.xlabel("stimuli $x$")
+plt.show()
+
+
+print_block("RMSE", rmse(X, X_hat))
 ```
+
+    Decoders with noise ----------
+    [-0.00068122 -0.00101302 -0.00127595  0.0001646  -0.00072472 -0.00063046
+      0.0018315   0.0016065  -0.00056462  0.00216541  0.00076354 -0.00112071
+      0.00170102  0.00196816 -0.00276315 -0.00117113  0.00196086 -0.00127341
+     -0.00057206  0.00146749]
+    -----------------
+
+
+
+    
+![svg](assignment-3_files/assignment-3_7_1.svg)
+    
+
+
+
+    
+![svg](assignment-3_files/assignment-3_7_2.svg)
+    
+
+
+    RMSE ----------
+    0.12919565696552784
+    -----------------
+
 
 # 2. Decoding from two spiking neurons
 
