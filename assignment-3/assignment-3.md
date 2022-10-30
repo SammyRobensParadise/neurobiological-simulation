@@ -101,6 +101,9 @@ class Population:
     def nuke(self):
         self.neurons = []
 
+    def clear_rates(self):
+        self.rates = []
+
     """ Applies a mutator to each neuron in the population """
 
     def mutate(self, mutator):
@@ -118,6 +121,7 @@ class Population:
         return O
 
     def get_curves(self, input):
+        self.rates = []
         for neuron in self.neurons:
             self.rates.append(neuron.rates(input))
         return self.rates
@@ -258,6 +262,7 @@ class Neuron(Population):
         return self.firing_rates
 
     def rates(self, x):
+        self.firing_rates = []
         for point in x:
             self.firing_rates.append(self.encode(point))
         return self.firing_rates
@@ -617,8 +622,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    1b8d54a0-96f4-41f3-b938-18c1ae850117
-    38882fbf-16f5-446a-a67d-ac4b1d34d049
+    2585b9ea-8558-4112-b485-63c5885318da
+    7bf79a46-7343-4037-b52e-4b2e25c720fd
 
 
 
@@ -718,7 +723,6 @@ for amount in neuron_sets:
         set.append(ensemble)
     populations.append(set)
 
-# generate input signal
 T = 1
 dt = 1 / 1000
 rms = 1
@@ -878,6 +882,22 @@ where $N$ is the integer number of neurons encoding and decoding an input in a p
 
 
 ```python
+def decoder(signal=[], A=[], num_neurons=200):
+    X = signal
+    noise_stdev = 0.1 * 200
+    w_noise = np.random.normal(scale=noise_stdev, size=np.shape(A))
+    A_NOISE = A + w_noise
+    N = len(X)
+    n = num_neurons
+    # find decoders via least squares solution
+    D = np.linalg.lstsq(
+        A @ A.T + 0.5 * N * np.square(noise_stdev) * np.eye(n),
+        A @ X.T,
+        rcond=None,
+    )[0]
+    return D, A_NOISE
+
+
 # we want 20 neurons
 num_neurons = 200
 # with this default state
@@ -895,7 +915,81 @@ state = {
 ensemble_x = Population(num_neurons, state=state)
 ensemble_y = Population(num_neurons, state=state)
 
+
+T = 1
+dt = 1 / 1000
+rms = 1
+limit = 5
+t = np.arange(0, T, dt)
+
+# y(x) = x
+x1 = np.linspace(-1, 1, len(t))
+# y(x) = 2x+1
+x2 = [2 * t + 1 for t in x1]
+
+
+curves_x = np.array(ensemble_x.get_curves(x1))
+curves_y = np.array(ensemble_y.get_curves(x2))
+
+# create matrix of activities
+A_X = curves_x
+A_Y = curves_y
+
+D_X, A_X_NOISE = decoder(signal=np.array(x1), A=A_X, num_neurons=num_neurons)
+D_Y, A_Y_NOISE = decoder(signal=np.array(x2), A=A_Y, num_neurons=num_neurons)
+
+# make sure we have all our decoders
+assert len(D_X) == num_neurons
+assert len(D_Y) == num_neurons
+
+# get our x hat signals with tuned decoders
+x1_hat_tuned = np.dot(D_X, A_X_NOISE)
+x2_hat_tuned = np.dot(D_Y, A_Y_NOISE)
+
+# make test input
+ls = np.linspace(-1, 0, len(t))
+x3 = [t - 1 for t in ls]
+
+# x3(t) -> Population 1
+curves_X = np.array(ensemble_x.get_curves(x3))
+
+A_X = curves_X
+
+# Population 1 -> x4(t)
+print(A_X.shape)
+print(D_X.shape)
+x4 = np.dot(D_X, A_X)
+print(x4.shape)
+
+# x4(t) -> Population 2
+curves_Y = np.array(ensemble_y.get_curves(x4))
+
+A_Y = curves_Y
+
+# Population 2 -> x5(t)
+x5 = np.dot(D_Y, A_Y)
+
+x_hat = x5
+
+plt.figure()
+plt.suptitle("inputs $x(t)$, $y(t)$ and $\hat{y(t)}$")
+a = plt.plot(ls, x3, label="input")
+b = plt.plot(ls, x4, label="middle")
+c = plt.plot(ls, x_hat, label="output")
+plt.legend(handles=[a, b, c], labels=[])
+plt.show()
 ```
+
+    (200, 1000)
+    (200,)
+    (1000,)
+
+
+
+    
+![svg](assignment-3_files/assignment-3_20_1.svg)
+    
+
 
 **b) Step input.** Repeat part (a) with an input that is ten randomly chosen values between -1 and 0, each one held for 0.1 seconds (a randomly varying step input)
 
