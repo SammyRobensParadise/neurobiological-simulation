@@ -617,8 +617,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    25df97ca-3151-4692-a8b5-569ee6550c28
-    5fbfb856-85b2-4ffb-a137-ee485021b23a
+    9f689cf5-b7e3-4816-807c-38552a1c319e
+    57ed68d2-bd7d-4b1d-ac67-b4d7464a3711
 
 
 
@@ -793,6 +793,7 @@ x2 = ax.plot(neuron_sets, n, "--", label="$1/n$")
 x3 = ax.plot(neuron_sets, population_errors_activities, "--", label="Activities Error")
 ax.set_xscale("log")
 ax.set_yscale("log")
+ax.legend(handles=[x1,x2,x3],labels=[])
 plt.xlabel("Neurons")
 plt.ylabel("Squared Error")
 plt.show()
@@ -803,6 +804,7 @@ plt.title("No log trend of RMSE errors with respect to number of neurons")
 x1 = ax.plot(neuron_sets, population_errors_spike, label="Spiking Errors")
 x2 = ax.plot(neuron_sets, n, "--", label="$1/n$")
 x3 = ax.plot(neuron_sets, population_errors_activities, "--", label="Activities Error")
+ax.legend(handles=[x1,x2,x3],labels=[])
 plt.xlabel("Neurons")
 plt.ylabel("Squared Error")
 plt.show()
