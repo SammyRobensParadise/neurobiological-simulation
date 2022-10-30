@@ -121,7 +121,6 @@ class Population:
         return O
 
     def get_curves(self, input):
-        self.rates = []
         for neuron in self.neurons:
             self.rates.append(neuron.rates(input))
         return self.rates
@@ -622,8 +621,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    2585b9ea-8558-4112-b485-63c5885318da
-    7bf79a46-7343-4037-b52e-4b2e25c720fd
+    7868973e-4727-4341-ad6b-e413c37631f5
+    9886ece9-3ae8-43d0-a24b-91146f5bea3b
 
 
 
@@ -898,7 +897,7 @@ def decoder(signal=[], A=[], num_neurons=200):
     return D, A_NOISE
 
 
-# we want 20 neurons
+# we want 200 neurons
 num_neurons = 200
 # with this default state
 state = {
@@ -912,15 +911,15 @@ state = {
 }
 
 # create a population of 200 neurons with the default states
-ensemble_x = Population(num_neurons, state=state)
-ensemble_y = Population(num_neurons, state=state)
+ensemble_x = Population(num_neurons=200, state=state)
+ensemble_y = Population(num_neurons=200, state=state)
 
 
 T = 1
 dt = 1 / 1000
 rms = 1
 limit = 5
-t = np.arange(0, T, dt)
+t = np.arange(-1, T, dt)
 
 # y(x) = x
 x1 = np.linspace(-1, 1, len(t))
@@ -948,48 +947,10 @@ x2_hat_tuned = np.dot(D_Y, A_Y_NOISE)
 
 # make test input
 ls = np.linspace(-1, 0, len(t))
-x3 = [t - 1 for t in ls]
+x3 = [2 * t + 1 for t in ls]
 
-# x3(t) -> Population 1
-curves_X = np.array(ensemble_x.get_curves(x3))
 
-A_X = curves_X
-
-# Population 1 -> x4(t)
-print(A_X.shape)
-print(D_X.shape)
-x4 = np.dot(D_X, A_X)
-print(x4.shape)
-
-# x4(t) -> Population 2
-curves_Y = np.array(ensemble_y.get_curves(x4))
-
-A_Y = curves_Y
-
-# Population 2 -> x5(t)
-x5 = np.dot(D_Y, A_Y)
-
-x_hat = x5
-
-plt.figure()
-plt.suptitle("inputs $x(t)$, $y(t)$ and $\hat{y(t)}$")
-a = plt.plot(ls, x3, label="input")
-b = plt.plot(ls, x4, label="middle")
-c = plt.plot(ls, x_hat, label="output")
-plt.legend(handles=[a, b, c], labels=[])
-plt.show()
 ```
-
-    (200, 1000)
-    (200,)
-    (1000,)
-
-
-
-    
-![svg](assignment-3_files/assignment-3_20_1.svg)
-    
-
 
 **b) Step input.** Repeat part (a) with an input that is ten randomly chosen values between -1 and 0, each one held for 0.1 seconds (a randomly varying step input)
 
