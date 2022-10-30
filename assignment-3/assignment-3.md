@@ -617,8 +617,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    5ae9dd23-a4eb-4fd2-b4a0-a09f4ebfd4d3
-    82cccc02-ff33-4eee-bb97-034de7f17107
+    25df97ca-3151-4692-a8b5-569ee6550c28
+    5fbfb856-85b2-4ffb-a137-ee485021b23a
 
 
 
@@ -795,8 +795,16 @@ ax.set_xscale("log")
 ax.set_yscale("log")
 plt.xlabel("Neurons")
 plt.ylabel("Squared Error")
+plt.show()
 
-plt.legend(handles=[x1, x2, x3], labels=[])
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+plt.title("No log trend of RMSE errors with respect to number of neurons")
+x1 = ax.plot(neuron_sets, population_errors_spike, label="Spiking Errors")
+x2 = ax.plot(neuron_sets, n, "--", label="$1/n$")
+x3 = ax.plot(neuron_sets, population_errors_activities, "--", label="Activities Error")
+plt.xlabel("Neurons")
+plt.ylabel("Squared Error")
 plt.show()
 ```
 
@@ -844,11 +852,22 @@ plt.show()
     
 
 
+
+    
+![svg](assignment-3_files/assignment-3_16_2.svg)
+    
+
+
 **b) Discussion.** Discuss your results. What is the systematic relationship between the neuron count and the error?
 
 
-✍ \<YOUR SOLUTION HERE\>
-
+As we can see from the above graphs, there is a negative exponentialy decaying relationship beween the number of neurons and the error. As we increase the number of neurions we see a rapid decrease in the error until we reach about 200 neurons in the population at which point we begin to see a decay in the decrease in the error, relative to the increase in the number of neurons. What can be  said is that generally speaking
+$$
+\begin{equation}
+Error \propto \frac{1}{N}, \Rightarrow \text{ as } N \to \infty, Error \to 0
+\end{equation}
+$$
+where $N$ is the integer number of neurons encoding and decoding an input in a population
 
 # 4. Connecting two groups of neurons
 
