@@ -110,10 +110,10 @@ class Population:
             for neuron in self.neurons:
                 mutator(neuron)
 
-    def spike(self, X, dT):
+    def spike(self, X, dT, cap=None):
         O = []
         for neuron in self.neurons:
-            spikes = neuron.spikies(X, dT)
+            spikes = neuron.spikies(X, dT, cap)
             O.append(spikes)
         return O
 
@@ -134,6 +134,21 @@ class Population:
             if target_id == neuron.get_id():
                 match = neuron
         return match
+
+    def get_spikes(self):
+        spikes = []
+        for neuron in self.neurons:
+            spikes.append(neuron.get_spiketrend()[:, 0])
+        return spikes
+
+    def get_ordered_encoders(self):
+        encoders = []
+        for neuron in self.neurons:
+            encoders.append(neuron.get_encoder())
+        return encoders
+
+    def get_neuron_count(self):
+        return len(self.neurons)
 
     def get_neurons_by_rate(self, rate_range=[20, 50], stim=0):
         target_neurons = []
@@ -230,7 +245,6 @@ class Neuron(Population):
     def set_rate(self, rate):
         self.max_rate = rate
 
-
     def set_bias(self, bias):
         self.j_bias = bias
 
@@ -251,7 +265,7 @@ class Neuron(Population):
     def clear_rates(self):
         self.firing_rates = []
 
-    def spikies(self, X, dT):
+    def spikies(self, X, dT, cap=None):
         N = np.floor(self.tau_ref / dT)
         V_th = 1
         V_rest = 0
@@ -279,7 +293,10 @@ class Neuron(Population):
                     ref_period = True
                     # assign the first collumn to the current voltage
                     # assign a constant spiking voltage to make identification easier
-                    spikes[idx][0] = V
+                    if cap != None:
+                        spikes[idx][0] = cap
+                    else:
+                        spikes[idx][0] = V
                     # reset the voltage to 0
                     V = V_rest
                     V_prev = V_rest
@@ -600,8 +617,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    7f137ad6-1e5c-4bb5-83bb-a48896c8edc3
-    bc23223d-7400-4817-a3da-e9c026e24afc
+    5ae9dd23-a4eb-4fd2-b4a0-a09f4ebfd4d3
+    82cccc02-ff33-4eee-bb97-034de7f17107
 
 
 
@@ -635,7 +652,6 @@ assert v_out_neg.all() == -1 * v_out_pos.all()
 spikes = np.array([v_out_pos, v_out_neg])
 r = spikes[0] - spikes[1]
 
-spikes = np.array([v_out_pos, v_out_neg])
 
 x_hat = filter(x, h, t)
 
@@ -651,8 +667,6 @@ plt.legend(handles=[a, b, c], labels=[])
 plt.xlabel("$t$")
 plt.ylabel("Magnitude")
 plt.show()
-
-
 ```
 
 
@@ -681,8 +695,154 @@ print_block("RMSE",rmse(x,x_hat))
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+# create sets of neurons
+neuron_sets = [8, 16, 32, 64, 128, 256]
+num_sets = 5
+# with this default state
+state = {
+    "min_rate": 100,
+    "max_rate": 200,
+    "encoder": [-1, 1],
+    "tau_ref": 2 / 1000,
+    "tau_rc": 20 / 1000,
+    "min_x_int": -2,
+    "max_x_int": 2,
+}
+
+populations = []
+# create populations
+for amount in neuron_sets:
+    set = []
+    for count in range(num_sets):
+        ensemble = Population(num_neurons=amount, state=state)
+        set.append(ensemble)
+    populations.append(set)
+
+# generate input signal
+T = 1
+dt = 1 / 1000
+rms = 1
+limit = 5
+t = np.arange(0, T, dt)
+
+
+# generate synapic filter
+h, t_h = synaptic_filter(tau=5 / 1000, dt=dt, ms=T * 1000)
+
+# spike the neurons
+population_errors_spike = []
+population_errors_activities = []
+for population_set in populations:
+    set_errors_spike = []
+    set_errors_activites = []
+    for idx, population in enumerate(population_set):
+        x, X = generate_signal(T, dt, rms, limit, s)
+        population.spike(x, dt)
+        curves = np.array(population.get_curves(x))
+        population_spikes = np.array(population.get_spikes())
+        ordered_encoders = np.array(population.get_ordered_encoders())
+        r = np.zeros(len(t))
+        for idx, population_spike in enumerate(population_spikes):
+            if ordered_encoders[idx] == 1:
+                r = r + population_spike
+            if ordered_encoders[idx] == -1:
+                r = r - population_spike
+            else:
+                r = r
+        x_hat = filter(r, h, t)
+        error_denom_spike = rmse(x, x_hat)
+        set_errors_spike.append(1 / error_denom_spike)
+
+        A = curves
+        noise_stdev = 0.1 * 200
+        w_noise = np.random.normal(scale=noise_stdev, size=np.shape(A))
+        A_NOISE = A + w_noise
+        N = len(x)
+        n = population.get_neuron_count()
+        x = np.array(x)
+        # find decoders via least squares solution
+        D = np.linalg.lstsq(
+            A @ A.T + 0.5 * N * np.square(noise_stdev) * np.eye(n), A @ x.T, rcond=None
+        )[0]
+        x_hat_activities = np.dot(D, A_NOISE)
+        x = np.array(x)
+        error_activities = rmse(x, x_hat_activities)
+        set_errors_activites.append(error_activities)
+
+    mean_error_spikes = np.mean(np.array(set_errors_spike))
+    mean_error_activites = np.mean(np.array(set_errors_activites))
+    population_errors_spike.append(mean_error_spikes)
+    population_errors_activities.append(mean_error_activites)
+
+
+for idx, errors in enumerate(population_errors_spike):
+    print_block("RMSE for " + str(neuron_sets[idx]) + " neurons from spikes", errors)
+    print_block(
+        "RMSE for " + str(neuron_sets[idx]) + " neurons from activities",
+        population_errors_activities[idx],
+    )
+
+
+n = [1 / N for N in neuron_sets]
+
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+plt.title("Log Log trend of RMSE errors with respect to number of neurons")
+x1 = ax.plot(neuron_sets, population_errors_spike, label="Spiking Errors")
+x2 = ax.plot(neuron_sets, n, "--", label="$1/n$")
+x3 = ax.plot(neuron_sets, population_errors_activities, "--", label="Activities Error")
+ax.set_xscale("log")
+ax.set_yscale("log")
+plt.xlabel("Neurons")
+plt.ylabel("Squared Error")
+
+plt.legend(handles=[x1, x2, x3], labels=[])
+plt.show()
 ```
+
+    RMSE for 8 neurons from spikes ----------
+    0.8920560172768504
+    -----------------
+    RMSE for 8 neurons from activities ----------
+    0.2556622504392272
+    -----------------
+    RMSE for 16 neurons from spikes ----------
+    0.44526031603472926
+    -----------------
+    RMSE for 16 neurons from activities ----------
+    0.16655459817920598
+    -----------------
+    RMSE for 32 neurons from spikes ----------
+    0.26964750188977693
+    -----------------
+    RMSE for 32 neurons from activities ----------
+    0.10514449469879364
+    -----------------
+    RMSE for 64 neurons from spikes ----------
+    0.15132058521596464
+    -----------------
+    RMSE for 64 neurons from activities ----------
+    0.07087349168376288
+    -----------------
+    RMSE for 128 neurons from spikes ----------
+    0.06588677845343757
+    -----------------
+    RMSE for 128 neurons from activities ----------
+    0.04914791260802407
+    -----------------
+    RMSE for 256 neurons from spikes ----------
+    0.03533261871701505
+    -----------------
+    RMSE for 256 neurons from activities ----------
+    0.03514458778002315
+    -----------------
+
+
+
+    
+![svg](assignment-3_files/assignment-3_16_1.svg)
+    
+
 
 **b) Discussion.** Discuss your results. What is the systematic relationship between the neuron count and the error?
 
