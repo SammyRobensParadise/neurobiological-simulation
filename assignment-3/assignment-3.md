@@ -93,6 +93,7 @@ class Population:
                 self.neurons.append(neuron)
         else:
             for neuron_override in neuron_overrides:
+                print(neuron_override.get_id())
                 self.neurons.append(neuron_override)
 
     """ Cleans out a population """
@@ -146,18 +147,32 @@ class Population:
 
 
 class Neuron(Population):
-    def __init__(self, state):
-        self.x_int = np.random.uniform(state["min_x_int"], state["max_x_int"])
-        self.max_rate = np.random.uniform(state["min_rate"], state["max_rate"])
-        self.e = np.random.choice(state["encoder"])
-        self.tau_ref = state["tau_ref"]
-        self.tau_rc = state["tau_rc"]
-        J_max = maxJ(tau_ref=self.tau_ref, tau_rc=self.tau_rc, max_rate=self.max_rate)
-        self.alpha = gain(J_max, self.e, self.x_int)
-        self.j_bias = bias(alpha=self.alpha, e=self.e, intercept=self.x_int)
-        self.id = uuid4()
-        self.spiketrend = []
-        self.firing_rates = []
+    def __init__(self, state=None, override=None):
+        if override == None:
+            self.x_int = np.random.uniform(state["min_x_int"], state["max_x_int"])
+            self.max_rate = np.random.uniform(state["min_rate"], state["max_rate"])
+            self.e = np.random.choice(state["encoder"])
+            self.tau_ref = state["tau_ref"]
+            self.tau_rc = state["tau_rc"]
+            J_max = maxJ(
+                tau_ref=self.tau_ref, tau_rc=self.tau_rc, max_rate=self.max_rate
+            )
+            self.alpha = gain(J_max, self.e, self.x_int)
+            self.j_bias = bias(alpha=self.alpha, e=self.e, intercept=self.x_int)
+            self.id = uuid4()
+            self.spiketrend = []
+            self.firing_rates = []
+        else:
+            self.x_int = override["x_int"]
+            self.max_rate = override["max_rate"]
+            self.e = override["encoder"]
+            self.tau_ref = override["tau_ref"]
+            self.tau_rc = override["tau_rc"]
+            self.alpha = override["alpha"]
+            self.j_bias = override["j_bias"]
+            self.id = uuid4()
+            self.spiketrend = override["spiketrend"]
+            self.firing_rates = override["firing_rates"]
 
     def whoisthis(self):
         print(self.__dict__)
@@ -188,20 +203,33 @@ class Neuron(Population):
     def get_bias(self):
         return self.j_bias
 
-    def get_rate(self):
+    def get_max_rate(self):
         return self.max_rate
+
+    def get_tau_rc(self):
+        return self.tau_rc
+
+    def get_tau_ref(self):
+        return self.tau_ref
 
     def get_id(self):
         return self.id
 
+    def set_encoder(self, encoder):
+        self.e = encoder
+
     def get_encoder(self):
         return self.e
 
-    def set_encoder(self, e):
-        self.e = e
+    def me(self):
+        return self
+
+    def dangerously_set_id(self, ied):
+        self.id = ied
 
     def set_rate(self, rate):
         self.max_rate = rate
+
 
     def set_bias(self, bias):
         self.j_bias = bias
@@ -209,8 +237,11 @@ class Neuron(Population):
     def set_gain(self, gain):
         self.alpha = gain
 
-    def output(self):
+    def get_spiketrend(self):
         return self.spiketrend
+
+    def get_rates(self):
+        return self.firing_rates
 
     def rates(self, x):
         for point in x:
@@ -498,46 +529,52 @@ def plot_signal(
             print("frequency-domain RMSE " + str(np.round(signal_rms(signal["X"]), 3)))
 
 
-from scipy.integrate import quad
+def synaptic_filter(tau=5 / 1000, dt=1 / 1000, ms=1000):
+    t_h = np.arange(ms) * dt - 0.5
+    h = np.exp(-t_h / tau)
+    h[np.where(t_h < 0)] = 0
+    h = h / np.linalg.norm(h, 1)
+    return h, t_h
 
 
-def C(timepoint, nn, ttau):
-    return np.power(timepoint, nn) * np.exp(-timepoint / ttau)
-
-
-def post_synaptic_current_filter(t0=0, T=2, dt=1 / 1000, n=0, tau=7 / 1000):
-    t = np.arange(t0, T, dt)
-    N = t.size
-    h = np.array(np.zeros(N))
-
-    for idx, point in enumerate(h):
-        c = quad(C, 0, np.Inf, args=(n, tau))[0]
-        h[idx] = np.power(c, -1) * np.power(t[idx], n) * np.exp(-t[idx] / tau)
-        if t[idx] < 0:
-            h[idx] = 0
-    # normalize h
-    h = h / (N / 2)
-    return h, t
-
-def filter(r, h, t):
-    return np.convolve(r, h)[: len(t)]
+def filter(x, h):
+    return np.convolve(x, h, mode="same")
 ```
 
 
 ```python
+import copy
+
 neuron_candidates = ensemble1.get_neurons_by_rate(rate_range=[20, 50], stim=0)
 candidate = np.random.choice(neuron_candidates)
 
-neuron_1 = candidate
-neuron_2 = candidate
+
+override = {
+    "x_int": candidate.get_intercept(),
+    "max_rate": candidate.get_max_rate(),
+    "encoder": candidate.get_encoder(),
+    "tau_ref": candidate.get_tau_ref(),
+    "tau_rc": candidate.get_tau_rc(),
+    "alpha": candidate.get_gain(),
+    "j_bias": candidate.get_bias(),
+    "spiketrend": candidate.get_spiketrend(),
+    "firing_rates": candidate.get_rates(),
+}
+
+
+neuron_1 = Neuron(state=None, override=override)
+neuron_2 = Neuron(state=None, override=override)
+
 
 neuron_1.set_encoder(1)
+neuron_1.dangerously_set_id(uuid4())
 neuron_2.set_encoder(-1)
+neuron_1.set_encoder(1)
 
-population_override = [neuron_1, neuron_2]
+ensemble2 = Population(state=None, neuron_overrides=[neuron_1, neuron_2])
 
 # create ensemble of two neurons with opposing encoders
-ensemble2 = Population(neuron_overrides=population_override)
+# ensemble2 = Population(neuron_overrides=pop)
 
 # generate input signal
 T = 1
@@ -548,24 +585,29 @@ t = np.arange(0, T, dt)
 x, X = generate_signal(T, dt, rms, limit, s)
 
 # spike the neurons by giving them an input signal
-ensemble2.spike(x, dt)
+# ensemble2.spike(x, dt)
 
-tau = 0.005
-t_h = np.arange(1000) * dt - 0.5
-h = np.exp(-t_h / tau)
-h[np.where(t_h < 0)] = 0
-h = h / np.linalg.norm(h, 1)
+# generate synapic filter
+h, t_h = synaptic_filter(tau=5 / 1000, dt=dt, ms=T * 1000)
 
-plt.title("Post-synaptic current filter")
+
+plt.figure()
+plt.suptitle("Post-Synaptic Current Filter $h(t)$ with $\\tau=0.005$")
 plt.xlabel("$t$ (seconds)")
 plt.ylabel("$h(t)$")
-plt.plot(t_h, h)
+x1 = plt.plot(t_h, h, label="$h(t)$")
+plt.legend(handles=[x1], labels=[])
+plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
+    a77243db-3a65-4132-add6-91934bb91575
+    201f9b45-ce4b-47f7-a76c-178822174730
+
+
 
     
-![svg](assignment-3_files/assignment-3_10_0.svg)
+![svg](assignment-3_files/assignment-3_10_1.svg)
     
 
 
@@ -574,7 +616,13 @@ plt.show()
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+# from part a)
+neuron_pos_encoder = ensemble2.get_neuron_by_index(0)
+neuron_neg_encoer = ensemble2.get_neuron_by_index(1)
+
+# make sure we have the correct signed encoder
+assert neuron_pos_encoder.get_encoder() == 1
+assert neuron_neg_encoer.get_encoder() == -1
 ```
 
 **c) Error analysis.** Compute the RMSE of the decoding.
