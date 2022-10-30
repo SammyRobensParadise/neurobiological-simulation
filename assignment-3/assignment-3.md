@@ -617,8 +617,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    9f689cf5-b7e3-4816-807c-38552a1c319e
-    57ed68d2-bd7d-4b1d-ac67-b4d7464a3711
+    1b8d54a0-96f4-41f3-b938-18c1ae850117
+    38882fbf-16f5-446a-a67d-ac4b1d34d049
 
 
 
@@ -878,7 +878,23 @@ where $N$ is the integer number of neurons encoding and decoding an input in a p
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+# we want 20 neurons
+num_neurons = 200
+# with this default state
+state = {
+    "min_rate": 100,
+    "max_rate": 200,
+    "encoder": [-1, 1],
+    "tau_ref": 2 / 1000,
+    "tau_rc": 20 / 1000,
+    "min_x_int": -1,
+    "max_x_int": 1,
+}
+
+# create a population of 200 neurons with the default states
+ensemble_x = Population(num_neurons, state=state)
+ensemble_y = Population(num_neurons, state=state)
+
 ```
 
 **b) Step input.** Repeat part (a) with an input that is ten randomly chosen values between -1 and 0, each one held for 0.1 seconds (a randomly varying step input)
