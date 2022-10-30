@@ -12,10 +12,12 @@ _Note:_ Refer to the [PDF](https://github.com/celiasmith/syde556-f22/raw/master/
 # Import numpy and matplotlib -- you shouldn't need any other libraries
 import numpy as np
 import matplotlib.pyplot as plt
+from numpy import fft
 from uuid import uuid4
 
 # Fix the numpy random seed for reproducible results
-np.random.seed(18945)
+s = 18945
+np.random.seed(s)
 
 # Some formating options
 %config InlineBackend.figure_formats = ['svg']
@@ -49,8 +51,10 @@ def maxJ(tau_ref=tau_ref, tau_rc=tau_rc, max_rate=200):
 def gain(j_max=2, e=1, intercept=0):
     return (j_max - 1) / (2 - e * intercept)
 
+
 def bias(alpha=1, e=1, intercept=0):
     return 1 - alpha * e * intercept
+
 
 def lif_encode_2d(neuron, xy):
     J = neuron.a * np.vdot(xy, neuron.circ) + neuron.j_bias
@@ -66,7 +70,7 @@ def print_block(title, data):
 
 
 class Population:
-    def __init__(self, num_neurons=1, state=None):
+    def __init__(self, num_neurons=1, state=None, neuron_overrides=[]):
         self.num_neurons = num_neurons
         self.rates = []
         if state == None:
@@ -83,15 +87,21 @@ class Population:
         else:
             self.default_neuron_states = state
         self.neurons = []
-        for idx in range(self.num_neurons):
-            neuron = Neuron(self.default_neuron_states)
-            self.neurons.append(neuron)
+        if len(neuron_overrides) == 0:
+            for idx in range(self.num_neurons):
+                neuron = Neuron(self.default_neuron_states)
+                self.neurons.append(neuron)
+        else:
+            for neuron_override in neuron_overrides:
+                self.neurons.append(neuron_overrides)
 
     """ Cleans out a population """
+
     def nuke(self):
         self.neurons = []
 
     """ Applies a mutator to each neuron in the population """
+
     def mutate(self, mutator):
         if len(self.neurons) == 0:
             return
@@ -114,8 +124,25 @@ class Population:
     def get_neurons(self):
         return self.neurons
 
-    def get_neuron(self, idx):
+    def get_neuron_by_index(self, idx):
         return self.neurons[idx]
+
+    def get_neuron_by_id(self, target_id):
+        match = None
+        for neuron in self.neurons:
+            if target_id == neuron.get_id():
+                match = neuron
+        return match
+
+    def get_neurons_by_rate(self, rate_range=[20, 50], stim=0):
+        target_neurons = []
+        for neuron in self.neurons:
+            rate = neuron.encode(stim)
+            is_less_then_max = rate < rate_range[1]
+            is_more_then_min = rate > rate_range[0]
+            if is_less_then_max and is_more_then_min:
+                target_neurons.append(neuron)
+        return target_neurons
 
 
 class Neuron(Population):
@@ -151,6 +178,36 @@ class Neuron(Population):
         spike_points = self.spiketrend[:, 1]
         num_spikes = int(spike_points.tolist().count(1))
         return num_spikes
+
+    def get_intercept(self):
+        return self.x_int
+
+    def get_gain(self):
+        return self.alpha
+
+    def get_bias(self):
+        return self.j_bias
+
+    def get_rate(self):
+        return self.max_rate
+
+    def get_id(self):
+        return self.id
+
+    def get_encoder(self):
+        return self.e
+
+    def set_encoder(self, e):
+        self.e = e
+
+    def set_rate(self, rate):
+        self.max_rate = rate
+
+    def set_bias(self, bias):
+        self.j_bias = bias
+
+    def set_gain(self, gain):
+        self.alpha = gain
 
     def output(self):
         return self.spiketrend
@@ -333,8 +390,140 @@ $$
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+def signal_rms(signal):
+    return np.sqrt(np.mean(np.power(signal, 2)))
+
+
+def im_normal_rand():
+    return np.random.normal() + np.random.normal() * 1j
+
+
+def symmetry_exists(f, F):
+    neg = -f
+    return neg in F and f != 0, np.where(F == neg)
+
+
+def locations(index):
+    return int(index[0])
+
+
+def rescale(signal, ideal_rms):
+    cur_rms = signal_rms(signal)
+    rescaled_signal = [p * ideal_rms / cur_rms for p in signal]
+    return rescaled_signal
+
+
+def zippify(F, Z):
+    return (list(tt) for tt in zip(*sorted(zip(F, Z))))
+
+
+def generate_signal(T, dt, rms, limit, seed):
+    if seed != 0:
+        np.random.seed(int(seed))
+    timescale = np.arange(0, T, dt)
+    # get the number of points so that we can create a signal in the frequency domain
+    num_pts = len(timescale)
+    # convert to frequency domain
+    F = fft.fftfreq(num_pts, dt)
+    # create a frequenct signal of zeros
+    length_F = len(F)
+    # create zeros for the frequency domain
+    zeros = np.zeros(length_F)
+    Z = zeros.tolist()
+
+    for idx, f in enumerate(F):
+        if Z[idx] == 0:
+            magnitude_f = abs(f)
+            if magnitude_f <= limit:
+                im = im_normal_rand()
+                Z[idx] = im
+                # ensure that we account for the negative symmetric value
+                exists, index = symmetry_exists(f, F)
+                if exists:
+                    location = locations(index)
+                    # assig it to the complex conjugate
+                    Z[location] = np.conj(im)
+        else:
+            continue
+    # perform inverse fft
+    z = fft.ifft(Z)
+    # select the real components
+    z = z.real
+    # rescale based on the current and ideal rmse
+    z = rescale(z, rms)
+
+    # convert back to frequency domain
+    Z = fft.fft(z)
+    # touple Z so that it aligns with our intial number of samples
+    F, Z = zippify(F, Z)
+    return z, Z
+
+
+def plot_signal(
+    signal, domain="time", T=1, dt=1 / 1000, show_rmse=True, bandwidth=False
+):
+    t = np.arange(0, T, dt)
+    if domain == "time":
+        plt.figure()
+        plt.plot(t, signal["x"])
+        if bandwidth:
+            plt.suptitle(
+                "$x(t)$ signal with " + str(signal["freq"]) + " Hz bandwidth",
+            )
+        else:
+            plt.suptitle(
+                "$x(t)$ signal with " + str(signal["freq"]) + " Hz limit",
+            )
+        plt.xlabel("$t$ sec.")
+        plt.ylabel("$x(t)$")
+        plt.xlim([0, T])
+        plt.show()
+        if show_rmse:
+            print("time-domain RMSE " + str(np.round(signal_rms(signal["x"]), 3)))
+    if domain == "frequency":
+        plt.figure()
+        plt.plot(t, signal["X"])
+        if bandwidth:
+            plt.suptitle(
+                "$x(\omega)$ signal with " + str(signal["freq"]) + " Hz bandwidth",
+            )
+        else:
+            plt.suptitle(
+                "$x(\omega)$ signal with " + str(signal["freq"]) + " Hz limit",
+            )
+        plt.xlabel("$w$ Hz.")
+        plt.ylabel("$x(\omega)$")
+        plt.show()
+        if show_rmse:
+            print("frequency-domain RMSE " + str(np.round(signal_rms(signal["X"]), 3)))
 ```
+
+
+```python
+neuron_candidates = ensemble1.get_neurons_by_rate(rate_range=[20, 50], stim=0)
+candidate = np.random.choice(neuron_candidates)
+
+neuron_1 = candidate
+neuron_2 = candidate
+
+neuron_1.set_encoder(1)
+neuron_2.set_encoder(-1)
+
+population_override = [neuron_1, neuron_2]
+
+ensemble2 = Population(neuron_overrides=population_override)
+
+T = 2
+dt = 1 / 1000
+rms = 0.5
+limit = 5
+tau = 7 / 1000
+t = np.arange(0, T, dt)
+x, X = generate_signal(T, dt, rms, limit, s)
+```
+
+    [[<__main__.Neuron object at 0x1282dea30>, <__main__.Neuron object at 0x1282dea30>], [<__main__.Neuron object at 0x1282dea30>, <__main__.Neuron object at 0x1282dea30>]]
+
 
 **b) Decoding using a synaptic filter.** Plot the original signal $x(t)$, the spikes, and the decoded $\hat{x}(t)$ all on the same graph.
 
