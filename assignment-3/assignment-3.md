@@ -93,7 +93,7 @@ class Population:
                 self.neurons.append(neuron)
         else:
             for neuron_override in neuron_overrides:
-                self.neurons.append(neuron_overrides)
+                self.neurons.append(neuron_override)
 
     """ Cleans out a population """
 
@@ -496,6 +496,31 @@ def plot_signal(
         plt.show()
         if show_rmse:
             print("frequency-domain RMSE " + str(np.round(signal_rms(signal["X"]), 3)))
+
+
+from scipy.integrate import quad
+
+
+def C(timepoint, nn, ttau):
+    return np.power(timepoint, nn) * np.exp(-timepoint / ttau)
+
+
+def post_synaptic_current_filter(t0=0, T=2, dt=1 / 1000, n=0, tau=7 / 1000):
+    t = np.arange(t0, T, dt)
+    N = t.size
+    h = np.array(np.zeros(N))
+
+    for idx, point in enumerate(h):
+        c = quad(C, 0, np.Inf, args=(n, tau))[0]
+        h[idx] = np.power(c, -1) * np.power(t[idx], n) * np.exp(-t[idx] / tau)
+        if t[idx] < 0:
+            h[idx] = 0
+    # normalize h
+    h = h / (N / 2)
+    return h, t
+
+def filter(r, h, t):
+    return np.convolve(r, h)[: len(t)]
 ```
 
 
@@ -511,18 +536,37 @@ neuron_2.set_encoder(-1)
 
 population_override = [neuron_1, neuron_2]
 
+# create ensemble of two neurons with opposing encoders
 ensemble2 = Population(neuron_overrides=population_override)
 
-T = 2
+# generate input signal
+T = 1
 dt = 1 / 1000
-rms = 0.5
+rms = 1
 limit = 5
-tau = 7 / 1000
 t = np.arange(0, T, dt)
 x, X = generate_signal(T, dt, rms, limit, s)
+
+# spike the neurons by giving them an input signal
+ensemble2.spike(x, dt)
+
+tau = 0.005
+t_h = np.arange(1000) * dt - 0.5
+h = np.exp(-t_h / tau)
+h[np.where(t_h < 0)] = 0
+h = h / np.linalg.norm(h, 1)
+
+plt.title("Post-synaptic current filter")
+plt.xlabel("$t$ (seconds)")
+plt.ylabel("$h(t)$")
+plt.plot(t_h, h)
+plt.show()
 ```
 
-    [[<__main__.Neuron object at 0x1282dea30>, <__main__.Neuron object at 0x1282dea30>], [<__main__.Neuron object at 0x1282dea30>, <__main__.Neuron object at 0x1282dea30>]]
+
+    
+![svg](assignment-3_files/assignment-3_10_0.svg)
+    
 
 
 **b) Decoding using a synaptic filter.** Plot the original signal $x(t)$, the spikes, and the decoded $\hat{x}(t)$ all on the same graph.
