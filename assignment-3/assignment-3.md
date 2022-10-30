@@ -279,7 +279,7 @@ class Neuron(Population):
                     ref_period = True
                     # assign the first collumn to the current voltage
                     # assign a constant spiking voltage to make identification easier
-                    spikes[idx][0] = 1.25
+                    spikes[idx][0] = V
                     # reset the voltage to 0
                     V = V_rest
                     V_prev = V_rest
@@ -537,8 +537,8 @@ def synaptic_filter(tau=5 / 1000, dt=1 / 1000, ms=1000):
     return h, t_h
 
 
-def filter(x, h):
-    return np.convolve(x, h, mode="same")
+def filter(x, h, t):
+    return np.convolve(x, h, mode="same")[: len(t)]
 ```
 
 
@@ -571,10 +571,9 @@ neuron_1.dangerously_set_id(uuid4())
 neuron_2.set_encoder(-1)
 neuron_1.set_encoder(1)
 
+# create an ensemble wiht our neuron
 ensemble2 = Population(state=None, neuron_overrides=[neuron_1, neuron_2])
 
-# create ensemble of two neurons with opposing encoders
-# ensemble2 = Population(neuron_overrides=pop)
 
 # generate input signal
 T = 1
@@ -585,7 +584,7 @@ t = np.arange(0, T, dt)
 x, X = generate_signal(T, dt, rms, limit, s)
 
 # spike the neurons by giving them an input signal
-# ensemble2.spike(x, dt)
+ensemble2.spike(x, dt)
 
 # generate synapic filter
 h, t_h = synaptic_filter(tau=5 / 1000, dt=dt, ms=T * 1000)
@@ -601,8 +600,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    a77243db-3a65-4132-add6-91934bb91575
-    201f9b45-ce4b-47f7-a76c-178822174730
+    7f137ad6-1e5c-4bb5-83bb-a48896c8edc3
+    bc23223d-7400-4817-a3da-e9c026e24afc
 
 
 
@@ -618,20 +617,62 @@ plt.show()
 ```python
 # from part a)
 neuron_pos_encoder = ensemble2.get_neuron_by_index(0)
-neuron_neg_encoer = ensemble2.get_neuron_by_index(1)
+neuron_neg_encoder = ensemble2.get_neuron_by_index(1)
 
 # make sure we have the correct signed encoder
 assert neuron_pos_encoder.get_encoder() == 1
-assert neuron_neg_encoer.get_encoder() == -1
+assert neuron_neg_encoder.get_encoder() == -1
+
+
+# get the first colum of the outputs which is the voltages
+v_out_pos = neuron_pos_encoder.get_spiketrend()[:, 0]
+v_out_neg = neuron_neg_encoder.get_spiketrend()[:, 0]
+
+# checking that they are reflections of themselves
+assert v_out_neg.all() == -1 * v_out_pos.all()
+
+# align spikes
+spikes = np.array([v_out_pos, v_out_neg])
+r = spikes[0] - spikes[1]
+
+spikes = np.array([v_out_pos, v_out_neg])
+
+x_hat = filter(x, h, t)
+
+plt.figure()
+plt.suptitle(
+    "Spike train, input $x(t)$ and decoded output signal $\hat{x}(t)$ on 0 to 1 seconds"
+)
+a = plt.plot(t, r, label="Spikes $v(t)$", alpha=0.6)
+b = plt.plot(t, x, label="input $x(t)$", alpha=0.8, color="#FF4D00")
+c = plt.plot(t, x_hat, label="decoded output $\hat{x}(t)$", color="#003DDE")
+plt.xlim([0, 1])
+plt.legend(handles=[a, b, c], labels=[])
+plt.xlabel("$t$")
+plt.ylabel("Magnitude")
+plt.show()
+
+
 ```
+
+
+    
+![svg](assignment-3_files/assignment-3_12_0.svg)
+    
+
 
 **c) Error analysis.** Compute the RMSE of the decoding.
 
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+print_block("RMSE",rmse(x,x_hat))
 ```
+
+    RMSE ----------
+    0.17377401872094445
+    -----------------
+
 
 # 3. Decoding from many neurons
 
