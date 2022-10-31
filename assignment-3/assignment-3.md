@@ -73,6 +73,7 @@ class Population:
     def __init__(self, num_neurons=1, state=None, neuron_overrides=[]):
         self.num_neurons = num_neurons
         self.rates = []
+        self.spikes = []
         if state == None:
             self.default_neuron_states = {
                 "min_rate": 100,
@@ -103,6 +104,9 @@ class Population:
 
     def clear_rates(self):
         self.rates = []
+
+    def clear_spikes(self):
+        self.spikes = []
 
     """ Applies a mutator to each neuron in the population """
 
@@ -141,8 +145,16 @@ class Population:
     def get_spikes(self):
         spikes = []
         for neuron in self.neurons:
-            spikes.append(neuron.get_spiketrend()[:, 0])
+            spikes.append(neuron.get_spiketrend()[:, 1])
+        self.spikes = spikes
         return spikes
+
+    def get_voltages(self):
+        voltages = []
+        for neuron in self.neurons:
+            voltages.append(neuron.get_spiketrend()[:, 0])
+        self.voltages = voltages
+        return voltages
 
     def get_ordered_encoders(self):
         encoders = []
@@ -315,6 +327,36 @@ class Neuron(Population):
                     V_prev = V
         self.spiketrend = spikes
         return spikes
+        """
+        num_ref_steps = np.floor(self.tau_ref / dt)
+        ref_count = 0
+        spike_count = 0
+        voltages = []
+        spikes = []
+        v = 0
+        v_next = 0
+        for stim in x:
+            J = self.alpha * stim * self.e + self.j_bias
+            if ref_count > 0:
+                v = 0
+                ref_count -= 1
+            elif v >= 1:  # spike
+                v = v  # constant spike voltage
+                ref_count = num_ref_steps
+                spike_count += 1
+            elif v < 0:  # keep positive
+                v = 0
+            if v >= 1:
+                spikes.append(1)
+            else:
+                spikes.append(0)
+
+            v_next = v + dt * (1 / self.tau_rc) * (J - v)
+            voltages.append(v)
+            v = v_next
+        self.spiketrend = voltages
+        return spikes
+        """
 ```
 
 
@@ -552,7 +594,7 @@ def plot_signal(
 
 def synaptic_filter(tau=5 / 1000, dt=1 / 1000, ms=1000):
     t_h = np.arange(ms) * dt - 0.5
-    h = np.exp(-t_h / tau)
+    h = (1 / tau) * np.exp(-t_h / tau)
     h[np.where(t_h < 0)] = 0
     h = h / np.linalg.norm(h, 1)
     return h, t_h
@@ -621,8 +663,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    7868973e-4727-4341-ad6b-e413c37631f5
-    9886ece9-3ae8-43d0-a24b-91146f5bea3b
+    11fcbe1f-a1fc-4d18-8fbf-35c4e845a4a3
+    9bb6d868-3760-4218-99c9-22c3b405c245
 
 
 
@@ -646,11 +688,11 @@ assert neuron_neg_encoder.get_encoder() == -1
 
 
 # get the first colum of the outputs which is the voltages
-v_out_pos = neuron_pos_encoder.get_spiketrend()[:, 0]
-v_out_neg = neuron_neg_encoder.get_spiketrend()[:, 0]
+v_out_pos = neuron_pos_encoder.get_spiketrend()#[:, 0]
+v_out_neg = neuron_neg_encoder.get_spiketrend()#[:, 0]
 
 # checking that they are reflections of themselves
-assert v_out_neg.all() == -1 * v_out_pos.all()
+assert np.array(v_out_neg).all() == -1 * np.array(v_out_pos).all()
 
 # align spikes
 spikes = np.array([v_out_pos, v_out_neg])
@@ -688,7 +730,7 @@ print_block("RMSE",rmse(x,x_hat))
 ```
 
     RMSE ----------
-    0.17377401872094445
+    0.1737740187209444
     -----------------
 
 
@@ -796,7 +838,7 @@ x2 = ax.plot(neuron_sets, n, "--", label="$1/n$")
 x3 = ax.plot(neuron_sets, population_errors_activities, "--", label="Activities Error")
 ax.set_xscale("log")
 ax.set_yscale("log")
-ax.legend(handles=[x1,x2,x3],labels=[])
+ax.legend(handles=[x1, x2, x3], labels=[])
 plt.xlabel("Neurons")
 plt.ylabel("Squared Error")
 plt.show()
@@ -807,44 +849,44 @@ plt.title("No log trend of RMSE errors with respect to number of neurons")
 x1 = ax.plot(neuron_sets, population_errors_spike, label="Spiking Errors")
 x2 = ax.plot(neuron_sets, n, "--", label="$1/n$")
 x3 = ax.plot(neuron_sets, population_errors_activities, "--", label="Activities Error")
-ax.legend(handles=[x1,x2,x3],labels=[])
+ax.legend(handles=[x1, x2, x3], labels=[])
 plt.xlabel("Neurons")
 plt.ylabel("Squared Error")
 plt.show()
 ```
 
     RMSE for 8 neurons from spikes ----------
-    0.8920560172768504
+    1.375865756122073
     -----------------
     RMSE for 8 neurons from activities ----------
     0.2556622504392272
     -----------------
     RMSE for 16 neurons from spikes ----------
-    0.44526031603472926
+    1.8411883465592354
     -----------------
     RMSE for 16 neurons from activities ----------
     0.16655459817920598
     -----------------
     RMSE for 32 neurons from spikes ----------
-    0.26964750188977693
+    1.8713342921109977
     -----------------
     RMSE for 32 neurons from activities ----------
     0.10514449469879364
     -----------------
     RMSE for 64 neurons from spikes ----------
-    0.15132058521596464
+    0.6888350588291419
     -----------------
     RMSE for 64 neurons from activities ----------
     0.07087349168376288
     -----------------
     RMSE for 128 neurons from spikes ----------
-    0.06588677845343757
+    0.24927442973092223
     -----------------
     RMSE for 128 neurons from activities ----------
     0.04914791260802407
     -----------------
     RMSE for 256 neurons from spikes ----------
-    0.03533261871701505
+    0.11778318037163224
     -----------------
     RMSE for 256 neurons from activities ----------
     0.03514458778002315
@@ -890,10 +932,10 @@ def decoder(signal=[], A=[], num_neurons=200):
     n = num_neurons
     # find decoders via least squares solution
     D = np.linalg.lstsq(
-        A @ A.T + 0.5 * N * np.square(noise_stdev) * np.eye(n),
+        A @ A.T + N * np.square(noise_stdev) * np.eye(n),
         A @ X.T,
         rcond=None,
-    )[0]
+    )[0].T
     return D, A_NOISE
 
 
@@ -919,38 +961,76 @@ T = 1
 dt = 1 / 1000
 rms = 1
 limit = 5
-t = np.arange(-1, T, dt)
+t = np.arange(-1, 1, dt)
+
+h, t_h = synaptic_filter(tau=5 / 1000, dt=dt, ms=T * 1000)
+
 
 # y(x) = x
-x1 = np.linspace(-1, 1, len(t))
+x1 = np.linspace(-1, 0, len(t))
 # y(x) = 2x+1
 x2 = [2 * t + 1 for t in x1]
 
 
-curves_x = np.array(ensemble_x.get_curves(x1))
-curves_y = np.array(ensemble_y.get_curves(x2))
+curves_x = np.array(ensemble_x.get_curves(x2))
+curves_y = np.array(ensemble_y.get_curves(x1))
 
 # create matrix of activities
 A_X = curves_x
 A_Y = curves_y
 
-D_X, A_X_NOISE = decoder(signal=np.array(x1), A=A_X, num_neurons=num_neurons)
-D_Y, A_Y_NOISE = decoder(signal=np.array(x2), A=A_Y, num_neurons=num_neurons)
+# generate decoders
+D_X, A_X_NOISE = decoder(signal=np.array(x2), A=A_X, num_neurons=num_neurons)
+D_Y, A_Y_NOISE = decoder(signal=np.array(x1), A=A_Y, num_neurons=num_neurons)
 
 # make sure we have all our decoders
 assert len(D_X) == num_neurons
 assert len(D_Y) == num_neurons
 
-# get our x hat signals with tuned decoders
-x1_hat_tuned = np.dot(D_X, A_X_NOISE)
-x2_hat_tuned = np.dot(D_Y, A_Y_NOISE)
 
 # make test input
 ls = np.linspace(-1, 0, len(t))
-x3 = [2 * t + 1 for t in ls]
+x = [t - 1 for t in ls]
 
+ensemble_x.spike(x, dt)
+spike_x = np.array(ensemble_x.get_spikes())
 
+fspikes = []
+for spike in spike_x:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+A = np.array(fspikes)
+
+x_hat = np.dot(D_X, A / dt)
+
+ensemble_y.spike(x_hat, dt)
+spike_y = np.array(ensemble_y.get_spikes())
+
+fspikes = []
+for spike in spike_y:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+A = np.array(fspikes)
+
+y_hat = np.dot(D_Y, A / dt)
+
+plt.figure()
+a = plt.plot(ls, y_hat, label="$\hat{y}$")
+plt.xlim([-1, 0])
+b = plt.plot(ls, x, label="$x(t)=x-1$")
+c = plt.plot(ls, x1, label="$f(y)=y$")
+d = plt.plot(ls, x2, label="$y=2x+1$")
+plt.legend(handles=[a, b, c], labels=[])
+plt.show()
 ```
+
+
+    
+![svg](assignment-3_files/assignment-3_20_0.svg)
+    
+
 
 **b) Step input.** Repeat part (a) with an input that is ten randomly chosen values between -1 and 0, each one held for 0.1 seconds (a randomly varying step input)
 
