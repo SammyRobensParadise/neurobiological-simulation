@@ -663,8 +663,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    11fcbe1f-a1fc-4d18-8fbf-35c4e845a4a3
-    9bb6d868-3760-4218-99c9-22c3b405c245
+    75700852-2189-411f-a981-5fb194229d36
+    b7a494aa-9521-43cc-bcc6-3c220c385642
 
 
 
@@ -1017,6 +1017,7 @@ A = np.array(fspikes)
 y_hat = np.dot(D_Y, A / dt)
 
 plt.figure()
+plt.suptitle("Decoded $\hat{y}$ and inputs")
 a = plt.plot(ls, y_hat, label="$\hat{y}$")
 plt.xlim([-1, 0])
 b = plt.plot(ls, x, label="$x(t)=x-1$")
