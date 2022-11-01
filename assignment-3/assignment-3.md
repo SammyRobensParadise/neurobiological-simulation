@@ -1771,18 +1771,35 @@ for idx, point in enumerate(w_ideal):
 from mpl_toolkits import mplot3d
 
 
-w_hat=w_hat
-t=t.T
 fig = plt.figure()
 ax = plt.axes(projection="3d")
 ax.plot(t[0, :], w_hat[0, :], zs=w_hat[1, :], label="$\hat{w}$")
 ax.plot(t[0, :], w_ideal[0, :], zs=w_ideal[1, :], label="$w$")
 plt.show()
+
+w_ideal=w_ideal.T
+
+plt.figure()
+plt.plot(w_hat[0,:],w_hat[1,:])
+plt.plot(w_ideal[0,:],w_ideal[1,:])
 ```
 
 
     
 ![svg](assignment-3_files/assignment-3_34_0.svg)
+    
+
+
+
+
+
+    [<matplotlib.lines.Line2D at 0x128b39d30>]
+
+
+
+
+    
+![svg](assignment-3_files/assignment-3_34_2.svg)
     
 
 
