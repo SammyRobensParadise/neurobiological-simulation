@@ -1628,8 +1628,150 @@ ensemble_z = Population2D(num_neurons=200, state=state)
 ensemble_q = Population2D(num_neurons=200, state=state)
 ensemble_w = Population2D(num_neurons=200, state=state)
 
+DIM = 2
+T = 1
+dt = 1 / 1000
+samples = int(T * (1 / dt))
+
+t = np.array([np.ones(samples), np.ones(samples)])
+
+tune_x = t
+tune_y = -3 * t
+tune_z = 2 * t
+tune_q = -2 * t
+tune_w = np.array([np.zeros(samples), np.zeros(samples)])
+
+tune_w[0] = [
+    pt[0] + pt[1] + pt[2] + pt[3]
+    for pt in zip(tune_x[0], tune_y[0], tune_z[0], tune_q[0])
+]
+tune_w[1] = [
+    pt[0] + pt[1] + pt[2] + pt[3]
+    for pt in zip(tune_x[1], tune_y[1], tune_z[1], tune_q[1])
+]
+
+curves_x = np.array(ensemble_x.get_curves(tune_x.T))
+curves_y = np.array(ensemble_y.get_curves(tune_y.T))
+curves_z = np.array(ensemble_z.get_curves(tune_z.T))
+curves_q = np.array(ensemble_q.get_curves(tune_q.T))
+curves_w = np.array(ensemble_w.get_curves(tune_w.T))
+
+# create matrix of activities
+A_X = curves_x
+A_Y = curves_y
+A_Z = curves_z
+A_Q = curves_q
+A_W = curves_w
+
+# generate decoders
+D_X, A_X_NOISE = decoder(signal=np.array(tune_x), A=A_X, num_neurons=num_neurons)
+D_Y, A_Y_NOISE = decoder(signal=np.array(tune_y), A=A_Y, num_neurons=num_neurons)
+D_Z, A_Z_NOISE = decoder(signal=np.array(tune_z), A=A_Z, num_neurons=num_neurons)
+D_Q, A_Q_NOISE = decoder(signal=np.array(tune_q), A=A_Q, num_neurons=num_neurons)
+D_W, A_W_NOISE = decoder(signal=np.array(tune_w), A=A_W, num_neurons=num_neurons)
+
+
+# X
+x_input = np.array([np.ones(samples) * 0.5, np.ones(samples)])
+
+ensemble_x.spike(x_input.T, dt)
+spike_x = np.array(ensemble_x.get_spikes())
+
+fspikes = []
+for spike in spike_x:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+Ax = np.array(fspikes)
+x_hat = np.dot(D_X, Ax / dt).T
+
+# Y
+y_input = np.array([np.ones(samples) * 0.1, np.ones(samples) * 0.3])
+
+ensemble_y.spike(y_input.T, dt)
+spike_y = np.array(ensemble_y.get_spikes())
+
+fspikes = []
+for spike in spike_y:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+Ay = np.array(fspikes)
+y_hat = np.dot(D_Y, Ay / dt).T
+
+# Z
+z_input = np.array([np.ones(samples) * 0.2, np.ones(samples) * 0.1])
+
+ensemble_z.spike(z_input.T, dt)
+spike_z = np.array(ensemble_z.get_spikes())
+
+fspikes = []
+for spike in spike_z:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+Az = np.array(fspikes)
+z_hat = np.dot(D_Z, Az / dt).T
+
+# Q
+q_input = np.array([np.ones(samples) * 0.4, np.ones(samples) * -0.2])
+
+ensemble_q.spike(q_input.T, dt)
+spike_q = np.array(ensemble_q.get_spikes())
+
+fspikes = []
+for spike in spike_q:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+Aq = np.array(fspikes)
+q_hat = np.dot(D_Q, Aq / dt).T
+
+w_input = np.array([np.zeros(samples), np.zeros(samples)]).T
+for idx, point in enumerate(w_input):
+    point[0] = x_hat[idx][0] - 3 * y_hat[idx][0] + 2 * z_hat[idx][0] - 2 * q_hat[idx][0]
+    point[1] = x_hat[idx][1] - 3 * y_hat[idx][1] + 2 * z_hat[idx][1] - 2 * q_hat[idx][1]
+
+
+ensemble_w.spike(w_input, dt)
+spike_w = np.array(ensemble_w.get_spikes())
+
+fspikes = []
+for spike in spike_w:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+Aw = np.array(fspikes)
+w_hat = np.dot(D_W, Aw / dt)
+
+
+
 
 ```
+
+
+```python
+print(w_hat.shape)
+
+from mpl_toolkits import mplot3d
+x_hat=x_hat.T
+y_hat=y_hat
+fig = plt.figure()
+ax = plt.axes(projection='3d')
+ax.plot(t[0,:],w_hat[0,:],zs=w_hat[1,:],label='$\hat{w}$')
+ax.plot(t[0,:],x_hat[0,:],zs=x_hat[1,:],label='$\hat{w}$')
+ax.plot(t[0,:],y_hat[0,:],zs=y_hat[1,:],label='$\hat{w}$')
+plt.show()
+```
+
+    (2, 1000)
+
+
+
+    
+![svg](assignment-3_files/assignment-3_34_1.svg)
+    
+
 
 **b) Sinusoidal input.** Produce the same plot for
 $$x =(0.5,1), \quad y = (\sin(4\pi t),0.3), \quad z =(0.2,0.1), \quad q = (\sin(4\pi t),-0.2) \,.$$
