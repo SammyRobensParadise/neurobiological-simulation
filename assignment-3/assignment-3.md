@@ -663,8 +663,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    75700852-2189-411f-a981-5fb194229d36
-    b7a494aa-9521-43cc-bcc6-3c220c385642
+    0dc61f39-142d-44e6-866a-ea3cccf62460
+    5d20ca62-3270-436b-9091-36540724f323
 
 
 
@@ -1038,8 +1038,65 @@ plt.show()
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+values = []
+num_values = 10
+dt = 1 / 1000
+
+for idx in range(num_values):
+    value = np.random.uniform(-1, 0)
+    values.append(value)
+
+t = np.arange(-1, 0, dt)
+
+x = []
+for value in values:
+    x_n = np.ones(int(len(t) / len(values))) * value
+    x = x + x_n.tolist()
+
+ensemble_x.spike(x, dt)
+spike_x = np.array(ensemble_x.get_spikes())
+
+fspikes = []
+for spike in spike_x:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+A = np.array(fspikes)
+
+x_hat = np.dot(D_X, A / dt)
+
+ensemble_y.spike(x_hat, dt)
+spike_y = np.array(ensemble_y.get_spikes())
+
+fspikes = []
+for spike in spike_y:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+A = np.array(fspikes)
+
+y_hat = np.dot(D_Y, A / dt)
+
+plt.figure()
+plt.suptitle("Decoded $\hat{y}$ and inputs")
+a = plt.plot(t, y_hat, label="$\hat{y}$")
+plt.xlim([-1, 0])
+b = plt.plot(t, x, label="$x(t)=STEP$")
+plt.legend(
+    handles=[
+        a,
+        b,
+    ],
+    labels=[],
+)
+plt.show()
 ```
+
+
+    
+![svg](assignment-3_files/assignment-3_22_0.svg)
+    
+
 
 **c) Sinusoidal input.** Repeat part (a) with an input that is $x(t)=0.2\sin(6\pi t)$.
 
