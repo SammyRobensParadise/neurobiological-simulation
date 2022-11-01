@@ -633,8 +633,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    Override Neuron c89fc320-f049-425e-898b-14af20769615
-    Override Neuron 2d907ed3-ad13-4945-baf9-37f7cee5a5db
+    Override Neuron f8b9a434-3fed-4ac2-8891-18c26cc31a74
+    Override Neuron 30088897-0ce3-48fd-94f7-6cee487cc2bf
 
 
 
@@ -1727,6 +1727,7 @@ for spike in spike_q:
 Aq = np.array(fspikes)
 q_hat = np.dot(D_Q, Aq / dt).T
 
+# FEED-FWD
 w_input = np.array([np.zeros(samples), np.zeros(samples)]).T
 for idx, point in enumerate(w_input):
     point[0] = x_hat[idx][0] - 3 * y_hat[idx][0] + 2 * z_hat[idx][0] - 2 * q_hat[idx][0]
@@ -1778,6 +1779,7 @@ fig.suptitle("Decoded $\hat{w}$ and $w$")
 a = ax.plot(tt, w_hat[0, :], zs=w_hat[1, :], label="$\hat{w}$")
 b = ax.plot(tt, w_ideal_transp[0, :], zs=w_ideal_transp[1, :], label="$w$")
 ax.legend(handles=[a, b], labels=[])
+plt.xlabel("$t$")
 plt.show()
 ```
 
@@ -1793,11 +1795,130 @@ $$x =(0.5,1), \quad y = (\sin(4\pi t),0.3), \quad z =(0.2,0.1), \quad q = (\sin(
 
 
 ```python
+t = np.arange(0, T, dt)
+
+assert len(t) == 1000
+# X
+x_input = np.array([np.ones(samples) * 0.5, np.ones(samples)])
+
+ensemble_x.spike(x_input.T, dt)
+spike_x = np.array(ensemble_x.get_spikes())
+
+fspikes = []
+for spike in spike_x:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+Ax = np.array(fspikes)
+x_hat = np.dot(D_X, Ax / dt).T
+
+# Y
+y_input = np.array(
+    [np.array([np.sin(4 * np.pi * pt) for pt in t]), np.ones(samples) * 0.3]
+)
+
+ensemble_y.spike(y_input.T, dt)
+spike_y = np.array(ensemble_y.get_spikes())
+
+fspikes = []
+for spike in spike_y:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+Ay = np.array(fspikes)
+y_hat = np.dot(D_Y, Ay / dt).T
+
+# Z
+z_input = np.array([np.ones(samples) * 0.2, np.ones(samples) * 0.1])
+
+ensemble_z.spike(z_input.T, dt)
+spike_z = np.array(ensemble_z.get_spikes())
+
+fspikes = []
+for spike in spike_z:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+Az = np.array(fspikes)
+z_hat = np.dot(D_Z, Az / dt).T
+
+# Q
+q_input = np.array(
+    [np.array([np.sin(4 * np.pi * pt) for pt in t]), np.ones(samples) * -0.2]
+)
+
+ensemble_q.spike(q_input.T, dt)
+spike_q = np.array(ensemble_q.get_spikes())
+
+fspikes = []
+for spike in spike_q:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+Aq = np.array(fspikes)
+q_hat = np.dot(D_Q, Aq / dt).T
+
+# FEED-FWD
+w_input = np.array([np.zeros(samples), np.zeros(samples)]).T
+for idx, point in enumerate(w_input):
+    point[0] = x_hat[idx][0] - 3 * y_hat[idx][0] + 2 * z_hat[idx][0] - 2 * q_hat[idx][0]
+    point[1] = x_hat[idx][1] - 3 * y_hat[idx][1] + 2 * z_hat[idx][1] - 2 * q_hat[idx][1]
+
+
+ensemble_w.spike(w_input, dt)
+spike_w = np.array(ensemble_w.get_spikes())
+
+fspikes = []
+for spike in spike_w:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+Aw = np.array(fspikes)
+w_hat = np.dot(D_W, Aw / dt)
+
+x_input = x_input.T
+y_input = y_input.T
+z_input = z_input.T
+q_input = q_input.T
+
+w_ideal = np.array([np.zeros(samples), np.zeros(samples)]).T
+for idx, point in enumerate(w_ideal):
+    point[0] = (
+        x_input[idx][0]
+        - 3 * y_input[idx][0]
+        + 2 * z_input[idx][0]
+        - 2 * q_input[idx][0]
+    )
+    point[1] = (
+        x_input[idx][1]
+        - 3 * y_input[idx][1]
+        + 2 * z_input[idx][1]
+        - 2 * q_input[idx][1]
+    )
+```
+
+
+```python
+w_ideal_transp = w_ideal.T
+fig = plt.figure()
+ax = plt.axes(projection="3d")
+fig.suptitle("Decoded $\hat{w}$ and $w$")
+a = ax.plot3D(t, w_hat[0, :],w_hat[1, :], label="$\hat{w}$")
+b = ax.plot3D(t, w_ideal_transp[0, :], w_ideal_transp[1, :], label="$w$")
+ax.legend(handles=[a, b], labels=[])
+plt.xlabel("$t$")
+plt.show()
 
 ```
+
+
+    
+![svg](assignment-3_files/assignment-3_37_0.svg)
+    
+
 
 **c) Discussion.** Describe your results and discuss why and how they stray from the expected answer.
 
 
-✍ \<YOUR SOLUTION HERE\>
+The results show that the resulting vectors stray significantly from the expected result. We can see what appears to be a shift error over time of about $0.6$ in the $z$ direction. The results stray because we are adding significant noise to the system without changing our filtering technique or convolution strategy. One of the reasons why we may not be getting viable results has to do with the saturation level of the neurons which are capped at 1. This means that the populations will have trouble representing functions that extend beyond the saturation levels.
 
