@@ -1767,39 +1767,23 @@ for idx, point in enumerate(w_ideal):
 
 
 ```python
-
 from mpl_toolkits import mplot3d
 
+tt = np.arange(0, 1, dt)
 
+w_ideal_transp = w_ideal.T
 fig = plt.figure()
 ax = plt.axes(projection="3d")
-ax.plot(t[0, :], w_hat[0, :], zs=w_hat[1, :], label="$\hat{w}$")
-ax.plot(t[0, :], w_ideal[0, :], zs=w_ideal[1, :], label="$w$")
+fig.suptitle("Decoded $\hat{w}$ and $w$")
+a = ax.plot(tt, w_hat[0, :], zs=w_hat[1, :], label="$\hat{w}$")
+b = ax.plot(tt, w_ideal_transp[0, :], zs=w_ideal_transp[1, :], label="$w$")
+ax.legend(handles=[a, b], labels=[])
 plt.show()
-
-w_ideal=w_ideal.T
-
-plt.figure()
-plt.plot(w_hat[0,:],w_hat[1,:])
-plt.plot(w_ideal[0,:],w_ideal[1,:])
 ```
 
 
     
 ![svg](assignment-3_files/assignment-3_34_0.svg)
-    
-
-
-
-
-
-    [<matplotlib.lines.Line2D at 0x128b39d30>]
-
-
-
-
-    
-![svg](assignment-3_files/assignment-3_34_2.svg)
     
 
 
@@ -1809,7 +1793,7 @@ $$x =(0.5,1), \quad y = (\sin(4\pi t),0.3), \quad z =(0.2,0.1), \quad q = (\sin(
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+
 ```
 
 **c) Discussion.** Describe your results and discuss why and how they stray from the expected answer.
