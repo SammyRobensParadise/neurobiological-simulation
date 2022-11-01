@@ -214,7 +214,7 @@ class Neuron(Population):
         return 0
 
     def encodeJ(self, x):
-        return self.alpha * x * self.e + self.j_bias
+        return self.alpha * (x) * self.e + self.j_bias
 
     def voltage(self, J, V, dT):
         return V + (dT * (1 / self.tau_rc) * (J - V))
@@ -663,8 +663,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    be9d364d-212a-4b80-a313-593aeb1ff737
-    aa7dd362-e355-43d5-87fe-dcf12d2283bf
+    3ace0264-6ba4-4e71-9a1e-d5899432cee0
+    e3fb036b-b3a0-413b-b141-914117723af7
 
 
 
@@ -1286,8 +1286,62 @@ plt.show()
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+x_input, X_input = generate_signal(T=1, dt=1 / 1000, rms=1, limit=8, seed=S)
+
+y_input, Y_input = generate_signal(T=1, dt=1 / 1000, rms=0.5, limit=5, seed=S)
+
+z_ideal = [pt[0] + pt[1] for pt in zip(x_input, y_input)]
+
+ensemble_x.spike(x_input, dt)
+spike_x = np.array(ensemble_x.get_spikes())
+
+fspikes = []
+for spike in spike_x:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+Ax = np.array(fspikes)
+
+x_hat = np.dot(D_X, Ax / dt)
+
+ensemble_y.spike(y_input, dt)
+spike_y = np.array(ensemble_y.get_spikes())
+
+fspikes = []
+for spike in spike_y:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+Ay = np.array(fspikes)
+y_hat = np.dot(D_Y, Ay / dt)
+
+
+z_input = [pt[0] + pt[1] for pt in zip(x_hat, y_hat)]
+ensemble_z.spike(z_input, dt)
+spike_z = np.array(ensemble_z.get_spikes())
+
+fspikes = []
+for spike in spike_z:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+Az = np.array(fspikes)
+z_hat = np.dot(D_Z, Az / dt)
+
+plt.figure()
+plt.suptitle("Decoded $\hat{z}$ and inputs $x,y$ with ideal output $z$")
+a = plt.plot(t, z_hat, label="$\hat{z}$")
+plt.xlim([0, 1])
+b = plt.plot(t, x_input, label="$x_{ideal}$")
+c = plt.plot(t, y_input, label="$y_{ideal}$")
+d = plt.plot(t, z_ideal, label="$z_{ideal}$")
+plt.legend(handles=[a, b, c], labels=[])
+plt.show()
 ```
+
+
+    
+![svg](assignment-3_files/assignment-3_30_0.svg)
+    
+
 
 # 6. Computing with vectors
 
