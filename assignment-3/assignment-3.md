@@ -94,7 +94,7 @@ class Population:
                 self.neurons.append(neuron)
         else:
             for neuron_override in neuron_overrides:
-                print(neuron_override.get_id())
+                print("Override Neuron " + str(neuron_override.get_id()))
                 self.neurons.append(neuron_override)
 
     """ Cleans out a population """
@@ -327,36 +327,6 @@ class Neuron(Population):
                     V_prev = V
         self.spiketrend = spikes
         return spikes
-        """
-        num_ref_steps = np.floor(self.tau_ref / dt)
-        ref_count = 0
-        spike_count = 0
-        voltages = []
-        spikes = []
-        v = 0
-        v_next = 0
-        for stim in x:
-            J = self.alpha * stim * self.e + self.j_bias
-            if ref_count > 0:
-                v = 0
-                ref_count -= 1
-            elif v >= 1:  # spike
-                v = v  # constant spike voltage
-                ref_count = num_ref_steps
-                spike_count += 1
-            elif v < 0:  # keep positive
-                v = 0
-            if v >= 1:
-                spikes.append(1)
-            else:
-                spikes.append(0)
-
-            v_next = v + dt * (1 / self.tau_rc) * (J - v)
-            voltages.append(v)
-            v = v_next
-        self.spiketrend = voltages
-        return spikes
-        """
 ```
 
 
@@ -663,8 +633,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    3ace0264-6ba4-4e71-9a1e-d5899432cee0
-    e3fb036b-b3a0-413b-b141-914117723af7
+    Override Neuron dd43720e-778f-494a-bfea-e2e8c5645195
+    Override Neuron 97fe8877-4d60-414d-ab51-ddbc27887695
 
 
 
@@ -1351,7 +1321,314 @@ $$x =(0.5,1), \quad y = (0.1,0.3), \quad z =(0.2,0.1), \quad q = (0.4,-0.2) \,.$
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+# Create our 2D LIF Neurons and 2D LIF Neuron Populations
+
+tau_ref = 2 / 1000
+tau_rc = 20 / 1000
+
+
+def maxJ2D(tau_ref=tau_ref, tau_rc=tau_rc, max_rate=200):
+    return 1 / (1 - np.exp((tau_ref - 1 / max_rate) / tau_rc))
+
+
+def gain2D(j_max=2, e=1, intercept=0):
+    return (j_max - 1) / (2 - np.vdot(e, intercept))
+
+
+def bias2D(alpha=1, e=1, intercept=0):
+    return 1 - alpha * np.vdot(e, intercept)
+
+
+class Population2D:
+    def __init__(self, num_neurons=1, state=None, neuron_overrides=[]):
+        self.num_neurons = num_neurons
+        self.rates = []
+        self.spikes = []
+        if state == None:
+            self.default_neuron_states = {
+                "min_rate": 100,
+                "max_rate": 200,
+                "encoder": [0, 2 * np.pi],
+                "tau_ref": 2 / 1000,
+                "tau_rc": 20 / 1000,
+                "min_angle": 0,
+                "max_angle": 2 * np.pi,
+                "max_radius": 2,
+            }
+
+        else:
+            self.default_neuron_states = state
+        self.neurons = []
+        if len(neuron_overrides) == 0:
+            for idx in range(self.num_neurons):
+                neuron = Neuron2D(self.default_neuron_states)
+                self.neurons.append(neuron)
+        else:
+            for neuron_override in neuron_overrides:
+                print("Override Neuron " + str(neuron_override.get_id()))
+                self.neurons.append(neuron_override)
+
+    """ Cleans out a population """
+
+    def nuke(self):
+        self.neurons = []
+
+    def clear_rates(self):
+        self.rates = []
+
+    def clear_spikes(self):
+        self.spikes = []
+
+    """ Applies a mutator to each neuron in the population """
+
+    def mutate(self, mutator):
+        if len(self.neurons) == 0:
+            return
+        else:
+            for neuron in self.neurons:
+                mutator(neuron)
+
+    def spike(self, X, dT, cap=None):
+        O = []
+        for neuron in self.neurons:
+            spikes = neuron.spikies(X, dT, cap)
+            O.append(spikes)
+        return O
+
+    def get_curves(self, input):
+        for neuron in self.neurons:
+            self.rates.append(neuron.rates(input))
+        return self.rates
+
+    def get_neurons(self):
+        return self.neurons
+
+    def get_neuron_by_index(self, idx):
+        return self.neurons[idx]
+
+    def get_neuron_by_id(self, target_id):
+        match = None
+        for neuron in self.neurons:
+            if target_id == neuron.get_id():
+                match = neuron
+        return match
+
+    def get_spikes(self):
+        spikes = []
+        for neuron in self.neurons:
+            spikes.append(neuron.get_spiketrend()[:, 1])
+        self.spikes = spikes
+        return spikes
+
+    def get_voltages(self):
+        voltages = []
+        for neuron in self.neurons:
+            voltages.append(neuron.get_spiketrend()[:, 0])
+        self.voltages = voltages
+        return voltages
+
+    def get_ordered_encoders(self):
+        encoders = []
+        for neuron in self.neurons:
+            encoders.append(neuron.get_encoder())
+        return encoders
+
+    def get_neuron_count(self):
+        return len(self.neurons)
+
+    def get_neurons_by_rate(self, rate_range=[20, 50], stim=0):
+        target_neurons = []
+        for neuron in self.neurons:
+            rate = neuron.encode(stim)
+            is_less_then_max = rate < rate_range[1]
+            is_more_then_min = rate > rate_range[0]
+            if is_less_then_max and is_more_then_min:
+                target_neurons.append(neuron)
+        return target_neurons
+
+
+class Neuron2D(Population2D):
+    def __init__(self, state=None, override=None):
+        if override == None:
+            self.angle = np.random.uniform(state["min_angle"], state["max_angle"])
+            self.r = np.random.uniform(0, state["max_radius"])
+            self.x_int = [self.r * np.cos(self.angle), self.r * np.sin(self.angle)]
+            self.max_rate = np.random.uniform(state["min_rate"], state["max_rate"])
+            self.encoder_angle = np.random.uniform(
+                state["min_angle"], state["max_angle"]
+            )
+            self.e = [np.cos(self.encoder_angle), np.sin(self.encoder_angle)]
+            self.tau_ref = state["tau_ref"]
+            self.tau_rc = state["tau_rc"]
+            J_max = maxJ2D(
+                tau_ref=self.tau_ref, tau_rc=self.tau_rc, max_rate=self.max_rate
+            )
+            self.alpha = gain2D(J_max, self.e, self.x_int)
+            self.j_bias = bias2D(alpha=self.alpha, e=self.e, intercept=self.x_int)
+            self.id = uuid4()
+            self.spiketrend = []
+            self.firing_rates = []
+        else:
+            self.x_int = override["x_int"]
+            self.max_rate = override["max_rate"]
+            self.e = override["encoder"]
+            self.tau_ref = override["tau_ref"]
+            self.tau_rc = override["tau_rc"]
+            self.alpha = override["alpha"]
+            self.j_bias = override["j_bias"]
+            self.id = uuid4()
+            self.spiketrend = override["spiketrend"]
+            self.firing_rates = override["firing_rates"]
+
+    def whoisthis(self):
+        print(self.__dict__)
+
+    def encode(self, x):
+        J = self.alpha * np.vdot(x, self.e) + self.j_bias
+        if J > 1:
+            return 1 / (self.tau_ref - self.tau_rc * np.log(1 - 1 / J))
+        return 0
+
+    def encodeJ(self, x):
+        return self.alpha * np.vdot(x, self.e) + self.j_bias
+
+    def voltage(self, J, V, dT):
+        return V + (dT * (1 / self.tau_rc) * (J - V))
+
+    def howmanyspikes(self):
+        spike_points = self.spiketrend[:, 1]
+        num_spikes = int(spike_points.tolist().count(1))
+        return num_spikes
+
+    def get_intercept(self):
+        return self.x_int
+
+    def get_gain(self):
+        return self.alpha
+
+    def get_bias(self):
+        return self.j_bias
+
+    def get_max_rate(self):
+        return self.max_rate
+
+    def get_tau_rc(self):
+        return self.tau_rc
+
+    def get_tau_ref(self):
+        return self.tau_ref
+
+    def get_id(self):
+        return self.id
+
+    def set_encoder(self, encoder):
+        self.e = encoder
+
+    def get_encoder(self):
+        return self.e
+
+    def me(self):
+        return self
+
+    def dangerously_set_id(self, ied):
+        self.id = ied
+
+    def set_rate(self, rate):
+        self.max_rate = rate
+
+    def set_bias(self, bias):
+        self.j_bias = bias
+
+    def set_gain(self, gain):
+        self.alpha = gain
+
+    def get_spiketrend(self):
+        return self.spiketrend
+
+    def get_rates(self):
+        return self.firing_rates
+
+    def rates(self, x):
+        self.firing_rates = []
+        for point in x:
+            self.firing_rates.append(self.encode(point))
+        return self.firing_rates
+
+    def clear_rates(self):
+        self.firing_rates = []
+
+    def spikies(self, X, dT, cap=None):
+        N = np.floor(self.tau_ref / dT)
+        V_th = 1
+        V_rest = 0
+        spikes = np.array([np.zeros(len(X)), np.zeros(len(X))]).T
+        V = V_rest
+        V_prev = V_rest
+        ref_period = False
+        for idx, x in enumerate(X):
+            if ref_period == True:
+                V = V_rest
+                V_prev = V_rest
+                # voltage is 0
+                spikes[idx][0] = 0
+                # no spike so set it to 0
+                spikes[idx][1] = 0
+                # we have completed one ref cycle
+                ref_period = False
+            else:
+                J = self.encodeJ(x)
+                V = self.voltage(J, V_prev, dT)
+                if V >= V_th:
+                    # we have a spike so assign second column to 1 to indicate a spike
+                    spikes[idx][1] = int(1)
+                    # start the ref period
+                    ref_period = True
+                    # assign the first collumn to the current voltage
+                    # assign a constant spiking voltage to make identification easier
+                    if cap != None:
+                        spikes[idx][0] = cap
+                    else:
+                        spikes[idx][0] = V
+                    # reset the voltage to 0
+                    V = V_rest
+                    V_prev = V_rest
+                else:
+                    if V < V_rest:
+                        V = V_rest
+                    # no spikes to assign second column to 0
+                    spikes[idx][1] = int(0)
+                    # still capture the voltage
+                    spikes[idx][0] = V
+                    # assign the previous voltage to the current voltage for next iteration
+                    V_prev = V
+        self.spiketrend = spikes
+        return spikes
+```
+
+
+```python
+# we want 200 neurons
+num_neurons = 200
+# with this default state
+state = {
+    "min_rate": 100,
+    "max_rate": 200,
+    "encoder": [0, 2 * np.pi],
+    "tau_ref": 2 / 1000,
+    "tau_rc": 20 / 1000,
+    "min_angle": 0,
+    "max_angle": 2 * np.pi,
+    "max_radius": 2,
+}
+
+# create 5 populations of 200 neurons with the default states
+ensemble_x = Population2D(num_neurons=200, state=state)
+ensemble_y = Population2D(num_neurons=200, state=state)
+ensemble_z = Population2D(num_neurons=200, state=state)
+ensemble_q = Population2D(num_neurons=200, state=state)
+ensemble_w = Population2D(num_neurons=200, state=state)
+
+
 ```
 
 **b) Sinusoidal input.** Produce the same plot for
