@@ -663,8 +663,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    0dc61f39-142d-44e6-866a-ea3cccf62460
-    5d20ca62-3270-436b-9091-36540724f323
+    be9d364d-212a-4b80-a313-593aeb1ff737
+    aa7dd362-e355-43d5-87fe-dcf12d2283bf
 
 
 
@@ -1168,8 +1168,118 @@ The output does not match the ideal input. while it seems to match the general "
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+# we want 200 neurons
+num_neurons = 200
+# with this default state
+state = {
+    "min_rate": 100,
+    "max_rate": 200,
+    "encoder": [-1, 1],
+    "tau_ref": 2 / 1000,
+    "tau_rc": 20 / 1000,
+    "min_x_int": -1,
+    "max_x_int": 1,
+}
+
+# create a population of 200 neurons with the default states
+ensemble_x = Population(num_neurons=200, state=state)
+ensemble_y = Population(num_neurons=200, state=state)
+ensemble_z = Population(num_neurons=200, state=state)
+
+
+T = 1
+dt = 1 / 1000
+rms = 1
+limit = 5
+t = np.arange(0, 1, dt)
+
+h, t_h = synaptic_filter(tau=5 / 1000, dt=dt, ms=T * 1000)
+
+
+# f(x)=0.5x
+x = [0.5 * pt for pt in t]
+
+# f(y)=2y
+y = [2 * pt for pt in t]
+
+# z(x,y) = 2y + 0.5x
+tune_z = [pt[0] + pt[1] for pt in zip(x, y)]
+
+curves_x = np.array(ensemble_x.get_curves(x))
+curves_y = np.array(ensemble_y.get_curves(y))
+curves_z = np.array(ensemble_z.get_curves(tune_z))
+
+# create matrix of activities
+A_X = curves_x
+A_Y = curves_y
+A_Z = curves_z
+
+# generate decoders
+D_X, A_X_NOISE = decoder(signal=np.array(x), A=A_X, num_neurons=num_neurons)
+D_Y, A_Y_NOISE = decoder(signal=np.array(y), A=A_Y, num_neurons=num_neurons)
+D_Z, A_Z_NOISE = decoder(signal=np.array(tune_z), A=A_Z, num_neurons=num_neurons)
+
+
+# make sure we have all our decoders
+assert len(D_X) == num_neurons
+assert len(D_Y) == num_neurons
+assert len(D_Z) == num_neurons
+
+
+x_input = [np.cos(3 * np.pi * pt) for pt in t]
+y_input = [0.5 * np.sin(2 * np.pi * pt) for pt in t]
+z_ideal= [pt[0] + pt[1] for pt in zip(x_input, y_input)]
+
+ensemble_x.spike(x_input, dt)
+spike_x = np.array(ensemble_x.get_spikes())
+
+fspikes = []
+for spike in spike_x:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+Ax = np.array(fspikes)
+
+x_hat = np.dot(D_X, Ax / dt)
+
+ensemble_y.spike(y_input, dt)
+spike_y = np.array(ensemble_y.get_spikes())
+
+fspikes = []
+for spike in spike_y:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+Ay = np.array(fspikes)
+y_hat = np.dot(D_Y, Ay / dt)
+
+
+z_input = [pt[0] + pt[1] for pt in zip(x_hat, y_hat)]
+ensemble_z.spike(z_input, dt)
+spike_z = np.array(ensemble_z.get_spikes())
+
+fspikes = []
+for spike in spike_z:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+Az = np.array(fspikes)
+z_hat = np.dot(D_Z, Az / dt)
+
+plt.figure()
+plt.suptitle("Decoded $\hat{z}$ and inputs $x,y$ with ideal output $z$")
+a = plt.plot(t, z_hat, label="$\hat{z}$")
+plt.xlim([0, 1])
+b = plt.plot(t, x_input, label="$x_{ideal}$")
+c = plt.plot(t, y_input, label="$y_{ideal}$")
+d = plt.plot(t, z_ideal, label="$z_{ideal}$")
+plt.legend(handles=[a, b, c], labels=[])
+plt.show()
 ```
+
+
+    
+![svg](assignment-3_files/assignment-3_28_0.svg)
+    
+
 
 **b) Random input.** Plot $x(t)$, $y(t)$, the ideal $z(t)$, and the decoded $\hat{z}(t)$ for a random input over $1\,\mathrm{s}$. For $x(t)$ use a random signal with a limit of $8\,\mathrm{Hz}$ and $\mathtt{rms}=1$. For $y(t)$ use a random signal with a limit of $5\,\mathrm{Hz}$ and $\mathtt{rms}=0.5$.
 
