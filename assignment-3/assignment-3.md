@@ -1077,18 +1077,19 @@ A = np.array(fspikes)
 
 y_hat = np.dot(D_Y, A / dt)
 
+y = [2 * k + 1 for k in x]
+
 plt.figure()
 plt.suptitle("Decoded $\hat{y}$ and inputs")
 a = plt.plot(t, y_hat, label="$\hat{y}$")
 plt.xlim([-1, 0])
 b = plt.plot(t, x, label="$x(t)=STEP$")
+c = plt.plot(t, y, label="$y$")
 plt.legend(
-    handles=[
-        a,
-        b,
-    ],
+    handles=[a, b, c],
     labels=[],
 )
+plt.xlabel("$t$")
 plt.show()
 ```
 
@@ -1103,14 +1104,62 @@ plt.show()
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+dt = 1 / 1000
+
+t = np.arange(-1, 0, dt)
+
+x = [0.2 * np.sin(6 * np.pi * pt) for pt in t]
+
+ensemble_x.spike(x, dt)
+spike_x = np.array(ensemble_x.get_spikes())
+
+fspikes = []
+for spike in spike_x:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+A = np.array(fspikes)
+
+x_hat = np.dot(D_X, A / dt)
+
+ensemble_y.spike(x_hat, dt)
+spike_y = np.array(ensemble_y.get_spikes())
+
+fspikes = []
+for spike in spike_y:
+    fspike = np.convolve(spike, h, mode="same")
+    fspikes.append(fspike)
+
+A = np.array(fspikes)
+
+y_hat = np.dot(D_Y, A / dt)
+
+y = [2 * k + 1 for k in x]
+
+plt.figure()
+plt.suptitle("Decoded $\hat{y}$ and inputs")
+a = plt.plot(t, y_hat, label="$\hat{y}$")
+plt.xlim([-1, 0])
+plt.xlabel("$t$")
+b = plt.plot(t, x, label="$x(t)=0.2\sin(6\pi t)$")
+c = plt.plot(t, y, label="$y$")
+plt.legend(
+    handles=[a, b, c],
+    labels=[],
+)
+plt.show()
 ```
+
+
+    
+![svg](assignment-3_files/assignment-3_24_0.svg)
+    
+
 
 **d) Discussion.** Briefly discuss the results for this question. Does the output match the ideal output? What kind of deviations do you see and why do those exist?
 
 
-✍ \<YOUR SOLUTION HERE\>
-
+The output does not match the ideal input. while it seems to match the general "shape" of the ideal output, it is generally translated or scaled incorrectly, It does however, generally match the input $x(t)$ quite well. We was also observed is that feeding $\hat{x}$ into the second neuron population seemed to address some of the large amounts of noise in the signal, This makes sense because the signal would be undergoing a second filter with $h(t)$. Generally speaking, the neurons performed better than expected given that they were tuned on a completely different function than the one that was fed into the network.
 
 # 5. Connecting three groups of neurons
 
