@@ -633,8 +633,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    Override Neuron dd43720e-778f-494a-bfea-e2e8c5645195
-    Override Neuron 97fe8877-4d60-414d-ab51-ddbc27887695
+    Override Neuron c89fc320-f049-425e-898b-14af20769615
+    Override Neuron 2d907ed3-ad13-4945-baf9-37f7cee5a5db
 
 
 
@@ -1744,32 +1744,45 @@ for spike in spike_w:
 Aw = np.array(fspikes)
 w_hat = np.dot(D_W, Aw / dt)
 
+x_input = x_input.T
+y_input = y_input.T
+z_input = z_input.T
+q_input = q_input.T
 
-
-
+w_ideal = np.array([np.zeros(samples), np.zeros(samples)]).T
+for idx, point in enumerate(w_ideal):
+    point[0] = (
+        x_input[idx][0]
+        - 3 * y_input[idx][0]
+        + 2 * z_input[idx][0]
+        - 2 * q_input[idx][0]
+    )
+    point[1] = (
+        x_input[idx][1]
+        - 3 * y_input[idx][1]
+        + 2 * z_input[idx][1]
+        - 2 * q_input[idx][1]
+    )
 ```
 
 
 ```python
-print(w_hat.shape)
 
 from mpl_toolkits import mplot3d
-x_hat=x_hat.T
-y_hat=y_hat
+
+
+w_hat=w_hat
+t=t.T
 fig = plt.figure()
-ax = plt.axes(projection='3d')
-ax.plot(t[0,:],w_hat[0,:],zs=w_hat[1,:],label='$\hat{w}$')
-ax.plot(t[0,:],x_hat[0,:],zs=x_hat[1,:],label='$\hat{w}$')
-ax.plot(t[0,:],y_hat[0,:],zs=y_hat[1,:],label='$\hat{w}$')
+ax = plt.axes(projection="3d")
+ax.plot(t[0, :], w_hat[0, :], zs=w_hat[1, :], label="$\hat{w}$")
+ax.plot(t[0, :], w_ideal[0, :], zs=w_ideal[1, :], label="$w$")
 plt.show()
 ```
 
-    (2, 1000)
-
-
 
     
-![svg](assignment-3_files/assignment-3_34_1.svg)
+![svg](assignment-3_files/assignment-3_34_0.svg)
     
 
 
