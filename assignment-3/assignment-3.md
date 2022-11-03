@@ -633,8 +633,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    Override Neuron f8b9a434-3fed-4ac2-8891-18c26cc31a74
-    Override Neuron 30088897-0ce3-48fd-94f7-6cee487cc2bf
+    Override Neuron 64974201-1219-46fe-bfad-d1a3788dba42
+    Override Neuron 463681cc-beb0-49d5-822a-f821270213aa
 
 
 
@@ -658,8 +658,8 @@ assert neuron_neg_encoder.get_encoder() == -1
 
 
 # get the first colum of the outputs which is the voltages
-v_out_pos = neuron_pos_encoder.get_spiketrend()#[:, 0]
-v_out_neg = neuron_neg_encoder.get_spiketrend()#[:, 0]
+v_out_pos = neuron_pos_encoder.get_spiketrend()[:, 0]
+v_out_neg = neuron_neg_encoder.get_spiketrend()[:, 0]
 
 # checking that they are reflections of themselves
 assert np.array(v_out_neg).all() == -1 * np.array(v_out_pos).all()
@@ -667,9 +667,7 @@ assert np.array(v_out_neg).all() == -1 * np.array(v_out_pos).all()
 # align spikes
 spikes = np.array([v_out_pos, v_out_neg])
 r = spikes[0] - spikes[1]
-
-
-x_hat = filter(x, h, t)
+x_hat = filter(r, h, t)
 
 plt.figure()
 plt.suptitle(
@@ -700,7 +698,7 @@ print_block("RMSE",rmse(x,x_hat))
 ```
 
     RMSE ----------
-    0.1737740187209444
+    0.7451491125106602
     -----------------
 
 
