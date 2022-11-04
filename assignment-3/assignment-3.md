@@ -633,8 +633,8 @@ plt.xlim([-0.4, 0.4])
 plt.show()
 ```
 
-    Override Neuron 64974201-1219-46fe-bfad-d1a3788dba42
-    Override Neuron 463681cc-beb0-49d5-822a-f821270213aa
+    Override Neuron ab990bf8-f759-458e-9ee7-1dafcc992cc5
+    Override Neuron 37165e31-1971-4bc5-96e9-69dd4117b7a8
 
 
 
