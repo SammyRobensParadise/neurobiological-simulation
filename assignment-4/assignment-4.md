@@ -17,7 +17,8 @@ from nengo.utils.ensemble import tuning_curves
 from nengo.utils.connection import eval_point_decoding
 
 # Fix the numpy random seed for reproducible results
-np.random.seed(18945)
+seed = 18945
+np.random.seed(seed)
 
 # Some formating options
 %config InlineBackend.figure_formats = ['svg']
@@ -32,13 +33,14 @@ np.random.seed(18945)
 def rmse(x1, x2):
     return np.sqrt(np.mean(np.power(x1 - x2, 2)))
 
+
 # number of neurons
 n = 100
 tau_rc = 20 / 1000
 tau_ref = 2 / 1000
 dimensions = 1
 encoders = [-1, 1]
-model = nengo.Network(label="1-Dim Ensemble")
+model = nengo.Network(label="1-Dim Ensemble", seed=seed)
 lif = nengo.LIFRate(tau_rc=tau_rc, tau_ref=tau_ref)
 with model:
     ens = nengo.Ensemble(
@@ -50,7 +52,7 @@ with model:
     connection = nengo.Connection(ens, ens)
 
 simulation = nengo.Simulator(model)
-x, A = nengo.utils.ensemble.tuning_curves(ens, simulation)
+x, A = tuning_curves(ens, simulation)
 
 plt.figure()
 plt.suptitle("1D LIF Neurons")
@@ -60,9 +62,7 @@ plt.xlabel("Input $x$")
 plt.show()
 
 
-eval_points, targets, decoded = nengo.utils.connection.eval_point_decoding(
-    connection, simulation
-)
+eval_points, targets, decoded = eval_point_decoding(connection, simulation)
 
 plt.figure()
 plt.suptitle("$x$ and $\hat{x}$")
@@ -70,18 +70,17 @@ plt.plot(targets, decoded)
 plt.show()
 
 
-error = rmse(targets,decoded)
+error = rmse(targets, decoded)
 print("RMSE-WITH-100-NEURONS-----------------------")
 print(error)
 print("--------------------------------------------")
-
 ```
 
 
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("fec0abc4-76d7-4414-92d2-064ba8a625ab");
+        var pb = document.getElementById("73013e73-66b1-4ce8-8012-bc74eb930d35");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -89,7 +88,7 @@ print("--------------------------------------------")
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="fec0abc4-76d7-4414-92d2-064ba8a625ab" style="
+<div id="73013e73-66b1-4ce8-8012-bc74eb930d35" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -117,7 +116,7 @@ print("--------------------------------------------")
 
 <script>
               (function () {
-                  var root = document.getElementById('fec0abc4-76d7-4414-92d2-064ba8a625ab');
+                  var root = document.getElementById('73013e73-66b1-4ce8-8012-bc74eb930d35');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -149,8 +148,8 @@ print("--------------------------------------------")
     
 
 
-    RMSE-WITH-1000-NEURONS----------------------
-    0.0032990643928496716
+    RMSE-WITH-100-NEURONS-----------------------
+    0.003293590017523843
     --------------------------------------------
 
 
@@ -158,12 +157,525 @@ print("--------------------------------------------")
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+radii = [1 / 2, 1, 2, 4]
+errors = []
+e_rs = []
+for radius in radii:
+    ens.radius = radius
+    simulation = nengo.Simulator(model)
+    x, A = tuning_curves(ens, simulation)
+    plt.figure()
+    plt.suptitle("100 LIF neurons with radius: " + str(radius))
+    plt.plot(x, A)
+    plt.xlabel("Input $x$")
+    plt.ylabel("Firing Rate (Hz)")
+    plt.xlim([-radius, radius])
+    plt.show()
+    eval_points, targets, decoded = eval_point_decoding(connection, simulation)
+    plt.figure()
+    plt.suptitle("$x$ and $\hat{x}$ for radius: " + str(radius))
+    plt.plot(targets, decoded)
+    plt.show()
+    rmse_err = rmse(targets, decoded)
+
+    ob = {"rmse": rmse_err, "radius": radius}
+    errors.append(ob)
+    e_rs.append(rmse_err)
+
+for error in errors:
+    print("RMSE-WITH-100-NEURONS---------RADIUS-" + str(error["radius"]) + "------")
+    print(error["rmse"])
+    print("--------------------------------------------")
+
+plt.figure()
+plt.suptitle("Error vs radius")
+plt.plot(radii, e_rs)
+plt.xlabel("radius")
+plt.ylabel("$RMSE$")
+plt.show()
 ```
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("336d4912-0315-4974-ae46-e97f058505b1");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="336d4912-0315-4974-ae46-e97f058505b1" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('336d4912-0315-4974-ae46-e97f058505b1');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-4_files/assignment-4_6_2.svg)
+    
+
+
+
+    
+![svg](assignment-4_files/assignment-4_6_3.svg)
+    
+
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("a81bbde7-bf10-41e7-9a4b-fc593246446c");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="a81bbde7-bf10-41e7-9a4b-fc593246446c" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('a81bbde7-bf10-41e7-9a4b-fc593246446c');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-4_files/assignment-4_6_6.svg)
+    
+
+
+
+    
+![svg](assignment-4_files/assignment-4_6_7.svg)
+    
+
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("8151f494-1b1a-4627-9df0-ed3d3439fb4e");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="8151f494-1b1a-4627-9df0-ed3d3439fb4e" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('8151f494-1b1a-4627-9df0-ed3d3439fb4e');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-4_files/assignment-4_6_10.svg)
+    
+
+
+
+    
+![svg](assignment-4_files/assignment-4_6_11.svg)
+    
+
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("8a78eb32-c98f-48aa-9c58-003df0294045");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="8a78eb32-c98f-48aa-9c58-003df0294045" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('8a78eb32-c98f-48aa-9c58-003df0294045');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-4_files/assignment-4_6_14.svg)
+    
+
+
+
+    
+![svg](assignment-4_files/assignment-4_6_15.svg)
+    
+
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("f294d5b1-5d48-4cfd-af54-184280a1b65e");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="f294d5b1-5d48-4cfd-af54-184280a1b65e" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('f294d5b1-5d48-4cfd-af54-184280a1b65e');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-4_files/assignment-4_6_18.svg)
+    
+
+
+
+    
+![svg](assignment-4_files/assignment-4_6_19.svg)
+    
+
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("ea502f89-aee8-4fc9-9e03-9e7cc831e9d7");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="ea502f89-aee8-4fc9-9e03-9e7cc831e9d7" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('ea502f89-aee8-4fc9-9e03-9e7cc831e9d7');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-4_files/assignment-4_6_22.svg)
+    
+
+
+
+    
+![svg](assignment-4_files/assignment-4_6_23.svg)
+    
+
+
+    RMSE-WITH-100-NEURONS---------RADIUS-0.5------
+    0.0016467950087619215
+    --------------------------------------------
+    RMSE-WITH-100-NEURONS---------RADIUS-1------
+    0.003293590017523843
+    --------------------------------------------
+    RMSE-WITH-100-NEURONS---------RADIUS-2------
+    0.006587180035047686
+    --------------------------------------------
+    RMSE-WITH-100-NEURONS---------RADIUS-4------
+    0.013174360070095372
+    --------------------------------------------
+    RMSE-WITH-100-NEURONS---------RADIUS-10------
+    0.03293590017523875
+    --------------------------------------------
+    RMSE-WITH-100-NEURONS---------RADIUS-100------
+    0.3293590017524042
+    --------------------------------------------
+
+
+
+    
+![svg](assignment-4_files/assignment-4_6_25.svg)
+    
+
 
 **c) Discussion.** What mathematical relationship between the radius and the RMSE do you observe (write down an equation)? Explain why this is the case.
 
-✍ \<YOUR SOLUTION HERE\>
+As we can see in the above figure, the relationship between the radius and the RMSE is linear in nature. As a result we can take any two points and use them to create a linear function that would approximate the expected RMSE for a given radius $r$. for the following, let the RMSE $E$ be a linear function $E(r)$ where $m$ and $b$ are costant coefficients. Then:
+$$
+E = mr+b
+$$
+
+$$
+ (0.5,0.001646) \to (r_1,E_1) \text{  and  } (4,0.329359) \to (r_2,E_2)
+$$
+
+$$
+m=\frac{E_2-E_1}{r_2-r_1}=0.09363
+$$
+
+$$
+b=\frac{r_2E_1-r_1E_2}{r_2-r_1}=-0.04517
+$$
+
+So,
+$$
+E_{RMSE}\approx 0.09363r-0.04517 : r \gt 0
+$$
 
 **d) RMSE and refractory period.** What happens to the RMSE and the tuning curves as $\tau_\mathrm{ref}$ changes between $1$ and $5\,\mathrm{ms}$? Plot the tuning curves for at least four different $\tau_\mathrm{ref}$ and produce a plot showing the RMSE over $\tau_\mathrm{ref}$. Again, make sure to use the same neuron ensemble parameters in all your trials.
 
