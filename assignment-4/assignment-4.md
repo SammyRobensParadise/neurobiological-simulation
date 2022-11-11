@@ -29,8 +29,99 @@ np.random.seed(18945)
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+# number of neurons
+n = 100
+tau_rc = 20 / 1000
+tau_ref = 2 / 1000
+dimensions = 1
+encoders = [-1, 1]
+model = nengo.Network(label="1-Dim Ensemble")
+lif = nengo.LIFRate(tau_rc=tau_rc, tau_ref=tau_ref)
+with model:
+    ens = nengo.Ensemble(
+        n_neurons=n,
+        dimensions=dimensions,
+        max_rates=nengo.dists.Uniform(100, 200),
+        neuron_type=lif,
+    )
+    connection = nengo.Connection(ens, ens)
+
+simulation = nengo.Simulator(model)
+x, A = nengo.utils.ensemble.tuning_curves(ens, simulation)
+
+plt.figure()
+plt.suptitle("1D LIF Neurons")
+plt.plot(x, A)
+plt.ylabel("Firing Rate (Hz)")
+plt.xlabel("Input $x$")
+plt.show()
 ```
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("c2bc7d4f-3d3b-4599-9417-bc840217293e");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="c2bc7d4f-3d3b-4599-9417-bc840217293e" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('c2bc7d4f-3d3b-4599-9417-bc840217293e');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-4_files/assignment-4_4_2.svg)
+    
+
 
 **b) RMSE and radius.** Compute the RMSE for (at least) the four different radii $0.5$, $1$, $2$, and $4$. Plot your results. Compute the RMSE for (at least) the four different radii $0.5$, $1$, $2$, and $4$. Plot your results. Make sure your neurons have the same (relative, i.e., scaled by the radius) $x$-intercepts and maximum rates across all experiments.
 
