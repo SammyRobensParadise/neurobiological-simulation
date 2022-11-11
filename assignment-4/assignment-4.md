@@ -29,6 +29,9 @@ np.random.seed(18945)
 
 
 ```python
+def rmse(x1, x2):
+    return np.sqrt(np.mean(np.power(x1 - x2, 2)))
+
 # number of neurons
 n = 100
 tau_rc = 20 / 1000
@@ -55,13 +58,30 @@ plt.plot(x, A)
 plt.ylabel("Firing Rate (Hz)")
 plt.xlabel("Input $x$")
 plt.show()
+
+
+eval_points, targets, decoded = nengo.utils.connection.eval_point_decoding(
+    connection, simulation
+)
+
+plt.figure()
+plt.suptitle("$x$ and $\hat{x}$")
+plt.plot(targets, decoded)
+plt.show()
+
+
+error = rmse(targets,decoded)
+print("RMSE-WITH-100-NEURONS-----------------------")
+print(error)
+print("--------------------------------------------")
+
 ```
 
 
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("c2bc7d4f-3d3b-4599-9417-bc840217293e");
+        var pb = document.getElementById("fec0abc4-76d7-4414-92d2-064ba8a625ab");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -69,7 +89,7 @@ plt.show()
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="c2bc7d4f-3d3b-4599-9417-bc840217293e" style="
+<div id="fec0abc4-76d7-4414-92d2-064ba8a625ab" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -97,7 +117,7 @@ plt.show()
 
 <script>
               (function () {
-                  var root = document.getElementById('c2bc7d4f-3d3b-4599-9417-bc840217293e');
+                  var root = document.getElementById('fec0abc4-76d7-4414-92d2-064ba8a625ab');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -121,6 +141,17 @@ plt.show()
     
 ![svg](assignment-4_files/assignment-4_4_2.svg)
     
+
+
+
+    
+![svg](assignment-4_files/assignment-4_4_3.svg)
+    
+
+
+    RMSE-WITH-1000-NEURONS----------------------
+    0.0032990643928496716
+    --------------------------------------------
 
 
 **b) RMSE and radius.** Compute the RMSE for (at least) the four different radii $0.5$, $1$, $2$, and $4$. Plot your results. Compute the RMSE for (at least) the four different radii $0.5$, $1$, $2$, and $4$. Plot your results. Make sure your neurons have the same (relative, i.e., scaled by the radius) $x$-intercepts and maximum rates across all experiments.
