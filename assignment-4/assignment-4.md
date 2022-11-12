@@ -1844,7 +1844,56 @@ plt.show()
 
 **a) Transforming the dynamical system.** Rewrite the linear dynamical system describing the integrator in terms of $\frac{\mathrm{d}\vec x(t)}{\mathrm{d}t} = \mathbf{A} \mathbf{x} + \mathbf{B} \mathbf{u}$, i.e., write down the matrices $\mathbf{A}$ and $\mathbf{B}$ (you can just use the equations from class, you do not have to re-derive the equations) What are the matrices $\mathbf{A}'$ and $\mathbf{B}'$ we have to use when implementing this system using the recurrent connection post-synaptic filter?
 
-✍ \<YOUR SOLUTION HERE\>
+Beginning with the linear, time invariant system $\phi(\vec u,\vec x)=\bold A'\vec x + \bold B'\vec u$, we can write this system in the _time-domain_ as:
+
+$$
+\frac{d}{dt}\vec x(t) = \bold A \vec x(t) + \bold B \vec u(t)
+$$
+and
+$$
+\vec x(t) = (h \ast (\bold A'\vec x+\bold B \vec u))(t)
+$$
+We can find $\bold A'$ and $\bold B'$ by converting to the _Laplace-domain_ as follows:
+
+$$
+sX(s)=\bold A X(s) + \bold B U(s)
+$$
+and
+$$
+X(s)=H(s)(\bold A' X(s)+ \bold B' U(s))
+$$
+
+given that
+
+$$
+H(s) = \frac{1}{1+s \tau}
+$$
+
+we can solve the above equations for the matrices $\bold A'$ and $\bold B'$ given that we now have three equations, and three unknowns. This results in the following:
+
+$$
+\bold A' = \tau \bold A + \bold I
+$$
+and 
+
+$$
+\bold B' = \tau \bold B
+$$
+
+**In the case of the linear integrator, we see that**
+
+$$
+\frac{dx(t)}{dt} = \vec u
+$$
+Writing the integrator in the above canonical form, the above equation is true when $\bold A = 0$ and $\bold B = \bold I$, therefore we using the previous equations for $\bold A'$ and $\bold B'$ we can see that:
+
+$$
+\bold A' = \bold I
+$$
+and
+$$
+\bold B' = \tau \bold I
+$$
 
 **b) Integrator using spiking neurons.**  Show the input, the ideal integral, and the value represented by the ensemble when the input is a value of $0.9$ from $t=0.04$ to $t=1.0$ (and $0$ for other times). Run the simulation for $1.5\,\mathrm{s}$.
 
