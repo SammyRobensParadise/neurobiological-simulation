@@ -2598,18 +2598,155 @@ $$
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+input = lambda t: 5 * np.sin(5 * t)
+simulate(input=input, title="Neural Integrator for a sinusoidal Input")
 ```
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("87900853-ea8c-4bf6-8652-09f93c4f9681");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="87900853-ea8c-4bf6-8652-09f93c4f9681" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('87900853-ea8c-4bf6-8652-09f93c4f9681');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("1c80bf47-7de4-4932-a256-0ed38ad4c659");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="1c80bf47-7de4-4932-a256-0ed38ad4c659" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('1c80bf47-7de4-4932-a256-0ed38ad4c659');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Simulation finished in 0:00:01.';
+
+            if (100.0 > 0.) {
+                fill.style.transition = 'width 0.1s linear';
+            } else {
+                fill.style.transition = 'none';
+            }
+
+            fill.style.width = '100.0%';
+            fill.style.animation = 'none';
+            fill.style.backgroundImage = 'none'
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-4_files/assignment-4_38_4.svg)
+    
+
 
 **k) Discussion.** What should the value represented by the ensemble be? Write the equation. How well does it do? What are the differences between the model's behaviour and the expected ideal behaviour and why do these differences occur?
 
-✍ \<YOUR SOLUTION HERE\>
+The model does a relatively good job of representing the sinusodial input. It shows an estimation of correct amplitude and period. With that beign said, the integrator only "adds" at the beginning since it has no prior information to go off of, and as a result it becomes out of phase with the actual function $x(t)=5sin(5t)$
+
+The ideal results are as follows
+
+... if $ 0 \lt t$
+$$
+\int_{0}^{t} u(t')dt' = \int_{0}^{t'} 5sin(5t)dt = -cos(5t)+1
+$$
+Or on the interval $[0,1.5]$:
+$$
+\int_{0}^{t} u(t')dt' = \int_{0}^{1.5} 5sin(5t)dt = 5 \int_{0}^{7.5}sin(u)\frac{1}{5}du = [-cos(u)]_{0}^{7.5} = 0.65336...
+$$
 
 **l) 🌟 Bonus question.** Implement a nonlinear dynamical system we have not seen in class (and that is not in the book). Demonstrate that it's working as expected
 
-✍ \<YOUR SOLUTION HERE\>
-
-
-```python
-# ✍ <YOUR SOLUTION HERE>
-```
+😥
