@@ -80,7 +80,7 @@ print("--------------------------------------------")
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("73013e73-66b1-4ce8-8012-bc74eb930d35");
+        var pb = document.getElementById("d32eef2b-5b23-4a79-b987-045c1d78a43e");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -88,7 +88,7 @@ print("--------------------------------------------")
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="73013e73-66b1-4ce8-8012-bc74eb930d35" style="
+<div id="d32eef2b-5b23-4a79-b987-045c1d78a43e" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -116,7 +116,7 @@ print("--------------------------------------------")
 
 <script>
               (function () {
-                  var root = document.getElementById('73013e73-66b1-4ce8-8012-bc74eb930d35');
+                  var root = document.getElementById('d32eef2b-5b23-4a79-b987-045c1d78a43e');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -199,7 +199,7 @@ plt.show()
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("336d4912-0315-4974-ae46-e97f058505b1");
+        var pb = document.getElementById("51159763-8745-4c2f-81aa-89d930ef23c4");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -207,7 +207,7 @@ plt.show()
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="336d4912-0315-4974-ae46-e97f058505b1" style="
+<div id="51159763-8745-4c2f-81aa-89d930ef23c4" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -235,7 +235,7 @@ plt.show()
 
 <script>
               (function () {
-                  var root = document.getElementById('336d4912-0315-4974-ae46-e97f058505b1');
+                  var root = document.getElementById('51159763-8745-4c2f-81aa-89d930ef23c4');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -271,7 +271,7 @@ plt.show()
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("a81bbde7-bf10-41e7-9a4b-fc593246446c");
+        var pb = document.getElementById("97196ed8-4005-49fa-8602-409183919e9d");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -279,7 +279,7 @@ plt.show()
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="a81bbde7-bf10-41e7-9a4b-fc593246446c" style="
+<div id="97196ed8-4005-49fa-8602-409183919e9d" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -307,7 +307,7 @@ plt.show()
 
 <script>
               (function () {
-                  var root = document.getElementById('a81bbde7-bf10-41e7-9a4b-fc593246446c');
+                  var root = document.getElementById('97196ed8-4005-49fa-8602-409183919e9d');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -343,7 +343,7 @@ plt.show()
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("8151f494-1b1a-4627-9df0-ed3d3439fb4e");
+        var pb = document.getElementById("65b09dfc-3a18-4b37-b943-dc6d27ce0979");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -351,7 +351,7 @@ plt.show()
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="8151f494-1b1a-4627-9df0-ed3d3439fb4e" style="
+<div id="65b09dfc-3a18-4b37-b943-dc6d27ce0979" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -379,7 +379,7 @@ plt.show()
 
 <script>
               (function () {
-                  var root = document.getElementById('8151f494-1b1a-4627-9df0-ed3d3439fb4e');
+                  var root = document.getElementById('65b09dfc-3a18-4b37-b943-dc6d27ce0979');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -415,7 +415,7 @@ plt.show()
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("8a78eb32-c98f-48aa-9c58-003df0294045");
+        var pb = document.getElementById("5542d06f-aebb-4995-a687-f906f53f1e59");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -423,7 +423,7 @@ plt.show()
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="8a78eb32-c98f-48aa-9c58-003df0294045" style="
+<div id="5542d06f-aebb-4995-a687-f906f53f1e59" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -451,7 +451,7 @@ plt.show()
 
 <script>
               (function () {
-                  var root = document.getElementById('8a78eb32-c98f-48aa-9c58-003df0294045');
+                  var root = document.getElementById('5542d06f-aebb-4995-a687-f906f53f1e59');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -483,150 +483,6 @@ plt.show()
     
 
 
-
-
-<script>
-    if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("f294d5b1-5d48-4cfd-af54-184280a1b65e");
-        var text = document.createTextNode(
-            "HMTL progress bar requires Jupyter Notebook >= " +
-            "5.0 or Jupyter Lab. Alternatively, you can use " +
-            "TerminalProgressBar().");
-        pb.parentNode.insertBefore(text, pb);
-    }
-</script>
-<div id="f294d5b1-5d48-4cfd-af54-184280a1b65e" style="
-    width: 100%;
-    border: 1px solid #cfcfcf;
-    border-radius: 4px;
-    text-align: center;
-    position: relative;">
-  <div class="pb-text" style="
-      position: absolute;
-      width: 100%;">
-    0%
-  </div>
-  <div class="pb-fill" style="
-      background-color: #bdd2e6;
-      width: 0%;">
-    <style type="text/css" scoped="scoped">
-        @keyframes pb-fill-anim {
-            0% { background-position: 0 0; }
-            100% { background-position: 100px 0; }
-        }
-    </style>
-    &nbsp;
-  </div>
-</div>
-
-
-
-<script>
-              (function () {
-                  var root = document.getElementById('f294d5b1-5d48-4cfd-af54-184280a1b65e');
-                  var text = root.getElementsByClassName('pb-text')[0];
-                  var fill = root.getElementsByClassName('pb-fill')[0];
-
-                  text.innerHTML = 'Build finished in 0:00:01.';
-
-            fill.style.width = '100%';
-            fill.style.animation = 'pb-fill-anim 2s linear infinite';
-            fill.style.backgroundSize = '100px 100%';
-            fill.style.backgroundImage = 'repeating-linear-gradient(' +
-                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
-
-
-                fill.style.animation = 'none';
-                fill.style.backgroundImage = 'none';
-
-              })();
-        </script>
-
-
-
-    
-![svg](assignment-4_files/assignment-4_6_18.svg)
-    
-
-
-
-    
-![svg](assignment-4_files/assignment-4_6_19.svg)
-    
-
-
-
-
-<script>
-    if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("ea502f89-aee8-4fc9-9e03-9e7cc831e9d7");
-        var text = document.createTextNode(
-            "HMTL progress bar requires Jupyter Notebook >= " +
-            "5.0 or Jupyter Lab. Alternatively, you can use " +
-            "TerminalProgressBar().");
-        pb.parentNode.insertBefore(text, pb);
-    }
-</script>
-<div id="ea502f89-aee8-4fc9-9e03-9e7cc831e9d7" style="
-    width: 100%;
-    border: 1px solid #cfcfcf;
-    border-radius: 4px;
-    text-align: center;
-    position: relative;">
-  <div class="pb-text" style="
-      position: absolute;
-      width: 100%;">
-    0%
-  </div>
-  <div class="pb-fill" style="
-      background-color: #bdd2e6;
-      width: 0%;">
-    <style type="text/css" scoped="scoped">
-        @keyframes pb-fill-anim {
-            0% { background-position: 0 0; }
-            100% { background-position: 100px 0; }
-        }
-    </style>
-    &nbsp;
-  </div>
-</div>
-
-
-
-<script>
-              (function () {
-                  var root = document.getElementById('ea502f89-aee8-4fc9-9e03-9e7cc831e9d7');
-                  var text = root.getElementsByClassName('pb-text')[0];
-                  var fill = root.getElementsByClassName('pb-fill')[0];
-
-                  text.innerHTML = 'Build finished in 0:00:01.';
-
-            fill.style.width = '100%';
-            fill.style.animation = 'pb-fill-anim 2s linear infinite';
-            fill.style.backgroundSize = '100px 100%';
-            fill.style.backgroundImage = 'repeating-linear-gradient(' +
-                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
-
-
-                fill.style.animation = 'none';
-                fill.style.backgroundImage = 'none';
-
-              })();
-        </script>
-
-
-
-    
-![svg](assignment-4_files/assignment-4_6_22.svg)
-    
-
-
-
-    
-![svg](assignment-4_files/assignment-4_6_23.svg)
-    
-
-
     RMSE-WITH-100-NEURONS---------RADIUS-0.5------
     0.0016467950087619215
     --------------------------------------------
@@ -639,17 +495,11 @@ plt.show()
     RMSE-WITH-100-NEURONS---------RADIUS-4------
     0.013174360070095372
     --------------------------------------------
-    RMSE-WITH-100-NEURONS---------RADIUS-10------
-    0.03293590017523875
-    --------------------------------------------
-    RMSE-WITH-100-NEURONS---------RADIUS-100------
-    0.3293590017524042
-    --------------------------------------------
 
 
 
     
-![svg](assignment-4_files/assignment-4_6_25.svg)
+![svg](assignment-4_files/assignment-4_6_17.svg)
     
 
 
@@ -681,8 +531,442 @@ $$
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+tau_refs = [1 / 1000, 2 / 1000, 3 / 1000, 4 / 1000, 5 / 1000]
+n = 100
+tau_rc = 20 / 1000
+dimensions = 1
+encoders = [-1, 1]
+
+errors = []
+e_rs = []
+
+for tau_ref in tau_refs:
+    model = nengo.Network(label="1-Dim Ensemble", seed=seed)
+    lif = nengo.LIFRate(tau_rc=tau_rc, tau_ref=tau_ref)
+    with model:
+        ens = nengo.Ensemble(
+            n_neurons=n,
+            dimensions=dimensions,
+            max_rates=nengo.dists.Uniform(100, 200),
+            neuron_type=lif,
+        )
+        connection = nengo.Connection(ens, ens)
+
+    simulation = nengo.Simulator(model)
+    x, A = tuning_curves(ens, simulation)
+    plt.figure()
+    plt.suptitle("100 LIF neurons with $\\tau_{ref}$: " + str(tau_ref))
+    plt.plot(x, A)
+    plt.xlabel("Input $x$")
+    plt.ylabel("Firing Rate (Hz)")
+    plt.xlim([-1, 1])
+    plt.show()
+    eval_points, targets, decoded = eval_point_decoding(connection, simulation)
+    plt.figure()
+    plt.suptitle("$x$ and $\hat{x}$ for $\\tau_{ref}$: " + str(tau_ref))
+    plt.plot(targets, decoded)
+    plt.show()
+    rmse_err = rmse(targets, decoded)
+
+    ob = {"rmse": rmse_err, "tau_ref": tau_ref}
+    errors.append(ob)
+    e_rs.append(rmse_err)
+
+for error in errors:
+    print("RMSE-WITH-100-NEURONS---------TAU_REF-" + str(error["tau_ref"]) + "------")
+    print(error["rmse"])
+    print("--------------------------------------------")
+
+plt.figure()
+plt.suptitle("Error vs $\\tau_{ref}$")
+plt.plot(tau_refs, e_rs)
+plt.xlabel("$\\tau_{ref}$")
+plt.ylabel("$RMSE$")
+plt.show()
 ```
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("12f485d2-d868-4709-811f-e4330e6fbb3f");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="12f485d2-d868-4709-811f-e4330e6fbb3f" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('12f485d2-d868-4709-811f-e4330e6fbb3f');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-4_files/assignment-4_10_2.svg)
+    
+
+
+
+    
+![svg](assignment-4_files/assignment-4_10_3.svg)
+    
+
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("f031cbe6-957c-4c4c-8734-ff0672f94b00");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="f031cbe6-957c-4c4c-8734-ff0672f94b00" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('f031cbe6-957c-4c4c-8734-ff0672f94b00');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-4_files/assignment-4_10_6.svg)
+    
+
+
+
+    
+![svg](assignment-4_files/assignment-4_10_7.svg)
+    
+
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("2a77464a-da32-4669-96a2-eecb1324c42d");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="2a77464a-da32-4669-96a2-eecb1324c42d" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('2a77464a-da32-4669-96a2-eecb1324c42d');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-4_files/assignment-4_10_10.svg)
+    
+
+
+
+    
+![svg](assignment-4_files/assignment-4_10_11.svg)
+    
+
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("b72f6d96-20f2-4fcf-941d-bab118e71b20");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="b72f6d96-20f2-4fcf-941d-bab118e71b20" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('b72f6d96-20f2-4fcf-941d-bab118e71b20');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-4_files/assignment-4_10_14.svg)
+    
+
+
+
+    
+![svg](assignment-4_files/assignment-4_10_15.svg)
+    
+
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("e9363926-1557-4e84-8a6f-f5dcf863333b");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="e9363926-1557-4e84-8a6f-f5dcf863333b" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('e9363926-1557-4e84-8a6f-f5dcf863333b');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-4_files/assignment-4_10_18.svg)
+    
+
+
+
+    
+![svg](assignment-4_files/assignment-4_10_19.svg)
+    
+
+
+    RMSE-WITH-100-NEURONS---------TAU_REF-0.001------
+    0.0029890403235803675
+    --------------------------------------------
+    RMSE-WITH-100-NEURONS---------TAU_REF-0.002------
+    0.003293590017523843
+    --------------------------------------------
+    RMSE-WITH-100-NEURONS---------TAU_REF-0.003------
+    0.003947854781132681
+    --------------------------------------------
+    RMSE-WITH-100-NEURONS---------TAU_REF-0.004------
+    0.005210890671128928
+    --------------------------------------------
+    RMSE-WITH-100-NEURONS---------TAU_REF-0.005------
+    0.008031351083449448
+    --------------------------------------------
+
+
+
+    
+![svg](assignment-4_files/assignment-4_10_21.svg)
+    
+
 
 **e) RMSE and membrane time constant.** What happens to the RMSE and the tuning curves as $\tau_\mathrm{RC}$ changes between $10$ and $100\,\mathrm{ms}$? Plot the tuning curves for at least four different $\tau_\mathrm{RC}$ and produce a plot showing the RMSE over $\tau_\mathrm{RC}$.  Again, make sure to use the same neuron ensemble parameters in all your trials.
 
