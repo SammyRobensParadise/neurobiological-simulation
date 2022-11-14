@@ -1895,7 +1895,6 @@ $$
 
 
 ```python
-from scipy.integrate import quad
 
 
 def simulate(
