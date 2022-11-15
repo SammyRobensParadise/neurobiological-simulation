@@ -15,3 +15,5 @@ markdown:
 	jupyter nbconvert ./assignment-2/syde556_assignment_02_20709541.ipynb --to markdown --output assignment-2.md
 	jupyter nbconvert ./assignment-3/syde556_assignment_03_20709541.ipynb --to markdown --output assignment-3.md
 	jupyter nbconvert ./assignment-4/syde556_assignment_04_20709541.ipynb --to markdown --output assignment-4.md
+	jupyter nbconvert ./assignment-5/syde556_assignment_05_20709541.ipynb --to markdown --output assignment-5.md
+
