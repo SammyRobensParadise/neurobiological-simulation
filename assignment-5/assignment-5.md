@@ -5066,7 +5066,8 @@ for input in inputs:
     
 
 
-The model appears to perform 
+**REVISIT**
+The model appears to perform much better than in (e). The output does not jitter because the intercepts are uniformly distributed between 0.4 and 0.9 meaning. Because of the normal distribution of the values, the second approach would not work
 
 # 2. Temporal Representation
 
