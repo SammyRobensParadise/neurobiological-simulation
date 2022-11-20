@@ -1,8 +1,7 @@
 remote_theme: just-the-docs/just-the-docs
 url: 'https://SammyRobensParadise.github.io/neurobiological-simulation'
 
-color_scheme: dark
-
+color_scheme: default
 back_to_top: true
 back_to_top_text: 'Back to top'
 
