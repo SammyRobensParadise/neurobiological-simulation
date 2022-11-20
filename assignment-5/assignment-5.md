@@ -9608,8 +9608,211 @@ Run the model for 10 seconds and plot the input value and the resulting output v
 
 
 ```python
-# ✍ <YOUR SOLUTION HERE>
+def initialization(x):
+    return 0
+
+
+def identity(x):
+    return 1 * x
+
+
+def learn(
+    input=nengo.processes.WhiteSignal(period=100, high=2, rms=0.3),
+    run_time=10,
+    title="",
+    n_neurons=200,
+    label="",
+    dimensions=1,
+    learning_rate=1e-4,
+    initialization=initialization,
+    function=identity,
+    penalty=-1,
+    reward=1,
+    probe_synapse=10 / 1000,
+):
+    model = nengo.Network(label=label)
+
+    with model:
+        stim = nengo.Node(input)
+        pre = nengo.Ensemble(n_neurons=n_neurons, dimensions=dimensions)
+        post = nengo.Ensemble(n_neurons=n_neurons, dimensions=dimensions)
+        error = nengo.Ensemble(n_neurons=n_neurons, dimensions=dimensions)
+        nengo.Connection(stim, pre)
+        c = nengo.Connection(
+            pre,
+            post,
+            function=initialization,
+            learning_rule_type=nengo.PES(learning_rate=learning_rate),
+        )
+        nengo.Connection(stim, error, function=function, transform=penalty)
+        nengo.Connection(post, error, transform=reward)
+        nengo.Connection(error, c.learning_rule)
+        p_stim = nengo.Probe(stim, synapse=probe_synapse)
+        p_pre = nengo.Probe(pre, synapse=probe_synapse)
+        p_post = nengo.Probe(post, synapse=probe_synapse)
+        p_error = nengo.Probe(error, synapse=probe_synapse)
+
+    simulation = nengo.Simulator(model)
+
+    simulation.run(run_time)
+
+    t = simulation.trange()
+
+    input_val = simulation.data[p_stim]
+    error_val = simulation.data[p_error]
+    pre_val = simulation.data[p_pre]
+    post_val = simulation.data[p_post]
+
+    plt.figure()
+    plt.suptitle(title)
+    aa = plt.plot(t, input_val, label="Input")
+    cc = plt.plot(t, post_val, label="Learned Estimate")
+    plt.legend(
+        handles=[
+            aa,
+            cc,
+        ],
+        labels=[],
+    )
+    plt.xlim([0, run_time])
+    plt.show()
+    return input_val, error_val, pre_val, post_val
 ```
+
+
+```python
+_, _, _, _ = learn(title="PES learning for random white signal input")
+```
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("ba138bd8-09a6-4151-9aee-63123b9f5993");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="ba138bd8-09a6-4151-9aee-63123b9f5993" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('ba138bd8-09a6-4151-9aee-63123b9f5993');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("4717ce70-aaa9-4dd2-b2e7-4499c685f938");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="4717ce70-aaa9-4dd2-b2e7-4499c685f938" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('4717ce70-aaa9-4dd2-b2e7-4499c685f938');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Simulation finished in 0:00:03.';
+
+            if (100.0 > 0.) {
+                fill.style.transition = 'width 0.1s linear';
+            } else {
+                fill.style.transition = 'none';
+            }
+
+            fill.style.width = '100.0%';
+            fill.style.animation = 'none';
+            fill.style.backgroundImage = 'none'
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-5_files/assignment-5_37_4.svg)
+    
+
 
 **b) Error calculation. [1 mark]** What would happen if you reversed the sign of the error calculation (i.e. if you did `target - output` rather than `output - target`? Why does that happen?
 
