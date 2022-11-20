@@ -134,6 +134,7 @@ def simulate(
         labels=[],
     )
     plt.xlim([0, run_time])
+    plt.xlabel("$t$")
     plt.show()
 
 
@@ -159,7 +160,7 @@ simulate(
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("e5d1005b-7f30-46ae-89f0-742b833c3d1d");
+        var pb = document.getElementById("c6d2f69f-a259-4e02-94f6-84e8ba740863");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -167,7 +168,7 @@ simulate(
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="e5d1005b-7f30-46ae-89f0-742b833c3d1d" style="
+<div id="c6d2f69f-a259-4e02-94f6-84e8ba740863" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -195,7 +196,7 @@ simulate(
 
 <script>
               (function () {
-                  var root = document.getElementById('e5d1005b-7f30-46ae-89f0-742b833c3d1d');
+                  var root = document.getElementById('c6d2f69f-a259-4e02-94f6-84e8ba740863');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -219,7 +220,7 @@ simulate(
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("f520682a-ac68-45c6-8e38-d6da5435d98b");
+        var pb = document.getElementById("49bf4440-02e8-4a2d-9c38-8e723713bc8d");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -227,7 +228,7 @@ simulate(
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="f520682a-ac68-45c6-8e38-d6da5435d98b" style="
+<div id="49bf4440-02e8-4a2d-9c38-8e723713bc8d" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -255,7 +256,7 @@ simulate(
 
 <script>
               (function () {
-                  var root = document.getElementById('f520682a-ac68-45c6-8e38-d6da5435d98b');
+                  var root = document.getElementById('49bf4440-02e8-4a2d-9c38-8e723713bc8d');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -289,7 +290,7 @@ simulate(
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("127b7dce-c566-4373-8908-525888e045f3");
+        var pb = document.getElementById("983ed545-3439-42c3-8314-e1d723e80d69");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -297,7 +298,7 @@ simulate(
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="127b7dce-c566-4373-8908-525888e045f3" style="
+<div id="983ed545-3439-42c3-8314-e1d723e80d69" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -325,7 +326,7 @@ simulate(
 
 <script>
               (function () {
-                  var root = document.getElementById('127b7dce-c566-4373-8908-525888e045f3');
+                  var root = document.getElementById('983ed545-3439-42c3-8314-e1d723e80d69');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -349,7 +350,7 @@ simulate(
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("7c588cce-b1b3-4477-8f90-0057b6a035c4");
+        var pb = document.getElementById("73670447-ac55-48b9-9504-c0b2d99aea08");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -357,7 +358,7 @@ simulate(
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="7c588cce-b1b3-4477-8f90-0057b6a035c4" style="
+<div id="73670447-ac55-48b9-9504-c0b2d99aea08" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -385,7 +386,7 @@ simulate(
 
 <script>
               (function () {
-                  var root = document.getElementById('7c588cce-b1b3-4477-8f90-0057b6a035c4');
+                  var root = document.getElementById('73670447-ac55-48b9-9504-c0b2d99aea08');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -419,7 +420,7 @@ simulate(
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("1a0ea6c8-13ca-49b3-be94-8236313eaace");
+        var pb = document.getElementById("09f28947-44c6-498a-a12e-52a15a505639");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -427,7 +428,7 @@ simulate(
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="1a0ea6c8-13ca-49b3-be94-8236313eaace" style="
+<div id="09f28947-44c6-498a-a12e-52a15a505639" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -455,7 +456,7 @@ simulate(
 
 <script>
               (function () {
-                  var root = document.getElementById('1a0ea6c8-13ca-49b3-be94-8236313eaace');
+                  var root = document.getElementById('09f28947-44c6-498a-a12e-52a15a505639');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -479,7 +480,7 @@ simulate(
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("6d821e6a-e81f-43a9-93b0-0d710d199cda");
+        var pb = document.getElementById("79427a1d-2100-43ec-aa82-9a90cb991d7f");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -487,7 +488,7 @@ simulate(
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="6d821e6a-e81f-43a9-93b0-0d710d199cda" style="
+<div id="79427a1d-2100-43ec-aa82-9a90cb991d7f" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -515,7 +516,7 @@ simulate(
 
 <script>
               (function () {
-                  var root = document.getElementById('6d821e6a-e81f-43a9-93b0-0d710d199cda');
+                  var root = document.getElementById('79427a1d-2100-43ec-aa82-9a90cb991d7f');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -549,7 +550,7 @@ simulate(
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("6b27458e-8818-45f8-8587-c0ec55f0f49c");
+        var pb = document.getElementById("2d9dee29-9865-4a77-89e5-9546bad2118d");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -557,7 +558,7 @@ simulate(
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="6b27458e-8818-45f8-8587-c0ec55f0f49c" style="
+<div id="2d9dee29-9865-4a77-89e5-9546bad2118d" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -585,7 +586,7 @@ simulate(
 
 <script>
               (function () {
-                  var root = document.getElementById('6b27458e-8818-45f8-8587-c0ec55f0f49c');
+                  var root = document.getElementById('2d9dee29-9865-4a77-89e5-9546bad2118d');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -609,7 +610,7 @@ simulate(
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("42d83ec1-7c4d-427b-a5eb-15042374007f");
+        var pb = document.getElementById("ae1af3a0-78eb-40f2-bfbe-8e297c8a9f58");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -617,7 +618,7 @@ simulate(
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="42d83ec1-7c4d-427b-a5eb-15042374007f" style="
+<div id="ae1af3a0-78eb-40f2-bfbe-8e297c8a9f58" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -645,7 +646,7 @@ simulate(
 
 <script>
               (function () {
-                  var root = document.getElementById('42d83ec1-7c4d-427b-a5eb-15042374007f');
+                  var root = document.getElementById('ae1af3a0-78eb-40f2-bfbe-8e297c8a9f58');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -715,7 +716,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("f91fda33-131f-418f-b3e4-4d7f1f2070ac");
+        var pb = document.getElementById("d09886f0-faa5-4129-a145-af3b31a50578");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -723,7 +724,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="f91fda33-131f-418f-b3e4-4d7f1f2070ac" style="
+<div id="d09886f0-faa5-4129-a145-af3b31a50578" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -751,7 +752,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('f91fda33-131f-418f-b3e4-4d7f1f2070ac');
+                  var root = document.getElementById('d09886f0-faa5-4129-a145-af3b31a50578');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -775,7 +776,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("388f46ce-fe63-4f86-9089-e8b68b25ee70");
+        var pb = document.getElementById("142d4231-4514-4551-9d0f-d47c61758d82");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -783,7 +784,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="388f46ce-fe63-4f86-9089-e8b68b25ee70" style="
+<div id="142d4231-4514-4551-9d0f-d47c61758d82" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -811,7 +812,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('388f46ce-fe63-4f86-9089-e8b68b25ee70');
+                  var root = document.getElementById('142d4231-4514-4551-9d0f-d47c61758d82');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -845,7 +846,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("c75ca04c-c760-4e04-b09b-8f5052a482c7");
+        var pb = document.getElementById("bf64325e-fe17-4ba6-8c5a-08819eb8debe");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -853,7 +854,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="c75ca04c-c760-4e04-b09b-8f5052a482c7" style="
+<div id="bf64325e-fe17-4ba6-8c5a-08819eb8debe" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -881,7 +882,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('c75ca04c-c760-4e04-b09b-8f5052a482c7');
+                  var root = document.getElementById('bf64325e-fe17-4ba6-8c5a-08819eb8debe');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -905,7 +906,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("d50158ac-c85e-4b4b-8284-33d6dcce43f7");
+        var pb = document.getElementById("f1e64138-b5b7-429c-88f0-491e4364ded3");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -913,7 +914,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="d50158ac-c85e-4b4b-8284-33d6dcce43f7" style="
+<div id="f1e64138-b5b7-429c-88f0-491e4364ded3" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -941,7 +942,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('d50158ac-c85e-4b4b-8284-33d6dcce43f7');
+                  var root = document.getElementById('f1e64138-b5b7-429c-88f0-491e4364ded3');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -975,7 +976,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("f4e51f06-6185-4d29-b860-05577c2f7abf");
+        var pb = document.getElementById("ba246639-bfa1-4cc9-87f9-6cd289286d01");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -983,7 +984,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="f4e51f06-6185-4d29-b860-05577c2f7abf" style="
+<div id="ba246639-bfa1-4cc9-87f9-6cd289286d01" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1011,7 +1012,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('f4e51f06-6185-4d29-b860-05577c2f7abf');
+                  var root = document.getElementById('ba246639-bfa1-4cc9-87f9-6cd289286d01');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1035,7 +1036,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("7db99d2d-e29d-430e-b55b-6b533e2e1590");
+        var pb = document.getElementById("3f5a8376-7f4a-4ce6-a2a9-1255d627f1d0");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1043,7 +1044,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="7db99d2d-e29d-430e-b55b-6b533e2e1590" style="
+<div id="3f5a8376-7f4a-4ce6-a2a9-1255d627f1d0" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1071,7 +1072,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('7db99d2d-e29d-430e-b55b-6b533e2e1590');
+                  var root = document.getElementById('3f5a8376-7f4a-4ce6-a2a9-1255d627f1d0');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1105,7 +1106,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("d5279cda-9628-40ba-ae1c-c1320aed703f");
+        var pb = document.getElementById("700a7a6b-ea3d-44b2-bc42-317acbc7203d");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1113,7 +1114,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="d5279cda-9628-40ba-ae1c-c1320aed703f" style="
+<div id="700a7a6b-ea3d-44b2-bc42-317acbc7203d" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1141,7 +1142,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('d5279cda-9628-40ba-ae1c-c1320aed703f');
+                  var root = document.getElementById('700a7a6b-ea3d-44b2-bc42-317acbc7203d');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1165,7 +1166,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("f891396e-ca08-4c9e-8b63-5f5eca90011b");
+        var pb = document.getElementById("111ae1e3-730a-4276-8fbb-ec96c97321bc");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1173,7 +1174,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="f891396e-ca08-4c9e-8b63-5f5eca90011b" style="
+<div id="111ae1e3-730a-4276-8fbb-ec96c97321bc" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1201,7 +1202,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('f891396e-ca08-4c9e-8b63-5f5eca90011b');
+                  var root = document.getElementById('111ae1e3-730a-4276-8fbb-ec96c97321bc');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1235,7 +1236,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("0406bacf-15ad-4f94-8b55-a1b6884b08fc");
+        var pb = document.getElementById("43b6b823-462c-4e26-940a-55d78abb2372");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1243,7 +1244,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="0406bacf-15ad-4f94-8b55-a1b6884b08fc" style="
+<div id="43b6b823-462c-4e26-940a-55d78abb2372" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1271,7 +1272,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('0406bacf-15ad-4f94-8b55-a1b6884b08fc');
+                  var root = document.getElementById('43b6b823-462c-4e26-940a-55d78abb2372');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1295,7 +1296,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("0863d4f6-4b2c-49e7-8191-907329ca43b7");
+        var pb = document.getElementById("3dde5fd3-eed5-4df8-8ff5-f1e0599859ff");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1303,7 +1304,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="0863d4f6-4b2c-49e7-8191-907329ca43b7" style="
+<div id="3dde5fd3-eed5-4df8-8ff5-f1e0599859ff" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1331,7 +1332,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('0863d4f6-4b2c-49e7-8191-907329ca43b7');
+                  var root = document.getElementById('3dde5fd3-eed5-4df8-8ff5-f1e0599859ff');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1365,7 +1366,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("f9526f99-2fa8-442f-b99b-b2a9a2b3f268");
+        var pb = document.getElementById("b15e8d9d-7d0a-4c25-bac1-aa00780af1b8");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1373,7 +1374,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="f9526f99-2fa8-442f-b99b-b2a9a2b3f268" style="
+<div id="b15e8d9d-7d0a-4c25-bac1-aa00780af1b8" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1401,7 +1402,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('f9526f99-2fa8-442f-b99b-b2a9a2b3f268');
+                  var root = document.getElementById('b15e8d9d-7d0a-4c25-bac1-aa00780af1b8');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1425,7 +1426,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("953bd210-f710-4d79-ad95-2c16831e9d29");
+        var pb = document.getElementById("451cc2dc-d21b-4cac-95cd-15e8d75f700a");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1433,7 +1434,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="953bd210-f710-4d79-ad95-2c16831e9d29" style="
+<div id="451cc2dc-d21b-4cac-95cd-15e8d75f700a" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1461,7 +1462,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('953bd210-f710-4d79-ad95-2c16831e9d29');
+                  var root = document.getElementById('451cc2dc-d21b-4cac-95cd-15e8d75f700a');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1495,7 +1496,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("fed6db14-13d3-4065-a0b6-c80ae2745018");
+        var pb = document.getElementById("e36c5eb5-930f-4d3f-b6f9-2f583fc83028");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1503,7 +1504,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="fed6db14-13d3-4065-a0b6-c80ae2745018" style="
+<div id="e36c5eb5-930f-4d3f-b6f9-2f583fc83028" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1531,7 +1532,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('fed6db14-13d3-4065-a0b6-c80ae2745018');
+                  var root = document.getElementById('e36c5eb5-930f-4d3f-b6f9-2f583fc83028');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1555,7 +1556,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("29d37376-9c0f-4917-a979-f1870e276931");
+        var pb = document.getElementById("c83bb062-22e9-4b24-b159-a96e8b4cb8fa");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1563,7 +1564,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="29d37376-9c0f-4917-a979-f1870e276931" style="
+<div id="c83bb062-22e9-4b24-b159-a96e8b4cb8fa" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1591,7 +1592,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('29d37376-9c0f-4917-a979-f1870e276931');
+                  var root = document.getElementById('c83bb062-22e9-4b24-b159-a96e8b4cb8fa');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1625,7 +1626,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("ba8255da-69e8-48f6-b293-ca31ff5a7c2e");
+        var pb = document.getElementById("cda242ab-7103-4630-8b46-dc15e45f39a1");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1633,7 +1634,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="ba8255da-69e8-48f6-b293-ca31ff5a7c2e" style="
+<div id="cda242ab-7103-4630-8b46-dc15e45f39a1" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1661,7 +1662,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('ba8255da-69e8-48f6-b293-ca31ff5a7c2e');
+                  var root = document.getElementById('cda242ab-7103-4630-8b46-dc15e45f39a1');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1685,7 +1686,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("2417cc93-ea9a-4b49-ae19-48232414afb4");
+        var pb = document.getElementById("a3bd2cdb-86fb-4205-b331-003406cc4397");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1693,7 +1694,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="2417cc93-ea9a-4b49-ae19-48232414afb4" style="
+<div id="a3bd2cdb-86fb-4205-b331-003406cc4397" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1721,7 +1722,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('2417cc93-ea9a-4b49-ae19-48232414afb4');
+                  var root = document.getElementById('a3bd2cdb-86fb-4205-b331-003406cc4397');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1755,7 +1756,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("3b47abd7-0be5-4e66-87ce-0c376f27b5ef");
+        var pb = document.getElementById("4a3d21fe-6780-43e4-b10e-cba9ef1e57d6");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1763,7 +1764,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="3b47abd7-0be5-4e66-87ce-0c376f27b5ef" style="
+<div id="4a3d21fe-6780-43e4-b10e-cba9ef1e57d6" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1791,7 +1792,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('3b47abd7-0be5-4e66-87ce-0c376f27b5ef');
+                  var root = document.getElementById('4a3d21fe-6780-43e4-b10e-cba9ef1e57d6');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1815,7 +1816,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("4b1f6dcd-8f9b-4da7-843d-e79ce74bb2a5");
+        var pb = document.getElementById("b21582c9-c5c4-4195-8479-2f888ad1b4ef");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1823,7 +1824,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="4b1f6dcd-8f9b-4da7-843d-e79ce74bb2a5" style="
+<div id="b21582c9-c5c4-4195-8479-2f888ad1b4ef" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1851,7 +1852,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('4b1f6dcd-8f9b-4da7-843d-e79ce74bb2a5');
+                  var root = document.getElementById('b21582c9-c5c4-4195-8479-2f888ad1b4ef');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1885,7 +1886,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("24519f2c-016a-4ff5-bf68-18cabe69202d");
+        var pb = document.getElementById("95c9b2f4-1a2b-4853-b912-6eb471f8b00e");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1893,7 +1894,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="24519f2c-016a-4ff5-bf68-18cabe69202d" style="
+<div id="95c9b2f4-1a2b-4853-b912-6eb471f8b00e" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1921,7 +1922,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('24519f2c-016a-4ff5-bf68-18cabe69202d');
+                  var root = document.getElementById('95c9b2f4-1a2b-4853-b912-6eb471f8b00e');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -1945,7 +1946,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("b82ad9d1-899b-403a-adc8-a52fc0700057");
+        var pb = document.getElementById("a5617688-7d5f-4363-b213-1cbcff474818");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -1953,7 +1954,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="b82ad9d1-899b-403a-adc8-a52fc0700057" style="
+<div id="a5617688-7d5f-4363-b213-1cbcff474818" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -1981,7 +1982,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('b82ad9d1-899b-403a-adc8-a52fc0700057');
+                  var root = document.getElementById('a5617688-7d5f-4363-b213-1cbcff474818');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2015,7 +2016,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("44334135-a633-405d-bf0b-cee82b2548a5");
+        var pb = document.getElementById("9c51f1fa-acf8-46a0-9b4e-d0c2fbb5278b");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2023,7 +2024,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="44334135-a633-405d-bf0b-cee82b2548a5" style="
+<div id="9c51f1fa-acf8-46a0-9b4e-d0c2fbb5278b" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -2051,7 +2052,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('44334135-a633-405d-bf0b-cee82b2548a5');
+                  var root = document.getElementById('9c51f1fa-acf8-46a0-9b4e-d0c2fbb5278b');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2075,7 +2076,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("d5a7af1e-68c5-4f50-b952-ff3a1a42b295");
+        var pb = document.getElementById("3e74d159-a86e-45f5-b87e-0fae1344f423");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2083,7 +2084,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="d5a7af1e-68c5-4f50-b952-ff3a1a42b295" style="
+<div id="3e74d159-a86e-45f5-b87e-0fae1344f423" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -2111,7 +2112,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('d5a7af1e-68c5-4f50-b952-ff3a1a42b295');
+                  var root = document.getElementById('3e74d159-a86e-45f5-b87e-0fae1344f423');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2145,7 +2146,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("ede0e148-a644-4093-80c7-f867b5b1e54f");
+        var pb = document.getElementById("0ce14a5a-784e-4975-8145-00e43b30e559");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2153,7 +2154,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="ede0e148-a644-4093-80c7-f867b5b1e54f" style="
+<div id="0ce14a5a-784e-4975-8145-00e43b30e559" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -2181,7 +2182,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('ede0e148-a644-4093-80c7-f867b5b1e54f');
+                  var root = document.getElementById('0ce14a5a-784e-4975-8145-00e43b30e559');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2205,7 +2206,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("e1080ddd-ef40-4528-820b-77054bd35ceb");
+        var pb = document.getElementById("04deb35f-fc7b-4256-a24f-6ba3940aeb4e");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2213,7 +2214,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="e1080ddd-ef40-4528-820b-77054bd35ceb" style="
+<div id="04deb35f-fc7b-4256-a24f-6ba3940aeb4e" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -2241,7 +2242,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('e1080ddd-ef40-4528-820b-77054bd35ceb');
+                  var root = document.getElementById('04deb35f-fc7b-4256-a24f-6ba3940aeb4e');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2275,7 +2276,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("bb53d53d-27ed-4fea-8638-6fa9e4623e03");
+        var pb = document.getElementById("84c04007-8a52-4d9b-a48c-ab244fd408ef");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2283,7 +2284,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="bb53d53d-27ed-4fea-8638-6fa9e4623e03" style="
+<div id="84c04007-8a52-4d9b-a48c-ab244fd408ef" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -2311,7 +2312,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('bb53d53d-27ed-4fea-8638-6fa9e4623e03');
+                  var root = document.getElementById('84c04007-8a52-4d9b-a48c-ab244fd408ef');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2335,7 +2336,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("70e60241-762f-4d4f-a3fe-593d9f595929");
+        var pb = document.getElementById("529c8432-9162-42fa-a6f0-2d9b7a8fe4d3");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2343,7 +2344,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="70e60241-762f-4d4f-a3fe-593d9f595929" style="
+<div id="529c8432-9162-42fa-a6f0-2d9b7a8fe4d3" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -2371,7 +2372,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('70e60241-762f-4d4f-a3fe-593d9f595929');
+                  var root = document.getElementById('529c8432-9162-42fa-a6f0-2d9b7a8fe4d3');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2405,7 +2406,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("2ccc1711-6b37-40e6-b286-1a2eb7c6fc47");
+        var pb = document.getElementById("a911068e-e5a6-424f-94a0-65b60124a3ef");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2413,7 +2414,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="2ccc1711-6b37-40e6-b286-1a2eb7c6fc47" style="
+<div id="a911068e-e5a6-424f-94a0-65b60124a3ef" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -2441,7 +2442,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('2ccc1711-6b37-40e6-b286-1a2eb7c6fc47');
+                  var root = document.getElementById('a911068e-e5a6-424f-94a0-65b60124a3ef');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2465,7 +2466,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("f5df26fd-c9ef-476e-a7ce-e51bd994bd04");
+        var pb = document.getElementById("5f5b062c-a6a0-4580-811d-e975a3483861");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2473,7 +2474,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="f5df26fd-c9ef-476e-a7ce-e51bd994bd04" style="
+<div id="5f5b062c-a6a0-4580-811d-e975a3483861" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -2501,7 +2502,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('f5df26fd-c9ef-476e-a7ce-e51bd994bd04');
+                  var root = document.getElementById('5f5b062c-a6a0-4580-811d-e975a3483861');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2535,7 +2536,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("d38a0349-87fb-4d79-a712-cbb610d9f713");
+        var pb = document.getElementById("1410c7ed-5b34-4b0e-919b-125ccc56086a");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2543,7 +2544,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="d38a0349-87fb-4d79-a712-cbb610d9f713" style="
+<div id="1410c7ed-5b34-4b0e-919b-125ccc56086a" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -2571,7 +2572,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('d38a0349-87fb-4d79-a712-cbb610d9f713');
+                  var root = document.getElementById('1410c7ed-5b34-4b0e-919b-125ccc56086a');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2595,7 +2596,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("27cbe7ad-584a-400c-8754-175804faa0ec");
+        var pb = document.getElementById("b78d2c57-c0fb-4529-b24c-0d64b17f39ce");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2603,7 +2604,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="27cbe7ad-584a-400c-8754-175804faa0ec" style="
+<div id="b78d2c57-c0fb-4529-b24c-0d64b17f39ce" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -2631,7 +2632,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('27cbe7ad-584a-400c-8754-175804faa0ec');
+                  var root = document.getElementById('b78d2c57-c0fb-4529-b24c-0d64b17f39ce');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2665,7 +2666,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("9c042a61-c853-4128-aa2a-1ee831f4f1b0");
+        var pb = document.getElementById("e2544edf-505f-45c6-a868-45b4b3130bab");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2673,7 +2674,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="9c042a61-c853-4128-aa2a-1ee831f4f1b0" style="
+<div id="e2544edf-505f-45c6-a868-45b4b3130bab" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -2701,7 +2702,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('9c042a61-c853-4128-aa2a-1ee831f4f1b0');
+                  var root = document.getElementById('e2544edf-505f-45c6-a868-45b4b3130bab');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2725,7 +2726,7 @@ for rms in rms_s:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("1c7f7b32-7f0a-4b8a-ab92-47f462d972e1");
+        var pb = document.getElementById("698fb8cf-d5a4-4d29-a751-be7598a2812f");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2733,7 +2734,7 @@ for rms in rms_s:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="1c7f7b32-7f0a-4b8a-ab92-47f462d972e1" style="
+<div id="698fb8cf-d5a4-4d29-a751-be7598a2812f" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -2761,7 +2762,7 @@ for rms in rms_s:
 
 <script>
               (function () {
-                  var root = document.getElementById('1c7f7b32-7f0a-4b8a-ab92-47f462d972e1');
+                  var root = document.getElementById('698fb8cf-d5a4-4d29-a751-be7598a2812f');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2849,7 +2850,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("4a589353-bc82-455c-a558-ec8800c1788a");
+        var pb = document.getElementById("8b712c52-22b0-4bdf-95da-d02fa6cfa60d");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2857,7 +2858,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="4a589353-bc82-455c-a558-ec8800c1788a" style="
+<div id="8b712c52-22b0-4bdf-95da-d02fa6cfa60d" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -2885,7 +2886,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('4a589353-bc82-455c-a558-ec8800c1788a');
+                  var root = document.getElementById('8b712c52-22b0-4bdf-95da-d02fa6cfa60d');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2909,7 +2910,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("3f27a5f7-143a-42b7-9ee8-537a529d5084");
+        var pb = document.getElementById("e39cf67c-f935-49a9-94bc-dac6a77483a8");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2917,7 +2918,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="3f27a5f7-143a-42b7-9ee8-537a529d5084" style="
+<div id="e39cf67c-f935-49a9-94bc-dac6a77483a8" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -2945,7 +2946,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('3f27a5f7-143a-42b7-9ee8-537a529d5084');
+                  var root = document.getElementById('e39cf67c-f935-49a9-94bc-dac6a77483a8');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -2979,7 +2980,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("79fba244-639e-4f81-bd84-ff1ecdaa6ea6");
+        var pb = document.getElementById("58a69392-db44-498e-9b56-8161a1798c8d");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -2987,7 +2988,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="79fba244-639e-4f81-bd84-ff1ecdaa6ea6" style="
+<div id="58a69392-db44-498e-9b56-8161a1798c8d" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -3015,7 +3016,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('79fba244-639e-4f81-bd84-ff1ecdaa6ea6');
+                  var root = document.getElementById('58a69392-db44-498e-9b56-8161a1798c8d');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -3039,7 +3040,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("e77bb17d-6d95-4153-a8bd-9ca73a4c6ab5");
+        var pb = document.getElementById("bc3a350b-866d-48d7-92ef-3093f5221bfb");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -3047,7 +3048,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="e77bb17d-6d95-4153-a8bd-9ca73a4c6ab5" style="
+<div id="bc3a350b-866d-48d7-92ef-3093f5221bfb" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -3075,7 +3076,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('e77bb17d-6d95-4153-a8bd-9ca73a4c6ab5');
+                  var root = document.getElementById('bc3a350b-866d-48d7-92ef-3093f5221bfb');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -3109,7 +3110,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("0a1ed35c-b789-4851-977f-e30cca0e994c");
+        var pb = document.getElementById("e343373f-0e0b-410b-b1f5-48ce1d5bfee9");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -3117,7 +3118,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="0a1ed35c-b789-4851-977f-e30cca0e994c" style="
+<div id="e343373f-0e0b-410b-b1f5-48ce1d5bfee9" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -3145,7 +3146,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('0a1ed35c-b789-4851-977f-e30cca0e994c');
+                  var root = document.getElementById('e343373f-0e0b-410b-b1f5-48ce1d5bfee9');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -3169,7 +3170,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("3b7b13ff-bf34-4481-8a31-421c5072def2");
+        var pb = document.getElementById("8b101943-faf5-4169-941a-d416f4202da7");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -3177,7 +3178,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="3b7b13ff-bf34-4481-8a31-421c5072def2" style="
+<div id="8b101943-faf5-4169-941a-d416f4202da7" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -3205,7 +3206,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('3b7b13ff-bf34-4481-8a31-421c5072def2');
+                  var root = document.getElementById('8b101943-faf5-4169-941a-d416f4202da7');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -3239,7 +3240,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("229d12b5-9cac-4911-b9fc-9bcd906f8bee");
+        var pb = document.getElementById("6e4d643d-2207-4b94-9f30-cda24d184aaa");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -3247,7 +3248,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="229d12b5-9cac-4911-b9fc-9bcd906f8bee" style="
+<div id="6e4d643d-2207-4b94-9f30-cda24d184aaa" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -3275,7 +3276,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('229d12b5-9cac-4911-b9fc-9bcd906f8bee');
+                  var root = document.getElementById('6e4d643d-2207-4b94-9f30-cda24d184aaa');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -3299,7 +3300,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("10ac965d-626d-4d98-aa0f-c3d79bd95513");
+        var pb = document.getElementById("0db5c756-bb12-4813-9500-969f5319d0b7");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -3307,7 +3308,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="10ac965d-626d-4d98-aa0f-c3d79bd95513" style="
+<div id="0db5c756-bb12-4813-9500-969f5319d0b7" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -3335,7 +3336,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('10ac965d-626d-4d98-aa0f-c3d79bd95513');
+                  var root = document.getElementById('0db5c756-bb12-4813-9500-969f5319d0b7');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -3461,7 +3462,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("eebf6259-130d-46b3-be9d-7af4f2c123a5");
+        var pb = document.getElementById("c1fbd80f-8e43-43ea-8aa7-e74a2e95c1ca");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -3469,7 +3470,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="eebf6259-130d-46b3-be9d-7af4f2c123a5" style="
+<div id="c1fbd80f-8e43-43ea-8aa7-e74a2e95c1ca" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -3497,7 +3498,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('eebf6259-130d-46b3-be9d-7af4f2c123a5');
+                  var root = document.getElementById('c1fbd80f-8e43-43ea-8aa7-e74a2e95c1ca');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -3521,7 +3522,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("5800bf5f-a872-4627-a139-f2eaba3ec51c");
+        var pb = document.getElementById("f8445b9f-98df-4908-a8f4-63174c9ed713");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -3529,7 +3530,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="5800bf5f-a872-4627-a139-f2eaba3ec51c" style="
+<div id="f8445b9f-98df-4908-a8f4-63174c9ed713" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -3557,7 +3558,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('5800bf5f-a872-4627-a139-f2eaba3ec51c');
+                  var root = document.getElementById('f8445b9f-98df-4908-a8f4-63174c9ed713');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -3591,7 +3592,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("1d0c8391-31e8-4705-8e64-dd694a73ec70");
+        var pb = document.getElementById("2ffdc897-f38f-42fa-9fce-283bdd538a2b");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -3599,7 +3600,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="1d0c8391-31e8-4705-8e64-dd694a73ec70" style="
+<div id="2ffdc897-f38f-42fa-9fce-283bdd538a2b" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -3627,7 +3628,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('1d0c8391-31e8-4705-8e64-dd694a73ec70');
+                  var root = document.getElementById('2ffdc897-f38f-42fa-9fce-283bdd538a2b');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -3651,7 +3652,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("97d2b096-c859-494b-98c2-cd88d6fe78ab");
+        var pb = document.getElementById("ea215ea5-6ee5-4dff-8da1-6362d1dd2f2e");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -3659,7 +3660,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="97d2b096-c859-494b-98c2-cd88d6fe78ab" style="
+<div id="ea215ea5-6ee5-4dff-8da1-6362d1dd2f2e" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -3687,7 +3688,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('97d2b096-c859-494b-98c2-cd88d6fe78ab');
+                  var root = document.getElementById('ea215ea5-6ee5-4dff-8da1-6362d1dd2f2e');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -3721,7 +3722,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("985d5ab5-b8bc-42a0-87af-b92ecfd82f7a");
+        var pb = document.getElementById("eb3d9b91-d6c6-475f-9cc7-cee53437a355");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -3729,7 +3730,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="985d5ab5-b8bc-42a0-87af-b92ecfd82f7a" style="
+<div id="eb3d9b91-d6c6-475f-9cc7-cee53437a355" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -3757,7 +3758,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('985d5ab5-b8bc-42a0-87af-b92ecfd82f7a');
+                  var root = document.getElementById('eb3d9b91-d6c6-475f-9cc7-cee53437a355');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -3781,7 +3782,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("c34b44f9-6b0c-4698-9ab5-28ddd6d8631e");
+        var pb = document.getElementById("b4e3772e-68cb-46a3-ab79-01ef10bc7ac0");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -3789,7 +3790,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="c34b44f9-6b0c-4698-9ab5-28ddd6d8631e" style="
+<div id="b4e3772e-68cb-46a3-ab79-01ef10bc7ac0" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -3817,7 +3818,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('c34b44f9-6b0c-4698-9ab5-28ddd6d8631e');
+                  var root = document.getElementById('b4e3772e-68cb-46a3-ab79-01ef10bc7ac0');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -3851,7 +3852,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("47cdabc4-574c-47ca-a57b-4337fb0bd088");
+        var pb = document.getElementById("1162c50e-45a2-4fb9-afee-956b2d84aa73");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -3859,7 +3860,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="47cdabc4-574c-47ca-a57b-4337fb0bd088" style="
+<div id="1162c50e-45a2-4fb9-afee-956b2d84aa73" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -3887,7 +3888,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('47cdabc4-574c-47ca-a57b-4337fb0bd088');
+                  var root = document.getElementById('1162c50e-45a2-4fb9-afee-956b2d84aa73');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -3911,7 +3912,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("7e4cab86-6369-4e3e-b3f2-b794c6888343");
+        var pb = document.getElementById("10209d7e-ed4b-401b-9f2d-75489c6c9951");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -3919,7 +3920,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="7e4cab86-6369-4e3e-b3f2-b794c6888343" style="
+<div id="10209d7e-ed4b-401b-9f2d-75489c6c9951" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -3947,7 +3948,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('7e4cab86-6369-4e3e-b3f2-b794c6888343');
+                  var root = document.getElementById('10209d7e-ed4b-401b-9f2d-75489c6c9951');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -3981,7 +3982,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("fed1c3c7-cb53-41a5-9dc2-1a989150cef9");
+        var pb = document.getElementById("21fe60a7-02c7-4edd-801e-f4330fa1213c");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -3989,7 +3990,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="fed1c3c7-cb53-41a5-9dc2-1a989150cef9" style="
+<div id="21fe60a7-02c7-4edd-801e-f4330fa1213c" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4017,7 +4018,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('fed1c3c7-cb53-41a5-9dc2-1a989150cef9');
+                  var root = document.getElementById('21fe60a7-02c7-4edd-801e-f4330fa1213c');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -4041,7 +4042,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("5ae1596b-8307-4e2a-9844-ae2ac906393c");
+        var pb = document.getElementById("2f621374-d839-4d75-89e4-d9b1c73a7746");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -4049,7 +4050,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="5ae1596b-8307-4e2a-9844-ae2ac906393c" style="
+<div id="2f621374-d839-4d75-89e4-d9b1c73a7746" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4077,7 +4078,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('5ae1596b-8307-4e2a-9844-ae2ac906393c');
+                  var root = document.getElementById('2f621374-d839-4d75-89e4-d9b1c73a7746');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -4111,7 +4112,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("555daef2-3d9b-4dc8-88b0-e88bfec7417e");
+        var pb = document.getElementById("1640e5df-b754-48bd-9215-4595780f5a63");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -4119,7 +4120,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="555daef2-3d9b-4dc8-88b0-e88bfec7417e" style="
+<div id="1640e5df-b754-48bd-9215-4595780f5a63" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4147,7 +4148,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('555daef2-3d9b-4dc8-88b0-e88bfec7417e');
+                  var root = document.getElementById('1640e5df-b754-48bd-9215-4595780f5a63');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -4171,7 +4172,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("e97a42b6-0186-4521-aac3-a0798b6a58dd");
+        var pb = document.getElementById("75045787-8aba-4da5-bbba-f0e2d9c12194");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -4179,7 +4180,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="e97a42b6-0186-4521-aac3-a0798b6a58dd" style="
+<div id="75045787-8aba-4da5-bbba-f0e2d9c12194" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4207,7 +4208,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('e97a42b6-0186-4521-aac3-a0798b6a58dd');
+                  var root = document.getElementById('75045787-8aba-4da5-bbba-f0e2d9c12194');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -4241,7 +4242,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("9dd76bb8-a1ec-417e-9081-0a32250c9cf7");
+        var pb = document.getElementById("22a8e7fa-7262-4bcf-90b1-c49334c2e237");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -4249,7 +4250,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="9dd76bb8-a1ec-417e-9081-0a32250c9cf7" style="
+<div id="22a8e7fa-7262-4bcf-90b1-c49334c2e237" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4277,7 +4278,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('9dd76bb8-a1ec-417e-9081-0a32250c9cf7');
+                  var root = document.getElementById('22a8e7fa-7262-4bcf-90b1-c49334c2e237');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -4301,7 +4302,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("6ec8f622-0bbf-4322-b84e-62614a4c48ef");
+        var pb = document.getElementById("782b6047-5412-4a99-b5ea-837264edab6a");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -4309,7 +4310,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="6ec8f622-0bbf-4322-b84e-62614a4c48ef" style="
+<div id="782b6047-5412-4a99-b5ea-837264edab6a" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4337,7 +4338,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('6ec8f622-0bbf-4322-b84e-62614a4c48ef');
+                  var root = document.getElementById('782b6047-5412-4a99-b5ea-837264edab6a');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -4371,7 +4372,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("c2da6341-ef5c-4566-a01e-f1d15f76eb6a");
+        var pb = document.getElementById("63158ed9-0a71-4613-b636-de274f966639");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -4379,7 +4380,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="c2da6341-ef5c-4566-a01e-f1d15f76eb6a" style="
+<div id="63158ed9-0a71-4613-b636-de274f966639" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4407,7 +4408,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('c2da6341-ef5c-4566-a01e-f1d15f76eb6a');
+                  var root = document.getElementById('63158ed9-0a71-4613-b636-de274f966639');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -4431,7 +4432,7 @@ for neurons in neuron_count:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("3f6d5898-fe20-412d-b955-c33d4f152b58");
+        var pb = document.getElementById("c108d6c9-9e13-414f-a73d-8db563f6c876");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -4439,7 +4440,7 @@ for neurons in neuron_count:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="3f6d5898-fe20-412d-b955-c33d4f152b58" style="
+<div id="c108d6c9-9e13-414f-a73d-8db563f6c876" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4467,7 +4468,7 @@ for neurons in neuron_count:
 
 <script>
               (function () {
-                  var root = document.getElementById('3f6d5898-fe20-412d-b955-c33d4f152b58');
+                  var root = document.getElementById('c108d6c9-9e13-414f-a73d-8db563f6c876');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -4550,7 +4551,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("a0063169-b78b-4436-adbe-aef38d9d0cd1");
+        var pb = document.getElementById("82f42e49-57a1-4341-b88c-5cdacbd0d4e1");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -4558,7 +4559,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="a0063169-b78b-4436-adbe-aef38d9d0cd1" style="
+<div id="82f42e49-57a1-4341-b88c-5cdacbd0d4e1" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4586,7 +4587,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('a0063169-b78b-4436-adbe-aef38d9d0cd1');
+                  var root = document.getElementById('82f42e49-57a1-4341-b88c-5cdacbd0d4e1');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -4610,7 +4611,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("ebcdf06d-ab12-4f69-90ed-d7904c65c5ee");
+        var pb = document.getElementById("749dc163-d085-4673-bce5-3b97e3902a52");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -4618,7 +4619,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="ebcdf06d-ab12-4f69-90ed-d7904c65c5ee" style="
+<div id="749dc163-d085-4673-bce5-3b97e3902a52" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4646,7 +4647,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('ebcdf06d-ab12-4f69-90ed-d7904c65c5ee');
+                  var root = document.getElementById('749dc163-d085-4673-bce5-3b97e3902a52');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -4680,7 +4681,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("0c0ffcb2-2837-4000-9d30-eb5d6ee1238b");
+        var pb = document.getElementById("763b06b2-5e29-4f9c-894b-75bf6a5873d4");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -4688,7 +4689,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="0c0ffcb2-2837-4000-9d30-eb5d6ee1238b" style="
+<div id="763b06b2-5e29-4f9c-894b-75bf6a5873d4" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4716,7 +4717,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('0c0ffcb2-2837-4000-9d30-eb5d6ee1238b');
+                  var root = document.getElementById('763b06b2-5e29-4f9c-894b-75bf6a5873d4');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -4740,7 +4741,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("a2700e38-e690-4716-8d80-fa6f5a4ac1d2");
+        var pb = document.getElementById("66ce6870-4e00-40d2-9b66-eb08662e201a");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -4748,7 +4749,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="a2700e38-e690-4716-8d80-fa6f5a4ac1d2" style="
+<div id="66ce6870-4e00-40d2-9b66-eb08662e201a" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4776,7 +4777,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('a2700e38-e690-4716-8d80-fa6f5a4ac1d2');
+                  var root = document.getElementById('66ce6870-4e00-40d2-9b66-eb08662e201a');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -4810,7 +4811,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("e2d99255-5b28-4d51-ba3b-a1707d9a2eff");
+        var pb = document.getElementById("be7186d3-6d30-4e78-94b0-a377cd594974");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -4818,7 +4819,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="e2d99255-5b28-4d51-ba3b-a1707d9a2eff" style="
+<div id="be7186d3-6d30-4e78-94b0-a377cd594974" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4846,7 +4847,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('e2d99255-5b28-4d51-ba3b-a1707d9a2eff');
+                  var root = document.getElementById('be7186d3-6d30-4e78-94b0-a377cd594974');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -4870,7 +4871,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("8cb848f2-8fc0-4a17-924f-f1d2a2e09915");
+        var pb = document.getElementById("03537ac9-b7f5-401c-9859-f01cdf1a07d3");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -4878,7 +4879,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="8cb848f2-8fc0-4a17-924f-f1d2a2e09915" style="
+<div id="03537ac9-b7f5-401c-9859-f01cdf1a07d3" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4906,7 +4907,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('8cb848f2-8fc0-4a17-924f-f1d2a2e09915');
+                  var root = document.getElementById('03537ac9-b7f5-401c-9859-f01cdf1a07d3');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -4940,7 +4941,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("d14838c7-c452-4e26-8b4f-7702e6f9ae89");
+        var pb = document.getElementById("cb81366a-97f7-4be4-9ae1-0ceb763809b9");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -4948,7 +4949,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="d14838c7-c452-4e26-8b4f-7702e6f9ae89" style="
+<div id="cb81366a-97f7-4be4-9ae1-0ceb763809b9" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -4976,7 +4977,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('d14838c7-c452-4e26-8b4f-7702e6f9ae89');
+                  var root = document.getElementById('cb81366a-97f7-4be4-9ae1-0ceb763809b9');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -5000,7 +5001,7 @@ for input in inputs:
 
 <script>
     if (Jupyter.version.split(".")[0] < 5) {
-        var pb = document.getElementById("3bcc93dd-0b87-44f8-9562-af7104f3bb58");
+        var pb = document.getElementById("8395b447-0f04-4cc5-bfaf-a773928895a5");
         var text = document.createTextNode(
             "HMTL progress bar requires Jupyter Notebook >= " +
             "5.0 or Jupyter Lab. Alternatively, you can use " +
@@ -5008,7 +5009,7 @@ for input in inputs:
         pb.parentNode.insertBefore(text, pb);
     }
 </script>
-<div id="3bcc93dd-0b87-44f8-9562-af7104f3bb58" style="
+<div id="8395b447-0f04-4cc5-bfaf-a773928895a5" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -5036,7 +5037,7 @@ for input in inputs:
 
 <script>
               (function () {
-                  var root = document.getElementById('3bcc93dd-0b87-44f8-9562-af7104f3bb58');
+                  var root = document.getElementById('8395b447-0f04-4cc5-bfaf-a773928895a5');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -5097,6 +5098,202 @@ stim = nengo.Node(lambda t: np.sin(2*np.pi*t) if t<2 else np.sin(2*np.pi*t*2))
 ```
 
 Run the simulation for 4 seconds.  Plot `x` over the 4 seconds using a `Probe` with `synapse=0.01`.  `x` should be 6-dimensional, and there should be a noticable change between its value before `t=2` and after `t=2`.
+
+
+```python
+def simulate_lmu(
+    input=lambda t: np.sin(2 * np.pi * t) if t < 2 else np.sin(2 * np.pi * t * 2),
+    run_time=4,
+    title="",
+    n_neurons=1000,
+    label="",
+    recur_synapse=1 / 10,
+    probe_synapse=10 / 1000,
+    q=6,
+    theta=0.5,
+    noise=None,
+    function=None,
+):
+    model = nengo.Network(label=label)
+
+    A = np.zeros((q, q))
+    B = np.zeros((q, 1))
+    for i in range(q):
+        B[i] = (-1.0) ** i * (2 * i + 1)
+        for j in range(q):
+            A[i, j] = (2 * i + 1) * (-1 if i < j else (-1.0) ** (i - j + 1))
+    A = A / theta
+    B = B / theta
+
+    def recur(x):
+        return 1 * x
+
+    if function == None:
+        function = recur
+
+    with model:
+        x = nengo.Node(input)
+        ensemble = nengo.Ensemble(n_neurons=n_neurons, dimensions=q)
+        nengo.Connection(x, ensemble, transform=B)
+        nengo.Connection(ensemble, ensemble, synapse=recur_synapse, transform=A)
+        probe_x = nengo.Probe(x, synapse=probe_synapse)
+        probe_ensemble = nengo.Probe(ensemble, synapse=probe_synapse)
+
+        if noise:
+            ensemble.noise = noise
+
+    simulation = nengo.Simulator(model)
+
+    simulation.run(run_time)
+
+    t = simulation.trange()
+
+    plt.figure()
+    plt.suptitle(title)
+    a = plt.plot(t, simulation.data[probe_x], label="$x(t)$")
+    plt.legend(
+        handles=[
+            a,
+        ],
+        labels=[],
+    )
+    plt.xlim([0, run_time])
+    plt.xlabel("$t$")
+    plt.show()
+
+
+simulate_lmu(title="Input function $x(t)$")
+```
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("51d8fef3-763f-4a47-8749-c64811b8f252");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="51d8fef3-763f-4a47-8749-c64811b8f252" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('51d8fef3-763f-4a47-8749-c64811b8f252');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+
+<script>
+    if (Jupyter.version.split(".")[0] < 5) {
+        var pb = document.getElementById("8ed0d1c7-549b-451d-a605-6fc46d09f444");
+        var text = document.createTextNode(
+            "HMTL progress bar requires Jupyter Notebook >= " +
+            "5.0 or Jupyter Lab. Alternatively, you can use " +
+            "TerminalProgressBar().");
+        pb.parentNode.insertBefore(text, pb);
+    }
+</script>
+<div id="8ed0d1c7-549b-451d-a605-6fc46d09f444" style="
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;">
+  <div class="pb-text" style="
+      position: absolute;
+      width: 100%;">
+    0%
+  </div>
+  <div class="pb-fill" style="
+      background-color: #bdd2e6;
+      width: 0%;">
+    <style type="text/css" scoped="scoped">
+        @keyframes pb-fill-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+    </style>
+    &nbsp;
+  </div>
+</div>
+
+
+
+<script>
+              (function () {
+                  var root = document.getElementById('8ed0d1c7-549b-451d-a605-6fc46d09f444');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Simulation finished in 0:00:01.';
+
+            if (100.0 > 0.) {
+                fill.style.transition = 'width 0.1s linear';
+            } else {
+                fill.style.transition = 'none';
+            }
+
+            fill.style.width = '100.0%';
+            fill.style.animation = 'none';
+            fill.style.backgroundImage = 'none'
+
+
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+
+              })();
+        </script>
+
+
+
+    
+![svg](assignment-5_files/assignment-5_21_4.svg)
+    
+
 
 **b) Computing the function. [2 marks]** We now want to compute our desired function, which is "output a 1 if we have a 1Hz sine wave and a 0 if we have a 2Hz sine wave".  To do this, we need to make a `Connection` from the LMU `Ensemble` out to a new `Ensemble` that will be our category.  Have it be 1-dimensional with 50 neurons.
 
