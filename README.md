@@ -14,7 +14,7 @@ A repository containing [assignments](https://github.com/celiasmith/syde556-f22/
 - [Assignment 4](./assignment-4/assignment-4.md)
 - [Assignment 5](./assignment-5/assignment-5.md)
 
-<img src="brain.gif" heigh="400">
+<img src="brain2.gif" heigh="400">
 
 ## Contributors
 
